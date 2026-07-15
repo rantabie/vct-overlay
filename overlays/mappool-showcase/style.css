@@ -463,8 +463,13 @@ body[data-stage="grandfinals"] {
 }
 
 .control-status {
+  display: none;
   min-height: 62px;
   margin-bottom: 18px;
+}
+
+.debug .control-status {
+  display: block;
 }
 
 .control-panel button,

@@ -10,19 +10,27 @@ if (!baseUrl) {
 const sceneFile = "data/obs_scenes/VCT__SHOWCASE.json";
 const scene = JSON.parse(fs.readFileSync(sceneFile, "utf8"));
 
-const overlayUrls = {
-  "VCT SHOWCASE - QUALIFIERS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=qualifiers&fresh=1`,
-  "VCT SHOWCASE - RO32 OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=ro32&fresh=1`,
-  "VCT SHOWCASE - RO16 OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=ro16&fresh=1`,
-  "VCT SHOWCASE - QUARTERFINALS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=quarterfinals&fresh=1`,
-  "VCT SHOWCASE - SEMIFINALS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=semifinals&fresh=1`,
-  "VCT SHOWCASE - FINALS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=finals&fresh=1`,
-  "VCT SHOWCASE - GRAND FINALS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=grandfinals&fresh=1`,
-  COUNTDOWN: `${baseUrl}/overlays/countdown/`
+const cacheBust = "v=20260716-status";
+
+const showcaseStages = {
+  QUALIFIERS: "qualifiers",
+  RO32: "ro32",
+  RO16: "ro16",
+  QUARTERFINALS: "quarterfinals",
+  SEMIFINALS: "semifinals",
+  FINALS: "finals",
+  "GRAND FINALS": "grandfinals"
 };
 
 for (const source of scene.sources) {
-  const url = overlayUrls[source.name];
+  const showcaseMatch = source.name.match(/^(?:VCT )?SHOWCASE - (.+) OVERLAY$/);
+  const stage = showcaseMatch ? showcaseStages[showcaseMatch[1]] : null;
+  const url = stage
+    ? `${baseUrl}/overlays/mappool-showcase/?stage=${stage}&fresh=1&${cacheBust}`
+    : source.name === "COUNTDOWN"
+      ? `${baseUrl}/overlays/countdown/?${cacheBust}`
+      : null;
+
   if (!url) continue;
 
   source.id = "browser_source";

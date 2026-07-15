@@ -483,7 +483,7 @@
   }
 
   function setControlStatus(message) {
-    dom.controlStatus.textContent = message;
+    dom.controlStatus.textContent = isDebug ? message : "";
   }
 
   function setText(element, value) {
