@@ -1,0 +1,5 @@
+Name: VCT Countdown
+Author: Codex
+Version: 0.1.0
+CompatibleWith: tosu
+Entry: index.html
