@@ -44,6 +44,17 @@ body {
   background: #261f1a;
 }
 
+.show-controls .control-panel {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 5;
+  height: auto;
+  max-height: calc(100vh - 48px);
+  border: 1px solid rgba(249, 228, 211, 0.28);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+}
+
 .control-panel h1 {
   margin: 0 0 18px;
   font-size: 26px;

@@ -10,6 +10,10 @@
   const forwardButton = document.getElementById("forwardButton");
   const muteButton = document.getElementById("muteButton");
 
+  if (new URLSearchParams(window.location.search).has("controls")) {
+    document.documentElement.classList.add("show-controls");
+  }
+
   playButton.addEventListener("click", play);
   pauseButton.addEventListener("click", () => video.pause());
   restartButton.addEventListener("click", restart);
