@@ -436,8 +436,7 @@ body[data-stage="grandfinals"] {
   transition: opacity 280ms ease;
 }
 
-.debug .connection-chip,
-.connection-chip.is-warning {
+.debug .connection-chip {
   opacity: 1;
 }
 

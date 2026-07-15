@@ -180,7 +180,7 @@
       const response = await fetch(`${DATA_URL}?v=${Date.now()}`, { cache: "no-store" });
       if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
       const json = await response.json();
-      setControlStatus(`Loaded ${DATA_URL}. Waiting for tosu at ${socketUrl}.`);
+      setControlStatus(`Loaded ${DATA_URL}.`);
       return json;
     } catch (error) {
       setControlStatus(`Using built-in placeholder data. Could not read ${DATA_URL}: ${error.message}`);
@@ -250,12 +250,12 @@
       onOpen() {
         dom.connectionChip.textContent = "tosu connected";
         dom.connectionChip.classList.remove("is-warning");
-        setControlStatus(`Connected to tosu at ${socketUrl}.`);
+        setControlStatus("Connected to tosu.");
       },
       onClose() {
         dom.connectionChip.textContent = "tosu offline";
         dom.connectionChip.classList.add("is-warning");
-        setControlStatus(`Waiting for tosu at ${socketUrl}. Start tosu, or add ?tosu=host:port to the URL.`);
+        setControlStatus("");
       },
       onMessage(event) {
         try {
