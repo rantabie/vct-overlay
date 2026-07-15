@@ -17,12 +17,26 @@ const overlayUrls = {
   "VCT SHOWCASE - QUARTERFINALS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=quarterfinals&fresh=1`,
   "VCT SHOWCASE - SEMIFINALS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=semifinals&fresh=1`,
   "VCT SHOWCASE - FINALS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=finals&fresh=1`,
-  "VCT SHOWCASE - GRAND FINALS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=grandfinals&fresh=1`,
-  COUNTDOWN: `${baseUrl}/overlays/countdown/`
+  "VCT SHOWCASE - GRAND FINALS OVERLAY": `${baseUrl}/overlays/mappool-showcase/?stage=grandfinals&fresh=1`
 };
 
 for (const source of scene.sources) {
   const url = overlayUrls[source.name];
+  if (source.name === "COUNTDOWN") {
+    source.id = "ffmpeg_source";
+    source.versioned_id = "ffmpeg_source";
+    source.settings = {
+      close_when_inactive: false,
+      clear_on_media_end: false,
+      input: `${baseUrl}/assets/vct/overlay/countdown.web.mp4`,
+      is_local_file: false,
+      looping: false,
+      restart_on_activate: true,
+      speed_percent: 100
+    };
+    continue;
+  }
+
   if (!url) continue;
 
   source.id = "browser_source";
