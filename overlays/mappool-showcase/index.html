@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VCT Mappool Showcase</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="workspace">
+      <section class="overlay-stage" aria-label="VCT mappool showcase overlay">
+        <div class="debug-gameplay-slot" id="debugGameplaySlot">GAMEPLAY</div>
+
+        <div class="beatmap-art-wrap" aria-hidden="true">
+          <img
+            id="beatmapArt"
+            class="beatmap-art"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+            alt=""
+          >
+        </div>
+
+        <section class="chalk-details" id="chalkDetails">
+          <div class="detail-block title-block">
+            <div class="detail-label">Title</div>
+            <div class="marquee" id="titleWrap">
+              <span id="mapTitle">Waiting for mappool data</span>
+            </div>
+          </div>
+
+          <div class="detail-block">
+            <div class="detail-label">Artist</div>
+            <div class="marquee" id="artistWrap">
+              <span id="mapArtist">Vietnamese osu!catch Tournament</span>
+            </div>
+          </div>
+
+          <div class="detail-pair">
+            <div class="detail-block">
+              <div class="detail-label">Difficulty</div>
+              <div class="marquee" id="difficultyWrap">
+                <span id="mapDifficulty">Mappool Showcase</span>
+              </div>
+            </div>
+            <div class="detail-block">
+              <div class="detail-label">Mapper</div>
+              <div class="marquee" id="mapperWrap">
+                <span id="mapMapper">VCT Staff</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div>
+              <span class="stat-label">SR</span>
+              <strong id="mapSr">-.--</strong>
+            </div>
+            <div>
+              <span class="stat-label">OD</span>
+              <strong id="mapOd">-.-</strong>
+            </div>
+            <div>
+              <span class="stat-label">BPM</span>
+              <strong id="mapBpm">---</strong>
+            </div>
+            <div>
+              <span class="stat-label">LEN</span>
+              <strong id="mapLength">--:--</strong>
+            </div>
+          </div>
+
+          <div class="pick-tags">
+            <span id="originalTag">ORIGINAL</span>
+            <span id="customTag">CUSTOM</span>
+          </div>
+        </section>
+
+        <section class="showcase-ribbon" aria-label="Mappool queue">
+          <div class="ribbon-title" id="ribbonTitle">Vietnamese osu!catch Tournament</div>
+          <div class="pick-queue">
+            <div class="pick-queue-track" id="pickQueue"></div>
+          </div>
+        </section>
+
+        <div class="connection-chip" id="connectionChip">tosu offline</div>
+
+        <img class="vct-frame" id="vctFrame" src="../../assets/vct/showcase-rounds/frame/Qualifier.png" alt="">
+        <img class="vct-curtain" src="../../assets/vct/showcase-rounds/Curtain.png" alt="">
+      </section>
+
+      <aside class="control-panel">
+        <h1>VCT Showcase</h1>
+        <div class="control-status" id="controlStatus">Loading local mappool data...</div>
+        <button type="button" id="reloadDataButton">Reload JSON</button>
+        <label class="file-button" for="jsonFileInput">Load JSON File</label>
+        <input id="jsonFileInput" type="file" accept="application/json,.json">
+        <div class="control-row">
+          <button type="button" id="prevStageButton">Prev Stage</button>
+          <button type="button" id="nextStageButton">Next Stage</button>
+        </div>
+        <button type="button" id="clearStorageButton">Clear Saved JSON</button>
+        <p>
+          OBS should crop to 1920x1080. This panel starts outside that frame.
+        </p>
+      </aside>
+    </main>
+
+    <script src="index.js"></script>
+  </body>
+</html>

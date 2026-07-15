@@ -1,0 +1,171 @@
+@font-face {
+  font-family: "Berkshire Swash";
+  src: url("../../assets/fonts/BerkshireSwash-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --vct-dark: #59483C;
+  --vct-mid: #6E5948;
+  --vct-cream: #F9E4D3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 2240px;
+  min-height: 1080px;
+  overflow: hidden;
+  background: transparent;
+  color: var(--vct-cream);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.workspace {
+  display: flex;
+  width: 2240px;
+  min-height: 1080px;
+}
+
+.countdown-stage {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  flex: 0 0 1920px;
+  overflow: hidden;
+  background: var(--vct-dark);
+}
+
+.countdown-video,
+.countdown-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.countdown-video {
+  object-fit: cover;
+}
+
+.countdown-shade {
+  background:
+    linear-gradient(90deg, rgba(89, 72, 60, 0.78), rgba(89, 72, 60, 0.22) 54%, rgba(89, 72, 60, 0.72)),
+    linear-gradient(0deg, rgba(38, 31, 26, 0.55), transparent 42%, rgba(38, 31, 26, 0.32));
+}
+
+.timer,
+.timer-shadow {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-bottom: 28px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 248px;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer {
+  z-index: 2;
+  color: var(--vct-cream);
+  text-shadow: 0 7px 0 rgba(89, 72, 60, 0.92), 0 18px 38px rgba(0, 0, 0, 0.45);
+}
+
+.timer-shadow {
+  z-index: 1;
+  color: rgba(166, 149, 133, 0.48);
+  transform: translate(11px, 18px);
+}
+
+.now-playing {
+  position: absolute;
+  left: 280px;
+  right: 280px;
+  bottom: 160px;
+  z-index: 3;
+  overflow: hidden;
+  color: rgba(249, 228, 211, 0.86);
+  font-size: 34px;
+  font-style: italic;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-shadow: 0 3px 12px rgba(38, 31, 26, 0.72);
+  white-space: nowrap;
+}
+
+.control-panel {
+  width: 320px;
+  min-height: 1080px;
+  padding: 28px 22px;
+  background: #261f1a;
+  color: var(--vct-cream);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.control-panel h1 {
+  margin: 0 0 18px;
+  font-size: 26px;
+  letter-spacing: 0;
+}
+
+.control-status {
+  min-height: 62px;
+  margin-bottom: 18px;
+  color: rgba(249, 228, 211, 0.72);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.control-panel button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(249, 228, 211, 0.42);
+  border-radius: 6px;
+  background: var(--vct-dark);
+  color: var(--vct-cream);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.control-panel button:hover {
+  background: var(--vct-mid);
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.control-panel label {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+  color: rgba(249, 228, 211, 0.78);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.control-panel input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(249, 228, 211, 0.42);
+  border-radius: 6px;
+  background: rgba(249, 228, 211, 0.08);
+  color: var(--vct-cream);
+  font: inherit;
+  padding-inline: 12px;
+}
