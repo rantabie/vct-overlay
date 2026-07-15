@@ -5,8 +5,25 @@
 html,
 body {
   margin: 0;
+  min-width: 2240px;
+  min-height: 1080px;
+  overflow: hidden;
+  background: #000;
+  color: #F9E4D3;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.workspace {
+  display: flex;
+  width: 2240px;
+  height: 1080px;
+}
+
+.countdown-stage {
+  position: relative;
   width: 1920px;
   height: 1080px;
+  flex: 0 0 1920px;
   overflow: hidden;
   background: #000;
 }
@@ -18,4 +35,51 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.control-panel {
+  width: 320px;
+  height: 1080px;
+  padding: 28px 22px;
+  background: #261f1a;
+}
+
+.control-panel h1 {
+  margin: 0 0 18px;
+  font-size: 26px;
+  letter-spacing: 0;
+}
+
+.control-status {
+  min-height: 72px;
+  margin-bottom: 18px;
+  color: rgba(249, 228, 211, 0.74);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.control-panel button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(249, 228, 211, 0.42);
+  border-radius: 6px;
+  background: #59483C;
+  color: #F9E4D3;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.control-panel button:hover {
+  background: #6E5948;
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
