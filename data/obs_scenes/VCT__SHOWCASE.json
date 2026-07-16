@@ -94,30 +94,47 @@
     "quick_transitions": [
         {
             "name": "Cut",
-            "duration": 300,
+            "duration": 150,
             "hotkeys": [],
             "id": 10,
             "fade_to_black": false
         },
         {
             "name": "Fade",
-            "duration": 300,
+            "duration": 150,
             "hotkeys": [],
             "id": 11,
             "fade_to_black": false
         },
         {
             "name": "Fade",
-            "duration": 300,
+            "duration": 150,
             "hotkeys": [],
             "id": 12,
             "fade_to_black": true
+        },
+        {
+            "name": "VCT Stinger",
+            "duration": 150,
+            "hotkeys": [],
+            "id": 13,
+            "fade_to_black": false
         }
     ],
-    "transitions": [],
+    "transitions": [
+        {
+            "name": "VCT Stinger",
+            "id": "obs_stinger_transition",
+            "settings": {
+                "path": "C:/Users/User/Documents/vct-overlay/assets/vct/overlay/VCT Transition.fast.mov",
+                "tp_type": 1,
+                "transition_point": 29
+            }
+        }
+    ],
     "saved_projectors": [],
-    "current_transition": "Fade",
-    "transition_duration": 300,
+    "current_transition": "VCT Stinger",
+    "transition_duration": 150,
     "preview_locked": false,
     "scaling_enabled": false,
     "scaling_level": 0,
@@ -205,7 +222,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/countdown/?v=20260716-status",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/countdown/?v=20260716-runtime-fix",
                 "width": 2240,
                 "height": 1080,
                 "reroute_audio": false,
@@ -1719,7 +1736,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=finals&fresh=1&v=20260716-status",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=finals&fresh=1&v=20260716-runtime-fix",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1756,7 +1773,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=grandfinals&fresh=1&v=20260716-status",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=grandfinals&fresh=1&v=20260716-runtime-fix",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1793,7 +1810,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=qualifiers&fresh=1&v=20260716-status",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=qualifiers&fresh=1&v=20260716-runtime-fix",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1830,7 +1847,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=quarterfinals&fresh=1&v=20260716-status",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=quarterfinals&fresh=1&v=20260716-runtime-fix",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1867,7 +1884,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro16&fresh=1&v=20260716-status",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro16&fresh=1&v=20260716-runtime-fix",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1904,7 +1921,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro32&fresh=1&v=20260716-status",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro32&fresh=1&v=20260716-runtime-fix",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1941,7 +1958,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=semifinals&fresh=1&v=20260716-status",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=semifinals&fresh=1&v=20260716-runtime-fix",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,

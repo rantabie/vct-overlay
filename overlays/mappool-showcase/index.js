@@ -87,6 +87,7 @@
     vctFrame: document.getElementById("vctFrame"),
     ribbonTitle: document.getElementById("ribbonTitle"),
     connectionChip: document.getElementById("connectionChip"),
+    diagnosticsPanel: document.getElementById("diagnosticsPanel"),
     controlStatus: document.getElementById("controlStatus"),
     reloadDataButton: document.getElementById("reloadDataButton"),
     jsonFileInput: document.getElementById("jsonFileInput"),
@@ -103,6 +104,14 @@
   const tosuHost = params.get("tosu") || (location.port === "24050" ? location.host : DEFAULT_TOSU_HOST);
   const tosuBase = `http://${tosuHost}`;
   const socketUrl = `ws://${tosuHost}/ws`;
+  const diagnostics = {
+    json: "loading",
+    maps: "0",
+    socket: "starting",
+    live: "-",
+    match: "-",
+    url: socketUrl
+  };
 
   let pool = fallbackData;
   let currentStageIndex = 0;
@@ -180,9 +189,11 @@
       const response = await fetch(`${DATA_URL}?v=${Date.now()}`, { cache: "no-store" });
       if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
       const json = await response.json();
+      setDiagnostics({ json: `loaded ${DATA_URL}` });
       setControlStatus(`Loaded ${DATA_URL}.`);
       return json;
     } catch (error) {
+      setDiagnostics({ json: `failed: ${error.message}` });
       setControlStatus(`Using built-in placeholder data. Could not read ${DATA_URL}: ${error.message}`);
       return structuredClone(fallbackData);
     }
@@ -215,6 +226,7 @@
       original: Boolean(map.original),
       custom: Boolean(map.custom || map.isCustom)
     }));
+    setDiagnostics({ maps: String(pool.maps.length) });
 
     const stageIndex = pool.stages.findIndex((stage) => stage.name === pool.stage || stage.key === slugify(pool.stage));
     currentStageIndex = stageIndex >= 0 ? stageIndex : 0;
@@ -250,11 +262,13 @@
       onOpen() {
         dom.connectionChip.textContent = "tosu connected";
         dom.connectionChip.classList.remove("is-warning");
+        setDiagnostics({ socket: "connected" });
         setControlStatus("Connected to tosu.");
       },
       onClose() {
         dom.connectionChip.textContent = "tosu offline";
         dom.connectionChip.classList.add("is-warning");
+        setDiagnostics({ socket: "closed / blocked" });
         setControlStatus("");
       },
       onMessage(event) {
@@ -274,6 +288,10 @@
     currentKey = key;
 
     const poolMap = findPoolMap(live);
+    setDiagnostics({
+      live: `${live.id || "no id"} ${live.title || ""} [${live.difficulty || ""}]`,
+      match: poolMap ? poolMap.pick : "no pool match"
+    });
     updateDetails(poolMap || live, live, false);
   }
 
@@ -483,7 +501,22 @@
   }
 
   function setControlStatus(message) {
-    dom.controlStatus.textContent = isDebug ? message : "";
+    dom.controlStatus.textContent = debugMode ? message : "";
+  }
+
+  function setDiagnostics(next) {
+    Object.assign(diagnostics, next);
+    if (!debugMode) return;
+
+    dom.diagnosticsPanel.textContent = [
+      "VCT showcase diagnostics",
+      `JSON: ${diagnostics.json}`,
+      `Maps: ${diagnostics.maps}`,
+      `Tosu: ${diagnostics.socket}`,
+      `WS: ${diagnostics.url}`,
+      `Live: ${diagnostics.live}`,
+      `Match: ${diagnostics.match}`
+    ].join("\n");
   }
 
   function setText(element, value) {

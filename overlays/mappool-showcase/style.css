@@ -440,6 +440,29 @@ body[data-stage="grandfinals"] {
   opacity: 1;
 }
 
+.diagnostics-panel {
+  display: none;
+  position: absolute;
+  left: 18px;
+  top: 188px;
+  z-index: 80;
+  width: 520px;
+  max-height: 360px;
+  margin: 0;
+  padding: 14px 16px;
+  overflow: hidden;
+  border: 1px solid rgba(249, 228, 211, 0.38);
+  border-radius: 6px;
+  background: rgba(38, 31, 26, 0.88);
+  color: #F9E4D3;
+  font: 15px/1.45 Consolas, "Courier New", monospace;
+  white-space: pre-wrap;
+}
+
+.debug .diagnostics-panel {
+  display: block;
+}
+
 .control-panel {
   width: 320px;
   min-height: 1080px;

@@ -10,7 +10,7 @@ if (!baseUrl) {
 const sceneFile = "data/obs_scenes/VCT__SHOWCASE.json";
 const scene = JSON.parse(fs.readFileSync(sceneFile, "utf8"));
 
-const cacheBust = "v=20260716-status";
+const cacheBust = "v=20260716-runtime-fix";
 
 const showcaseStages = {
   QUALIFIERS: "qualifiers",
