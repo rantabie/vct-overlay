@@ -420,7 +420,7 @@
       mapper: metadata.mapper || metadata.creator || bm.mapper || "Unknown mapper",
       sr: stats.fullSR || stats.SR || stats.starRating || "",
       od: stats.memoryOD || stats.OD || "",
-      bpm: bpm.min && bpm.max ? (bpm.min === bpm.max ? bpm.min : `${bpm.min}-${bpm.max}`) : stats.BPM || "",
+      bpm: formatBpmRange(bpm.min, bpm.max) || stats.BPM || "",
       length: formatTime(time.full || time.mp3 || bm.length),
       background: getLiveBackgroundCandidates(bm, path)
     };
@@ -555,7 +555,19 @@
 
   function formatBpm(value) {
     if (value === undefined || value === null || value === "") return "---";
-    return String(value).replace(/\s+/g, "");
+    return String(value)
+      .replace(/\s+/g, "")
+      .replace(/(\d+(?:\.\d+)?)/g, (match) => String(Math.round(Number(match))));
+  }
+
+  function formatBpmRange(min, max) {
+    const minNumber = Number(min);
+    const maxNumber = Number(max);
+    if (!Number.isFinite(minNumber) || !Number.isFinite(maxNumber)) return "";
+
+    const roundedMin = Math.round(minNumber);
+    const roundedMax = Math.round(maxNumber);
+    return roundedMin === roundedMax ? String(roundedMin) : `${roundedMin}-${roundedMax}`;
   }
 
   function formatTime(ms) {

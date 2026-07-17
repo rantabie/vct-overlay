@@ -87,6 +87,9 @@
         },
         {
             "name": "GRAND FINALS"
+        },
+        {
+            "name": "ENDING"
         }
     ],
     "name": "VCT - SHOWCASE",
@@ -94,28 +97,28 @@
     "quick_transitions": [
         {
             "name": "Cut",
-            "duration": 150,
+            "duration": 250,
             "hotkeys": [],
             "id": 10,
             "fade_to_black": false
         },
         {
             "name": "Fade",
-            "duration": 150,
+            "duration": 250,
             "hotkeys": [],
             "id": 11,
             "fade_to_black": false
         },
         {
             "name": "Fade",
-            "duration": 150,
+            "duration": 250,
             "hotkeys": [],
             "id": 12,
             "fade_to_black": true
         },
         {
             "name": "VCT Stinger",
-            "duration": 150,
+            "duration": 250,
             "hotkeys": [],
             "id": 13,
             "fade_to_black": false
@@ -126,15 +129,15 @@
             "name": "VCT Stinger",
             "id": "obs_stinger_transition",
             "settings": {
-                "path": "C:/Users/User/Documents/vct-overlay/assets/vct/overlay/VCT Transition.fast.mov",
+                "path": "C:/Users/User/Documents/vct-overlay/assets/vct/overlay/VCT Transition.stinger.mov",
                 "tp_type": 1,
-                "transition_point": 29
+                "transition_point": 48
             }
         }
     ],
     "saved_projectors": [],
     "current_transition": "VCT Stinger",
-    "transition_duration": 150,
+    "transition_duration": 250,
     "preview_locked": false,
     "scaling_enabled": false,
     "scaling_level": 0,
@@ -222,7 +225,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/countdown/?v=20260716-runtime-fix",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/countdown/",
                 "width": 2240,
                 "height": 1080,
                 "reroute_audio": false,
@@ -1736,7 +1739,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=finals&fresh=1&v=20260716-runtime-fix",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=finals&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1773,7 +1776,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=grandfinals&fresh=1&v=20260716-runtime-fix",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=grandfinals&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1810,7 +1813,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=qualifiers&fresh=1&v=20260716-runtime-fix",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=qualifiers&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1847,7 +1850,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=quarterfinals&fresh=1&v=20260716-runtime-fix",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=quarterfinals&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1884,7 +1887,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro16&fresh=1&v=20260716-runtime-fix",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro16&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1921,7 +1924,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro32&fresh=1&v=20260716-runtime-fix",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro32&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -1958,7 +1961,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=semifinals&fresh=1&v=20260716-runtime-fix",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=semifinals&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -2036,6 +2039,134 @@
                     {
                         "name": "COUNTDOWN",
                         "source_uuid": "7533c8e2-1fba-4a0a-bb8a-d39dd1ca9e85",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 1,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
+                        }
+                    }
+                ]
+            },
+            "mixers": 0,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {
+                "OBSBasic.SelectScene": [],
+                "libobs.show_scene_item.1": [],
+                "libobs.hide_scene_item.1": []
+            },
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {}
+        },
+        {
+            "prev_ver": 520093700,
+            "name": "ENDING BANNER",
+            "uuid": "8a3bdc12-3a00-4105-9eb9-466fb16a2529",
+            "id": "browser_source",
+            "versioned_id": "browser_source",
+            "settings": {
+                "url": "https://rantabie.github.io/vct-overlay/overlays/ending/",
+                "width": 1920,
+                "height": 1080,
+                "reroute_audio": false,
+                "restart_when_active": false,
+                "shutdown": false
+            },
+            "mixers": 255,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {
+                "libobs.mute": [],
+                "libobs.unmute": [],
+                "libobs.push-to-mute": [],
+                "libobs.push-to-talk": [],
+                "ObsBrowser.Refresh": []
+            },
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {}
+        },
+        {
+            "prev_ver": 520093700,
+            "name": "ENDING",
+            "uuid": "5a2ae23c-b7ae-41c8-be7e-1dcfdf25d00f",
+            "id": "scene",
+            "versioned_id": "scene",
+            "settings": {
+                "custom_size": false,
+                "id_counter": 1,
+                "items": [
+                    {
+                        "name": "ENDING BANNER",
+                        "source_uuid": "8a3bdc12-3a00-4105-9eb9-466fb16a2529",
                         "visible": true,
                         "locked": true,
                         "rot": 0,

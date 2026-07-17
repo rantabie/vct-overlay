@@ -10,8 +10,6 @@ if (!baseUrl) {
 const sceneFile = "data/obs_scenes/VCT__SHOWCASE.json";
 const scene = JSON.parse(fs.readFileSync(sceneFile, "utf8"));
 
-const cacheBust = "v=20260716-runtime-fix";
-
 const showcaseStages = {
   QUALIFIERS: "qualifiers",
   RO32: "ro32",
@@ -26,9 +24,11 @@ for (const source of scene.sources) {
   const showcaseMatch = source.name.match(/^(?:VCT )?SHOWCASE - (.+) OVERLAY$/);
   const stage = showcaseMatch ? showcaseStages[showcaseMatch[1]] : null;
   const url = stage
-    ? `${baseUrl}/overlays/mappool-showcase/?stage=${stage}&fresh=1&${cacheBust}`
+    ? `${baseUrl}/overlays/mappool-showcase/?stage=${stage}&fresh=1`
     : source.name === "COUNTDOWN"
-      ? `${baseUrl}/overlays/countdown/?${cacheBust}`
+      ? `${baseUrl}/overlays/countdown/`
+      : source.name === "ENDING BANNER"
+        ? `${baseUrl}/overlays/ending/`
       : null;
 
   if (!url) continue;
@@ -44,6 +44,15 @@ for (const source of scene.sources) {
         restart_when_active: false,
         shutdown: false
       }
+    : source.name === "ENDING BANNER"
+      ? {
+          url,
+          width: 1920,
+          height: 1080,
+          reroute_audio: false,
+          restart_when_active: false,
+          shutdown: false
+        }
     : {
         ...(source.settings || {}),
         url,

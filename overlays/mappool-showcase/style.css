@@ -340,13 +340,11 @@ body[data-stage="grandfinals"] {
 
 .stats-grid strong {
   display: block;
-  overflow: hidden;
   color: var(--vct-cream);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 31px;
+  font-size: clamp(24px, 1.55vw, 31px);
   font-weight: 700;
   line-height: 1;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 

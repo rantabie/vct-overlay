@@ -1,0 +1,5 @@
+Name: VCT Ending
+Author: Codex
+Version: 0.1.0
+CompatibleWith: OBS
+Entry: index.html
