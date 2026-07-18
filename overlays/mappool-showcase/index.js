@@ -42,7 +42,7 @@
         difficulty: "Showcase",
         mapper: "VCT Staff",
         sr: "-.--",
-        od: "-.-",
+        ar: "-.-",
         bpm: "---",
         length: "--:--"
       },
@@ -219,7 +219,7 @@
       difficulty: map.difficulty || map.version || "",
       mapper: map.mapper || map.mappers || "",
       sr: map.sr || map.starRating || "",
-      od: map.od || "",
+      ar: map.ar || map.approachRate || map.od || "",
       bpm: map.bpm || "",
       length: map.length || "",
       background: normaliseBackgroundList(map.background),
@@ -283,7 +283,7 @@
 
   function handleTosuData(data) {
     const live = extractLiveBeatmap(data);
-    const key = `${live.id}|${live.file}|${live.sr}|${live.od}|${live.length}`;
+    const key = `${live.id}|${live.file}|${live.sr}|${live.ar}|${live.length}`;
     if (key === currentKey) return;
     currentKey = key;
 
@@ -303,7 +303,7 @@
       difficulty: live?.difficulty || source.difficulty || inferCatchPool(source.pick),
       mapper: source.mapper || live?.mapper || "Unknown mapper",
       sr: formatStat(live?.sr || source.sr, "-.--"),
-      od: formatStat(live?.od || source.od, "-.-"),
+      ar: formatStat(live?.ar || source.ar, "-.-"),
       bpm: formatBpm(live?.bpm || source.bpm),
       length: live?.length || source.length || "--:--",
       background: live?.background || source.background || "",
@@ -317,7 +317,7 @@
       setText(dom.mapDifficulty, item.difficulty);
       setText(dom.mapMapper, item.mapper);
       dom.mapSr.textContent = item.sr;
-      dom.mapOd.textContent = item.od;
+      dom.mapOd.textContent = item.ar;
       dom.mapBpm.textContent = item.bpm;
       dom.mapLength.textContent = item.length;
       dom.originalTag.classList.toggle("is-visible", item.original);
@@ -419,7 +419,7 @@
       difficulty: metadata.difficulty || metadata.version || bm.difficulty || "Unknown difficulty",
       mapper: metadata.mapper || metadata.creator || bm.mapper || "Unknown mapper",
       sr: stats.fullSR || stats.SR || stats.starRating || "",
-      od: stats.memoryOD || stats.OD || "",
+      ar: stats.memoryAR || stats.AR || stats.approachRate || "",
       bpm: formatBpmRange(bpm.min, bpm.max) || stats.BPM || "",
       length: formatTime(time.full || time.mp3 || bm.length),
       background: getLiveBackgroundCandidates(bm, path)

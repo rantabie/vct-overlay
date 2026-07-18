@@ -1,7 +1,7 @@
 {
     "DesktopAudioDevice1": {
         "prev_ver": 520093700,
-        "name": "Desktop Audio",
+        "name": "VCT Game / osu! Client",
         "uuid": "1411cdbc-08c5-4972-9e19-5c74aba7aeab",
         "id": "wasapi_output_capture",
         "versioned_id": "wasapi_output_capture",
@@ -32,12 +32,136 @@
     },
     "AuxAudioDevice1": {
         "prev_ver": 520093700,
-        "name": "Mic/Aux",
+        "name": "VCT Stream Mic",
         "uuid": "44af7081-def9-42f0-add4-41b1c6f54631",
         "id": "wasapi_input_capture",
         "versioned_id": "wasapi_input_capture",
         "settings": {
             "device_id": "default"
+        },
+        "mixers": 255,
+        "sync": 0,
+        "flags": 0,
+        "volume": 1,
+        "balance": 0.5,
+        "enabled": true,
+        "muted": true,
+        "push-to-mute": false,
+        "push-to-mute-delay": 0,
+        "push-to-talk": false,
+        "push-to-talk-delay": 0,
+        "hotkeys": {
+            "libobs.mute": [],
+            "libobs.unmute": [],
+            "libobs.push-to-mute": [],
+            "libobs.push-to-talk": []
+        },
+        "deinterlace_mode": 0,
+        "deinterlace_field_order": 0,
+        "monitoring_type": 0,
+        "private_settings": {}
+    },
+    "DesktopAudioDevice2": {
+        "prev_ver": 520093700,
+        "name": "VCT Casters / Discord",
+        "uuid": "96fe2513-f710-4cf3-a8f8-e7190c6d6d57",
+        "id": "wasapi_output_capture",
+        "versioned_id": "wasapi_output_capture",
+        "settings": {
+            "device_id": "disabled"
+        },
+        "mixers": 255,
+        "sync": 0,
+        "flags": 0,
+        "volume": 1,
+        "balance": 0.5,
+        "enabled": true,
+        "muted": true,
+        "push-to-mute": false,
+        "push-to-mute-delay": 0,
+        "push-to-talk": false,
+        "push-to-talk-delay": 0,
+        "hotkeys": {
+            "libobs.mute": [],
+            "libobs.unmute": [],
+            "libobs.push-to-mute": [],
+            "libobs.push-to-talk": []
+        },
+        "deinterlace_mode": 0,
+        "deinterlace_field_order": 0,
+        "monitoring_type": 0,
+        "private_settings": {}
+    },
+    "AuxAudioDevice2": {
+        "prev_ver": 520093700,
+        "name": "VCT Caster Backup / Call",
+        "uuid": "d242832d-6953-4306-8f61-0c1e2d25dbec",
+        "id": "wasapi_input_capture",
+        "versioned_id": "wasapi_input_capture",
+        "settings": {
+            "device_id": "disabled"
+        },
+        "mixers": 255,
+        "sync": 0,
+        "flags": 0,
+        "volume": 1,
+        "balance": 0.5,
+        "enabled": true,
+        "muted": true,
+        "push-to-mute": false,
+        "push-to-mute-delay": 0,
+        "push-to-talk": false,
+        "push-to-talk-delay": 0,
+        "hotkeys": {
+            "libobs.mute": [],
+            "libobs.unmute": [],
+            "libobs.push-to-mute": [],
+            "libobs.push-to-talk": []
+        },
+        "deinterlace_mode": 0,
+        "deinterlace_field_order": 0,
+        "monitoring_type": 0,
+        "private_settings": {}
+    },
+    "AuxAudioDevice3": {
+        "prev_ver": 520093700,
+        "name": "VCT Extra Mic / Interview",
+        "uuid": "9c8fc590-155f-4510-990c-cd83846be59e",
+        "id": "wasapi_input_capture",
+        "versioned_id": "wasapi_input_capture",
+        "settings": {
+            "device_id": "disabled"
+        },
+        "mixers": 255,
+        "sync": 0,
+        "flags": 0,
+        "volume": 1,
+        "balance": 0.5,
+        "enabled": true,
+        "muted": true,
+        "push-to-mute": false,
+        "push-to-mute-delay": 0,
+        "push-to-talk": false,
+        "push-to-talk-delay": 0,
+        "hotkeys": {
+            "libobs.mute": [],
+            "libobs.unmute": [],
+            "libobs.push-to-mute": [],
+            "libobs.push-to-talk": []
+        },
+        "deinterlace_mode": 0,
+        "deinterlace_field_order": 0,
+        "monitoring_type": 0,
+        "private_settings": {}
+    },
+    "AuxAudioDevice4": {
+        "prev_ver": 520093700,
+        "name": "VCT Spare Audio",
+        "uuid": "496999f1-b63f-4633-96d5-3875cf836fb6",
+        "id": "wasapi_input_capture",
+        "versioned_id": "wasapi_input_capture",
+        "settings": {
+            "device_id": "disabled"
         },
         "mixers": 255,
         "sync": 0,
@@ -228,7 +352,7 @@
                 "url": "https://rantabie.github.io/vct-overlay/overlays/countdown/",
                 "width": 2240,
                 "height": 1080,
-                "reroute_audio": false,
+                "reroute_audio": true,
                 "restart_when_active": false,
                 "shutdown": false
             },
@@ -2119,7 +2243,7 @@
         },
         {
             "prev_ver": 520093700,
-            "name": "ENDING BANNER",
+            "name": "ENDING VIDEO",
             "uuid": "8a3bdc12-3a00-4105-9eb9-466fb16a2529",
             "id": "browser_source",
             "versioned_id": "browser_source",
@@ -2127,7 +2251,7 @@
                 "url": "https://rantabie.github.io/vct-overlay/overlays/ending/",
                 "width": 1920,
                 "height": 1080,
-                "reroute_audio": false,
+                "reroute_audio": true,
                 "restart_when_active": false,
                 "shutdown": false
             },
@@ -2165,7 +2289,7 @@
                 "id_counter": 1,
                 "items": [
                     {
-                        "name": "ENDING BANNER",
+                        "name": "ENDING VIDEO",
                         "source_uuid": "8a3bdc12-3a00-4105-9eb9-466fb16a2529",
                         "visible": true,
                         "locked": true,

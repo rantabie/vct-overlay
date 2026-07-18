@@ -27,7 +27,7 @@ for (const source of scene.sources) {
     ? `${baseUrl}/overlays/mappool-showcase/?stage=${stage}&fresh=1`
     : source.name === "COUNTDOWN"
       ? `${baseUrl}/overlays/countdown/`
-      : source.name === "ENDING BANNER"
+      : source.name === "ENDING VIDEO"
         ? `${baseUrl}/overlays/ending/`
       : null;
 
@@ -44,12 +44,12 @@ for (const source of scene.sources) {
         restart_when_active: false,
         shutdown: false
       }
-    : source.name === "ENDING BANNER"
+    : source.name === "ENDING VIDEO"
       ? {
           url,
           width: 1920,
           height: 1080,
-          reroute_audio: false,
+          reroute_audio: true,
           restart_when_active: false,
           shutdown: false
         }

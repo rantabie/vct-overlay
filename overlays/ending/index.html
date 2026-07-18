@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <img class="ending-banner" src="../../assets/vct/overlay/ending-banner.png" alt="">
+    <video
+      class="ending-video"
+      src="../../assets/vct/overlay/ending-video.mp4"
+      autoplay
+      loop
+      playsinline
+      preload="auto"
+    ></video>
+    <script>
+      const video = document.querySelector(".ending-video");
+      video.play().catch(() => {
+        video.muted = true;
+        video.play();
+      });
+    </script>
   </body>
 </html>
