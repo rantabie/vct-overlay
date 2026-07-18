@@ -1,12 +1,12 @@
 {
     "DesktopAudioDevice1": {
         "prev_ver": 520093700,
-        "name": "VCT Game / osu! Client",
+        "name": "VCT Desktop Audio Fallback",
         "uuid": "1411cdbc-08c5-4972-9e19-5c74aba7aeab",
         "id": "wasapi_output_capture",
         "versioned_id": "wasapi_output_capture",
         "settings": {
-            "device_id": "default"
+            "device_id": "disabled"
         },
         "mixers": 255,
         "sync": 0,
@@ -14,7 +14,7 @@
         "volume": 1,
         "balance": 0.5,
         "enabled": true,
-        "muted": false,
+        "muted": true,
         "push-to-mute": false,
         "push-to-mute-delay": 0,
         "push-to-talk": false,
@@ -63,7 +63,7 @@
     },
     "DesktopAudioDevice2": {
         "prev_ver": 520093700,
-        "name": "VCT Casters / Discord",
+        "name": "VCT Desktop Audio Fallback 2",
         "uuid": "96fe2513-f710-4cf3-a8f8-e7190c6d6d57",
         "id": "wasapi_output_capture",
         "versioned_id": "wasapi_output_capture",
@@ -387,7 +387,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 4,
+                "id_counter": 6,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -562,6 +562,122 @@
                             "color": "",
                             "color-preset": 2
                         }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 5,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 6,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
                     }
                 ]
             },
@@ -598,7 +714,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 4,
+                "id_counter": 6,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -773,6 +889,122 @@
                             "color": "",
                             "color-preset": 2
                         }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 5,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 6,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
                     }
                 ]
             },
@@ -809,7 +1041,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 4,
+                "id_counter": 6,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -984,6 +1216,122 @@
                             "color": "",
                             "color-preset": 2
                         }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 5,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 6,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
                     }
                 ]
             },
@@ -1020,7 +1368,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 4,
+                "id_counter": 6,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -1195,6 +1543,122 @@
                             "color": "",
                             "color-preset": 2
                         }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 5,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 6,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
                     }
                 ]
             },
@@ -1231,7 +1695,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 4,
+                "id_counter": 6,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -1406,6 +1870,122 @@
                             "color": "",
                             "color-preset": 2
                         }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 5,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 6,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
                     }
                 ]
             },
@@ -1442,7 +2022,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 4,
+                "id_counter": 6,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -1617,6 +2197,122 @@
                             "color": "",
                             "color-preset": 2
                         }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 5,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 6,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
                     }
                 ]
             },
@@ -1653,7 +2349,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 4,
+                "id_counter": 6,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -1827,6 +2523,122 @@
                         "private_settings": {
                             "color": "",
                             "color-preset": 2
+                        }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 5,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 6,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
                         }
                     }
                 ]
@@ -2158,7 +2970,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 1,
+                "id_counter": 3,
                 "items": [
                     {
                         "name": "COUNTDOWN",
@@ -2216,6 +3028,122 @@
                         "private_settings": {
                             "color": "",
                             "color-preset": 2
+                        }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 2,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 3,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
                         }
                     }
                 ]
@@ -2286,7 +3214,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 1,
+                "id_counter": 3,
                 "items": [
                     {
                         "name": "ENDING VIDEO",
@@ -2345,6 +3273,122 @@
                             "color": "",
                             "color-preset": 2
                         }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 2,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 3,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
                     }
                 ]
             },
@@ -2363,6 +3407,68 @@
                 "OBSBasic.SelectScene": [],
                 "libobs.show_scene_item.1": [],
                 "libobs.hide_scene_item.1": []
+            },
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {}
+        },
+        {
+            "prev_ver": 520093700,
+            "name": "VCT Game / osu! Client",
+            "uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+            "id": "wasapi_process_output_capture",
+            "versioned_id": "wasapi_process_output_capture",
+            "settings": {
+                "window": "osu!:WindowsForms10.Window.2b.app.0.1517e87_r20_ad1:osu!.exe"
+            },
+            "mixers": 255,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {
+                "libobs.mute": [],
+                "libobs.unmute": [],
+                "libobs.push-to-mute": [],
+                "libobs.push-to-talk": []
+            },
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {}
+        },
+        {
+            "prev_ver": 520093700,
+            "name": "VCT Casters / Discord",
+            "uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+            "id": "wasapi_process_output_capture",
+            "versioned_id": "wasapi_process_output_capture",
+            "settings": {
+                "window": "Discord:Chrome_WidgetWin_1:Discord.exe"
+            },
+            "mixers": 255,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {
+                "libobs.mute": [],
+                "libobs.unmute": [],
+                "libobs.push-to-mute": [],
+                "libobs.push-to-talk": []
             },
             "deinterlace_mode": 0,
             "deinterlace_field_order": 0,

@@ -2,6 +2,14 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "Berkshire Swash";
+  src: url("../../assets/fonts/BerkshireSwash-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 html,
 body {
   margin: 0;
@@ -35,6 +43,51 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.current-track {
+  position: absolute;
+  left: 50%;
+  bottom: 72px;
+  display: flex;
+  z-index: 2;
+  width: max-content;
+  max-width: 1320px;
+  transform: translateX(-50%) translateY(8px);
+  align-items: center;
+  gap: 12px;
+  padding: 12px 26px;
+  border: 1px solid rgba(249, 228, 211, 0.34);
+  border-radius: 6px;
+  background: rgba(38, 31, 26, 0.68);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+  color: #F9E4D3;
+  font-family: "Berkshire Swash", Georgia, serif;
+  font-size: 25px;
+  line-height: 1.2;
+  opacity: 0;
+  transition: opacity 240ms ease, transform 240ms ease;
+  pointer-events: none;
+}
+
+.current-track.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.current-track-label {
+  flex: 0 0 auto;
+  color: rgba(249, 228, 211, 0.72);
+  font-weight: 700;
+}
+
+#currentTrackText {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 800;
 }
 
 .control-panel {
