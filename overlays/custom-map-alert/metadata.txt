@@ -1,0 +1,5 @@
+Usecase: obs-overlay
+Name: VCT-CUSTOM-MAP-ALERT
+Author: VCT Staff
+CompatibleWith: obs-browser
+Resolution: 1920x1080

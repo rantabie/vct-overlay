@@ -1,0 +1,5 @@
+Name: VCT-QUALIFIER-RESULTS
+Author: rantabie
+Version: 1.0.0
+Description: Vietnamese osu!catch Tournament qualifier seeding showcase.
+Entry: index.html

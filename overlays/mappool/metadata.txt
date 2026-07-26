@@ -1,6 +1,5 @@
 Usecase: obs-overlay
-Name: VCT-MAPPOOL-SHOWCASE
+Name: VCT-MAPPOOL
 Author: VCT Staff
 CompatibleWith: gosu,tosu
 Resolution: 1920x1080
-

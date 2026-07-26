@@ -24,11 +24,15 @@ for (const source of scene.sources) {
   const showcaseMatch = source.name.match(/^(?:VCT )?SHOWCASE - (.+) OVERLAY$/);
   const stage = showcaseMatch ? showcaseStages[showcaseMatch[1]] : null;
   const url = stage
-    ? `${baseUrl}/overlays/mappool-showcase/?stage=${stage}&fresh=1`
+    ? `${baseUrl}/overlays/mappool/?stage=${stage}&fresh=1`
     : source.name === "COUNTDOWN"
       ? `${baseUrl}/overlays/countdown/`
       : source.name === "ENDING VIDEO"
         ? `${baseUrl}/overlays/ending/`
+      : source.name === "CUSTOM MAP ALERT VIDEO"
+        ? `${baseUrl}/overlays/custom-map-alert/`
+      : source.name === "QUALIFIER RESULTS OVERLAY"
+        ? `${baseUrl}/overlays/qualifier-results/?fresh=1`
       : null;
 
   if (!url) continue;
@@ -50,6 +54,24 @@ for (const source of scene.sources) {
           width: 1920,
           height: 1080,
           reroute_audio: true,
+          restart_when_active: false,
+          shutdown: false
+        }
+    : source.name === "CUSTOM MAP ALERT VIDEO"
+      ? {
+          url,
+          width: 1920,
+          height: 1080,
+          reroute_audio: true,
+          restart_when_active: true,
+          shutdown: false
+        }
+    : source.name === "QUALIFIER RESULTS OVERLAY"
+      ? {
+          url,
+          width: 2240,
+          height: 1080,
+          reroute_audio: false,
           restart_when_active: false,
           shutdown: false
         }

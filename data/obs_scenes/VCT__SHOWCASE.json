@@ -192,6 +192,12 @@
             "name": "STARTING"
         },
         {
+            "name": "CUSTOM MAP ALERT"
+        },
+        {
+            "name": "QUALIFIER RESULTS"
+        },
+        {
             "name": "QUALIFIERS"
         },
         {
@@ -2675,7 +2681,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=finals&fresh=1",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool/?stage=finals&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -2712,7 +2718,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=grandfinals&fresh=1",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool/?stage=grandfinals&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -2749,7 +2755,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=qualifiers&fresh=1",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool/?stage=qualifiers&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -2786,7 +2792,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=quarterfinals&fresh=1",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool/?stage=quarterfinals&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -2823,7 +2829,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro16&fresh=1",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool/?stage=ro16&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -2860,7 +2866,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=ro32&fresh=1",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool/?stage=ro32&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -2897,7 +2903,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool-showcase/?stage=semifinals&fresh=1",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/mappool/?stage=semifinals&fresh=1",
                 "width": 2240,
                 "height": 1080,
                 "shutdown": false,
@@ -3473,6 +3479,525 @@
             "deinterlace_mode": 0,
             "deinterlace_field_order": 0,
             "monitoring_type": 0,
+            "private_settings": {}
+        },
+        {
+            "prev_ver": 520093700,
+            "name": "CUSTOM MAP ALERT VIDEO",
+            "uuid": "c784d0f9-ccdc-4c60-bb42-f71f63135bc9",
+            "id": "browser_source",
+            "versioned_id": "browser_source",
+            "settings": {
+                "url": "https://rantabie.github.io/vct-overlay/overlays/custom-map-alert/",
+                "width": 1920,
+                "height": 1080,
+                "reroute_audio": true,
+                "restart_when_active": true,
+                "shutdown": false
+            },
+            "mixers": 255,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {
+                "libobs.mute": [],
+                "libobs.unmute": [],
+                "libobs.push-to-mute": [],
+                "libobs.push-to-talk": [],
+                "ObsBrowser.Refresh": []
+            },
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {}
+        },
+        {
+            "prev_ver": 520093700,
+            "name": "CUSTOM MAP ALERT",
+            "uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+            "id": "scene",
+            "versioned_id": "scene",
+            "settings": {
+                "custom_size": false,
+                "id_counter": 3,
+                "items": [
+                    {
+                        "name": "CUSTOM MAP ALERT VIDEO",
+                        "source_uuid": "c784d0f9-ccdc-4c60-bb42-f71f63135bc9",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 1,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
+                        }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 2,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 3,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    }
+                ]
+            },
+            "mixers": 0,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {
+                "OBSBasic.SelectScene": [],
+                "libobs.show_scene_item.1": [],
+                "libobs.hide_scene_item.1": []
+            },
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {}
+        },
+        {
+            "name": "QUALIFIER RESULTS OVERLAY",
+            "uuid": "ba3c227b-06f3-4157-9423-62d9c54e24fa",
+            "id": "browser_source",
+            "versioned_id": "browser_source",
+            "settings": {
+                "url": "https://rantabie.github.io/vct-overlay/overlays/qualifier-results/?fresh=1",
+                "width": 2240,
+                "height": 1080,
+                "reroute_audio": false,
+                "restart_when_active": false,
+                "shutdown": false
+            },
+            "mixers": 0,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1,
+            "balance": 0,
+            "enabled": true,
+            "muted": false,
+            "prev_ver": 520093697,
+            "private_settings": {}
+        },
+        {
+            "name": "QUALIFIER RESULTS",
+            "uuid": "f206bc36-801a-41ad-ac0f-1812adbe2e4a",
+            "id": "scene",
+            "versioned_id": "scene",
+            "settings": {
+                "id_counter": 5,
+                "items": [
+                    {
+                        "name": "QUALIFIER RESULTS OVERLAY",
+                        "source_uuid": "ba3c227b-06f3-4157-9423-62d9c54e24fa",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 1,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
+                        }
+                    },
+                    {
+                        "name": "CASTER OVERLAY",
+                        "source_uuid": "a5f19738-60fe-4a62-a571-830c6bf189ca",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 2,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 1452,
+                            "y": 154
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 0.66,
+                            "y": 0.66
+                        },
+                        "scale_rel": {
+                            "x": 0.66,
+                            "y": 0.66
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Game / osu! Client",
+                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 3,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "VCT Casters / Discord",
+                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 4,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 1
+                        }
+                    }
+                ]
+            },
+            "mixers": 0,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1,
+            "balance": 0,
+            "enabled": true,
+            "muted": false,
+            "prev_ver": 520093697,
             "private_settings": {}
         }
     ]

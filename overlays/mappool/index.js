@@ -1,8 +1,8 @@
 (function () {
   "use strict";
 
-  const DATA_URL = "../../data/mappool-showcase.json";
-  const STORAGE_KEY = "vct.mappoolShowcase.data";
+  const DATA_URL = "../../data/mappool.json";
+  const STORAGE_KEY = "vct.mappool.data";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
   const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
   const ROUND_FRAMES = {
@@ -37,12 +37,13 @@
       {
         pick: "NM1",
         beatmapId: "",
-        title: "Add your mappool in data/mappool-showcase.json",
+        title: "Add your mappool in data/mappool.json",
         artist: "VCT",
         difficulty: "Showcase",
         mapper: "VCT Staff",
         sr: "-.--",
         ar: "-.-",
+        cs: "-.-",
         bpm: "---",
         length: "--:--"
       },
@@ -79,7 +80,8 @@
     difficultyWrap: document.getElementById("difficultyWrap"),
     mapperWrap: document.getElementById("mapperWrap"),
     mapSr: document.getElementById("mapSr"),
-    mapOd: document.getElementById("mapOd"),
+    mapAr: document.getElementById("mapAr"),
+    mapCs: document.getElementById("mapCs"),
     mapBpm: document.getElementById("mapBpm"),
     mapLength: document.getElementById("mapLength"),
     beatmapArt: document.getElementById("beatmapArt"),
@@ -220,9 +222,11 @@
       mapper: map.mapper || map.mappers || "",
       sr: map.sr || map.starRating || "",
       ar: map.ar || map.approachRate || map.od || "",
+      cs: map.cs || map.circleSize || map.CS || "",
       bpm: map.bpm || "",
-      length: map.length || "",
-      background: normaliseBackgroundList(map.background),
+      length: map.length || map.drainTime || map.drainLength || map.totalLength || "",
+      lengthMs: normaliseDurationMs(map.lengthMs || map.drainTimeMs || map.durationMs || map.drainLengthSeconds || map.totalLengthSeconds || ""),
+      background: normaliseBackgroundList(map.background || getCoverCandidates(map.cover)),
       original: Boolean(map.original),
       custom: Boolean(map.custom || map.isCustom)
     }));
@@ -283,7 +287,7 @@
 
   function handleTosuData(data) {
     const live = extractLiveBeatmap(data);
-    const key = `${live.id}|${live.file}|${live.sr}|${live.ar}|${live.length}`;
+    const key = `${live.id}|${live.file}|${live.sr}|${live.ar}|${live.cs}|${live.length}|${live.mods.join(",")}`;
     if (key === currentKey) return;
     currentKey = key;
 
@@ -296,6 +300,9 @@
   }
 
   function updateDetails(source, live, instant) {
+    const mods = inferDisplayMods(source.pick, live?.mods);
+    const lengthSource = live?.length || source.length || "--:--";
+    const lengthMs = live?.lengthMs || source.lengthMs || parseDurationMs(lengthSource);
     const item = {
       pick: source.pick || (live ? "LIVE" : "VCT"),
       title: live?.title || source.title || "Waiting for current beatmap",
@@ -303,9 +310,10 @@
       difficulty: live?.difficulty || source.difficulty || inferCatchPool(source.pick),
       mapper: source.mapper || live?.mapper || "Unknown mapper",
       sr: formatStat(live?.sr || source.sr, "-.--"),
-      ar: formatStat(live?.ar || source.ar, "-.-"),
+      ar: formatModdedAr(live?.ar || source.ar, mods),
+      cs: formatStat(live?.cs || source.cs, "-.-"),
       bpm: formatBpm(live?.bpm || source.bpm),
-      length: live?.length || source.length || "--:--",
+      length: formatModdedLength(lengthSource, lengthMs, mods),
       background: live?.background || source.background || "",
       original: Boolean(source.original),
       custom: Boolean(source.custom)
@@ -317,7 +325,8 @@
       setText(dom.mapDifficulty, item.difficulty);
       setText(dom.mapMapper, item.mapper);
       dom.mapSr.textContent = item.sr;
-      dom.mapOd.textContent = item.ar;
+      dom.mapAr.textContent = item.ar;
+      dom.mapCs.textContent = item.cs;
       dom.mapBpm.textContent = item.bpm;
       dom.mapLength.textContent = item.length;
       dom.originalTag.classList.toggle("is-visible", item.original);
@@ -419,9 +428,12 @@
       difficulty: metadata.difficulty || metadata.version || bm.difficulty || "Unknown difficulty",
       mapper: metadata.mapper || metadata.creator || bm.mapper || "Unknown mapper",
       sr: stats.fullSR || stats.SR || stats.starRating || "",
-      ar: stats.memoryAR || stats.AR || stats.approachRate || "",
+      ar: stats.AR || stats.ar || stats.approachRate || stats.memoryAR || "",
+      cs: stats.CS || stats.cs || stats.circleSize || stats.memoryCS || "",
+      mods: extractLiveMods(data),
       bpm: formatBpmRange(bpm.min, bpm.max) || stats.BPM || "",
       length: formatTime(time.full || time.mp3 || bm.length),
+      lengthMs: normaliseDurationMs(time.full || time.mp3 || bm.length),
       background: getLiveBackgroundCandidates(bm, path)
     };
   }
@@ -546,6 +558,55 @@
     });
   }
 
+  function inferDisplayMods(pick, liveMods) {
+    const values = new Set(Array.isArray(liveMods) ? liveMods.map((mod) => stringifyId(mod).toUpperCase()) : []);
+    const code = stringifyId(pick).toUpperCase();
+
+    if (/^HR/.test(code)) values.add("HR");
+    if (/^DT/.test(code)) values.add("DT");
+
+    return {
+      hr: values.has("HR"),
+      dt: values.has("DT") || values.has("NC")
+    };
+  }
+
+  function formatModdedAr(value, mods) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return formatStat(value, "-.-");
+
+    let ar = number;
+    let changed = false;
+
+    if (mods.hr) {
+      ar = Math.min(10, ar * 1.4);
+      changed = true;
+    }
+
+    if (mods.dt) {
+      ar = msToAr(arToMs(ar) / 1.5);
+      changed = true;
+    }
+
+    return `${formatStat(ar, "-.-")}${changed ? "*" : ""}`;
+  }
+
+  function formatModdedLength(displayValue, ms, mods) {
+    if (!mods.dt) return displayValue || "--:--";
+
+    const number = normaliseDurationMs(ms) || parseDurationMs(displayValue);
+    if (!number) return `${displayValue || "--:--"}*`;
+    return `${formatTime(number / 1.5)}*`;
+  }
+
+  function arToMs(ar) {
+    return ar < 5 ? 1800 - (120 * ar) : 1200 - (150 * (ar - 5));
+  }
+
+  function msToAr(ms) {
+    return ms > 1200 ? (1800 - ms) / 120 : 5 + ((1200 - ms) / 150);
+  }
+
   function formatStat(value, fallback) {
     if (value === undefined || value === null || value === "") return fallback;
     const number = Number(value);
@@ -579,6 +640,35 @@
     return `${minutes}:${seconds}`;
   }
 
+  function normaliseDurationMs(value) {
+    const number = Number(value);
+    if (!Number.isFinite(number) || number <= 0) return 0;
+    return number > 10000 ? number : number * 1000;
+  }
+
+  function parseDurationMs(value) {
+    const match = stringifyId(value).match(/^(\d+):(\d{1,2})$/);
+    if (!match) return 0;
+    return ((Number(match[1]) * 60) + Number(match[2])) * 1000;
+  }
+
+  function extractLiveMods(data) {
+    const candidates = [
+      data?.menu?.mods?.str,
+      data?.menu?.mods?.name,
+      data?.menu?.mods?.array,
+      data?.menu?.mods,
+      data?.gameplay?.mods?.str,
+      data?.gameplay?.mods?.array
+    ];
+
+    return candidates.flatMap((candidate) => {
+      if (!candidate) return [];
+      if (Array.isArray(candidate)) return candidate.map((item) => stringifyId(item.acronym || item.name || item));
+      return stringifyId(candidate).split(/[^A-Za-z]+/).filter(Boolean);
+    });
+  }
+
   function stringifyId(value) {
     return value === undefined || value === null ? "" : String(value).trim();
   }
@@ -589,6 +679,19 @@
       .map((item) => stringifyId(item))
       .filter(Boolean)
       .filter((item, index, array) => array.indexOf(item) === index);
+  }
+
+  function getCoverCandidates(cover) {
+    if (!cover || typeof cover !== "object") return [];
+
+    return [
+      cover["cover@2x"],
+      cover.cover,
+      cover["card@2x"],
+      cover.card,
+      cover["list@2x"],
+      cover.list
+    ].filter(Boolean);
   }
 
   function getLiveBackgroundCandidates(bm, path) {
