@@ -17,6 +17,7 @@ body {
   height: 1080px;
   object-fit: cover;
   opacity: 0;
+  pointer-events: none;
 }
 
 .custom-map-alert.is-visible {

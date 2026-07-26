@@ -273,23 +273,38 @@ body::-webkit-scrollbar {
 }
 
 .map-rows {
-  display: grid;
-  grid-template-rows: repeat(var(--map-count), minmax(0, 1fr));
-  align-content: stretch;
+  display: flex;
+  flex-direction: column;
   gap: 2px;
   position: absolute;
-  left: 132px;
-  top: 36px;
-  width: 748px;
-  height: calc(100% - 40px);
+  left: 0;
+  width: 880px;
+  height: auto;
   min-height: 0;
   padding: 0;
+}
+
+.bracket[data-mod="nm"] .map-rows {
+  top: 64px;
+}
+
+.bracket[data-mod="hd"] .map-rows {
+  top: 103px;
+}
+
+.bracket[data-mod="hr"] .map-rows {
+  top: 107px;
+}
+
+.bracket[data-mod="dt"] .map-rows {
+  top: 112px;
 }
 
 .map-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 132px 64px;
   align-items: center;
+  height: 20px;
   min-height: 0;
   gap: 18px;
 }
@@ -309,7 +324,7 @@ body::-webkit-scrollbar {
   font-family: "Segoe UI", Arial, sans-serif;
   font-size: 17px;
   font-weight: 900;
-  line-height: 1.08;
+  line-height: 1;
 }
 
 .map-score,

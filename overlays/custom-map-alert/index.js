@@ -2,31 +2,108 @@
   "use strict";
 
   const video = document.getElementById("customMapAlert");
+  const DEBUG_AUTOPLAY = new URLSearchParams(window.location.search).get("debug") === "1";
 
-  video.addEventListener("ended", hideVideo);
+  let runId = 0;
+
+  video.addEventListener("ended", resetVideo);
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
-      video.pause();
-      video.currentTime = 0;
-      hideVideo();
+      resetVideo();
       return;
     }
 
     playFromStart();
   });
 
-  playFromStart();
+  window.addEventListener("obsSourceVisibleChanged", (event) => {
+    if (isObsEventEnabled(event, "visible")) {
+      playFromStart();
+    } else {
+      resetVideo();
+    }
+  });
 
-  function playFromStart() {
-    video.classList.add("is-visible");
-    video.currentTime = 0;
-    video.play().catch(() => {
+  window.addEventListener("obsSourceActiveChanged", (event) => {
+    if (!isObsEventEnabled(event, "active")) resetVideo();
+  });
+
+  resetVideo();
+  if (DEBUG_AUTOPLAY) playFromStart();
+
+  async function playFromStart() {
+    const currentRun = ++runId;
+
+    video.classList.remove("is-visible");
+    video.pause();
+    try {
+      video.currentTime = 0;
+    } catch (error) {
+      // Metadata may not be ready yet on a freshly created OBS browser source.
+    }
+
+    try {
+      await waitForReady(currentRun);
+      if (currentRun !== runId) return;
+      video.classList.add("is-visible");
+      await video.play();
+    } catch (error) {
+      if (currentRun !== runId) return;
       video.muted = true;
-      video.play();
+      video.classList.add("is-visible");
+      video.play().catch(() => resetVideo());
+    }
+  }
+
+  function resetVideo() {
+    runId += 1;
+    video.pause();
+    video.classList.remove("is-visible");
+    try {
+      video.currentTime = 0;
+    } catch (error) {
+      // Some browser builds reject seeking before metadata is ready.
+    }
+  }
+
+  function waitForReady(currentRun) {
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve, reject) => {
+      const timeout = window.setTimeout(() => {
+        cleanup();
+        resolve();
+      }, 500);
+
+      video.addEventListener("loadeddata", onReady);
+      video.addEventListener("canplay", onReady);
+      video.addEventListener("error", onError);
+
+      function onReady() {
+        cleanup();
+        resolve();
+      }
+
+      function onError() {
+        cleanup();
+        reject(new Error("Custom map alert video could not load."));
+      }
+
+      function cleanup() {
+        window.clearTimeout(timeout);
+        video.removeEventListener("loadeddata", onReady);
+        video.removeEventListener("canplay", onReady);
+        video.removeEventListener("error", onError);
+      }
+    }).then(() => {
+      if (currentRun !== runId) throw new Error("Custom map alert play cancelled.");
     });
   }
 
-  function hideVideo() {
-    video.classList.remove("is-visible");
+  function isObsEventEnabled(event, property) {
+    if (typeof event.detail === "boolean") return event.detail;
+    return Boolean(event.detail?.[property]);
   }
 })();
