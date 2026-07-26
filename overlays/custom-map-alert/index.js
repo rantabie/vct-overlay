@@ -6,22 +6,20 @@
 
   let runId = 0;
 
-  video.addEventListener("ended", resetVideo);
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      resetVideo();
-      return;
-    }
-
+  video.addEventListener("ended", finishVideo);
+  document.addEventListener("click", playFromStart);
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
     playFromStart();
   });
 
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) resetVideo();
+  });
+
   window.addEventListener("obsSourceVisibleChanged", (event) => {
-    if (isObsEventEnabled(event, "visible")) {
-      playFromStart();
-    } else {
-      resetVideo();
-    }
+    if (!isObsEventEnabled(event, "visible")) resetVideo();
   });
 
   window.addEventListener("obsSourceActiveChanged", (event) => {
@@ -59,6 +57,16 @@
     runId += 1;
     video.pause();
     video.classList.remove("is-visible");
+    try {
+      video.currentTime = 0;
+    } catch (error) {
+      // Some browser builds reject seeking before metadata is ready.
+    }
+  }
+
+  function finishVideo() {
+    video.classList.remove("is-visible");
+    video.pause();
     try {
       video.currentTime = 0;
     } catch (error) {

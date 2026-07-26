@@ -8,7 +8,8 @@ body {
   width: 1920px;
   height: 1080px;
   overflow: hidden;
-  background: transparent;
+  background: #00ff00;
+  cursor: pointer;
 }
 
 .custom-map-alert {
