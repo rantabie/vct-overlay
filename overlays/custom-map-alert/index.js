@@ -3,10 +3,8 @@
 
   const video = document.getElementById("customMapAlert");
   const DEBUG_AUTOPLAY = new URLSearchParams(window.location.search).get("debug") === "1";
-  const END_HOLD_MS = 1000;
 
   let runId = 0;
-  let finishTimer = 0;
 
   video.addEventListener("ended", finishVideo);
   document.addEventListener("click", playFromStart);
@@ -34,7 +32,6 @@
   async function playFromStart() {
     const currentRun = ++runId;
 
-    clearFinishTimer();
     video.classList.remove("is-visible");
     video.pause();
     try {
@@ -58,7 +55,6 @@
 
   function resetVideo() {
     runId += 1;
-    clearFinishTimer();
     video.pause();
     video.classList.remove("is-visible");
     try {
@@ -69,18 +65,7 @@
   }
 
   function finishVideo() {
-    const currentRun = runId;
-    video.pause();
-    clearFinishTimer();
-    finishTimer = window.setTimeout(() => {
-      if (currentRun === runId) resetVideo();
-    }, END_HOLD_MS);
-  }
-
-  function clearFinishTimer() {
-    if (!finishTimer) return;
-    window.clearTimeout(finishTimer);
-    finishTimer = 0;
+    resetVideo();
   }
 
   function waitForReady(currentRun) {
