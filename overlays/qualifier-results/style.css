@@ -182,21 +182,39 @@ body::-webkit-scrollbar {
 .bracket-list {
   position: absolute;
   left: 699px;
-  top: 346px;
+  top: 342px;
   z-index: 2;
-  display: grid;
-  grid-template-rows: repeat(4, minmax(0, 1fr));
   width: 880px;
-  height: 492px;
+  height: 512px;
   color: var(--chalk);
   text-shadow: 0 2px 5px var(--board-shadow);
 }
 
 .bracket {
-  display: grid;
-  grid-template-rows: 38px minmax(0, 1fr);
+  position: absolute;
+  left: 0;
+  width: 880px;
   min-height: 0;
-  padding-top: 0;
+}
+
+.bracket[data-mod="nm"] {
+  top: 0;
+  height: 116px;
+}
+
+.bracket[data-mod="hd"] {
+  top: 125px;
+  height: 108px;
+}
+
+.bracket[data-mod="hr"] {
+  top: 254px;
+  height: 104px;
+}
+
+.bracket[data-mod="dt"] {
+  top: 382px;
+  height: 102px;
 }
 
 .bracket:nth-child(1) {
@@ -216,10 +234,11 @@ body::-webkit-scrollbar {
 }
 
 .bracket-header {
-  display: grid;
-  grid-template-columns: 132px 1fr;
-  align-items: start;
-  min-height: 38px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 132px;
+  height: 30px;
 }
 
 .mod-seed {
@@ -258,8 +277,13 @@ body::-webkit-scrollbar {
   grid-template-rows: repeat(var(--map-count), minmax(0, 1fr));
   align-content: stretch;
   gap: 2px;
+  position: absolute;
+  left: 132px;
+  top: 36px;
+  width: 748px;
+  height: calc(100% - 40px);
   min-height: 0;
-  padding: 0 0 8px 132px;
+  padding: 0;
 }
 
 .map-row {
@@ -283,7 +307,7 @@ body::-webkit-scrollbar {
 .map-title {
   color: var(--chalk);
   font-family: "Segoe UI", Arial, sans-serif;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 900;
   line-height: 1.08;
 }

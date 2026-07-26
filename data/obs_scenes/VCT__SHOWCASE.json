@@ -192,9 +192,6 @@
             "name": "STARTING"
         },
         {
-            "name": "CUSTOM MAP ALERT"
-        },
-        {
             "name": "QUALIFIER RESULTS"
         },
         {
@@ -393,7 +390,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 6,
+                "id_counter": 8,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -684,6 +681,64 @@
                             "color": "",
                             "color-preset": 1
                         }
+                    },
+                    {
+                        "name": "CUSTOM MAP ALERT",
+                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 7,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
+                        }
                     }
                 ]
             },
@@ -720,7 +775,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 6,
+                "id_counter": 8,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -1011,6 +1066,64 @@
                             "color": "",
                             "color-preset": 1
                         }
+                    },
+                    {
+                        "name": "CUSTOM MAP ALERT",
+                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 7,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
+                        }
                     }
                 ]
             },
@@ -1047,7 +1160,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 6,
+                "id_counter": 8,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -1338,6 +1451,64 @@
                             "color": "",
                             "color-preset": 1
                         }
+                    },
+                    {
+                        "name": "CUSTOM MAP ALERT",
+                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 7,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
+                        }
                     }
                 ]
             },
@@ -1374,7 +1545,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 6,
+                "id_counter": 8,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -1665,6 +1836,64 @@
                             "color": "",
                             "color-preset": 1
                         }
+                    },
+                    {
+                        "name": "CUSTOM MAP ALERT",
+                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 7,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
+                        }
                     }
                 ]
             },
@@ -1701,7 +1930,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 6,
+                "id_counter": 8,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -1992,6 +2221,64 @@
                             "color": "",
                             "color-preset": 1
                         }
+                    },
+                    {
+                        "name": "CUSTOM MAP ALERT",
+                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 7,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
+                        }
                     }
                 ]
             },
@@ -2028,7 +2315,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 6,
+                "id_counter": 8,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -2319,6 +2606,64 @@
                             "color": "",
                             "color-preset": 1
                         }
+                    },
+                    {
+                        "name": "CUSTOM MAP ALERT",
+                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 7,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
+                        }
                     }
                 ]
             },
@@ -2355,7 +2700,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 6,
+                "id_counter": 8,
                 "items": [
                     {
                         "name": "SHOWCASE CLIENT",
@@ -2645,6 +2990,64 @@
                         "private_settings": {
                             "color": "",
                             "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "CUSTOM MAP ALERT",
+                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 7,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
                         }
                     }
                 ]
@@ -2976,7 +3379,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 3,
+                "id_counter": 5,
                 "items": [
                     {
                         "name": "COUNTDOWN",
@@ -3150,6 +3553,64 @@
                         "private_settings": {
                             "color": "",
                             "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "CUSTOM MAP ALERT",
+                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 4,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
                         }
                     }
                 ]
@@ -3526,7 +3987,7 @@
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 3,
+                "id_counter": 2,
                 "items": [
                     {
                         "name": "CUSTOM MAP ALERT VIDEO",
@@ -3585,122 +4046,6 @@
                             "color": "",
                             "color-preset": 2
                         }
-                    },
-                    {
-                        "name": "VCT Game / osu! Client",
-                        "source_uuid": "6bff3399-2b49-42e8-8228-f62360d9d82b",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 2,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 1
-                        }
-                    },
-                    {
-                        "name": "VCT Casters / Discord",
-                        "source_uuid": "099797b5-e64f-4b06-bf39-989d43a0f07e",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 3,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 1
-                        }
                     }
                 ]
             },
@@ -3754,7 +4099,7 @@
             "id": "scene",
             "versioned_id": "scene",
             "settings": {
-                "id_counter": 5,
+                "id_counter": 6,
                 "items": [
                     {
                         "name": "QUALIFIER RESULTS OVERLAY",
@@ -3986,6 +4331,64 @@
                         "private_settings": {
                             "color": "",
                             "color-preset": 1
+                        }
+                    },
+                    {
+                        "name": "CUSTOM MAP ALERT",
+                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0,
+                        "scale_ref": {
+                            "x": 1920,
+                            "y": 1080
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 5,
+                        "group_item_backup": false,
+                        "pos": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "pos_rel": {
+                            "x": -1.7777777910232544,
+                            "y": -1
+                        },
+                        "scale": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "scale_rel": {
+                            "x": 1,
+                            "y": 1
+                        },
+                        "bounds": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "bounds_rel": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {
+                            "color": "",
+                            "color-preset": 2
                         }
                     }
                 ]

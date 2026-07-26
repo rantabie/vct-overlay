@@ -16,4 +16,9 @@ body {
   width: 1920px;
   height: 1080px;
   object-fit: cover;
+  opacity: 0;
+}
+
+.custom-map-alert.is-visible {
+  opacity: 1;
 }
