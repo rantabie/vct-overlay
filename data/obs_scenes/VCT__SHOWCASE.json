@@ -3500,7 +3500,7 @@
             "id": "browser_source",
             "versioned_id": "browser_source",
             "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/qualifier-results/?fresh=1",
+                "url": "https://rantabie.github.io/vct-overlay/overlays/qualifier-results/?fresh=1&v=stats-order-2",
                 "width": 2240,
                 "height": 1080,
                 "reroute_audio": false,

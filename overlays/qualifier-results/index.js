@@ -2,7 +2,11 @@
   "use strict";
 
   const DATA_URL = "../../data/seeding.json";
-  const STORAGE_KEY = "vct.qualifierResults.data.v2";
+  const STORAGE_KEY = "vct.qualifierResults.data.v3";
+  const OLD_STORAGE_KEYS = [
+    "vct.qualifierResults.data",
+    "vct.qualifierResults.data.v2"
+  ];
   const DEFAULT_AVATAR = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
   const DEFAULT_BRACKETS = [
     { mod: "NM", label: "NM", seedLabel: "NM Seed" },
@@ -50,12 +54,17 @@
   start();
 
   async function start() {
+    clearOldSavedData();
     wireControls();
     data = await loadData();
     normaliseData();
     playerIndex = resolveInitialPlayerIndex();
     renderPlayerOptions();
     render();
+  }
+
+  function clearOldSavedData() {
+    OLD_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
   }
 
   function wireControls() {
@@ -477,8 +486,14 @@
 
   function sortQualifierPlayers(players) {
     return players
-      .filter((player) => Number.isFinite(player.qualifierSeedValue))
+      .filter((player) => Number.isFinite(player.qualifierSeedValue) && hasQualifierResultData(player))
       .sort((a, b) => a.qualifierSeedValue - b.qualifierSeedValue || a.username.localeCompare(b.username));
+  }
+
+  function hasQualifierResultData(player) {
+    return Object.values(player.scores || {}).some((score) => (
+      cleanText(score.score) || cleanText(score.rank)
+    ));
   }
 
   function getInitials(value) {

@@ -1,0 +1,64 @@
+Qualifier Results Reorganization Report
+=======================================
+Source file: C:\Users\User\Downloads\random data - Sheet1.csv
+Output CSV: C:\Users\User\Documents\vct-overlay\data\qualifier-results-reorganized.csv
+
+Raw cell count: 726
+Header cells: 22
+Data rows parsed: 32
+
+Output columns:
+seed, username, percent_max_sum, avg_score, NM1_rank, NM2_rank, NM3_rank, HD1_rank, HD2_rank, HR1_rank, HR2_rank, DT1_rank, DT2_rank, NM1_score, NM2_score, NM3_score, HD1_score, HD2_score, HR1_score, HR2_score, DT1_score, DT2_score
+
+Seed order from CSV:
+1: Tenwa
+2: nam2007vn
+3: -Miya
+4: Hana Yukiko
+5: Minorin_
+6: Huytimeclock
+7: AnhMinh_709
+8: -[SnowFlakes]-
+9: [GB]Kita-
+10: MyWifeFuuka
+11: _Durandal_
+12: mothernature
+13: nottruong2011
+14: DyAnhLikeLemon
+15: caophihung
+16: ndkcuber
+17: duongduo020810
+18: tam_biet
+19: Crystria
+20: nothing0074
+21: TuongTho2k8
+22: electrostrike
+23: MashedPotato
+24: vusonbn
+25: TheWorstMapper
+26: Kuru Shirokane
+27: policevn
+28: aiyern
+29: Krystal Quan
+30: leminhtam23
+31: Cessna
+32: GamerChris
+
+Names in CSV but not exact-match in data/seeding.json:
+<none>
+
+Names in data/seeding.json but not in CSV:
+MikAIsWashed
+ThucNg
+LynX6140
+Beu
+Free Chips Pls
+[HR]RalseiMania
+
+Seed/name mismatches against current data/seeding.json:
+<none>
+
+Note: duplicate original map headers were split into *_rank first and *_score second.
+
+Field-by-field comparison with data/seeding.json:
+<all 32 CSV rows match current data/seeding.json>
