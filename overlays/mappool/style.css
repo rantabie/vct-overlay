@@ -292,10 +292,12 @@ body[data-stage="grandfinals"] {
   display: -webkit-box;
   overflow: hidden;
   max-width: 100%;
-  font-family: "Berkshire Swash", Georgia, serif;
-  font-size: 29px;
-  font-weight: 400;
-  line-height: 1.08;
+  font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 31px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.03;
+  text-shadow: 0 2px 0 rgba(89, 72, 60, 0.48), 0 6px 12px rgba(0, 0, 0, 0.34);
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
