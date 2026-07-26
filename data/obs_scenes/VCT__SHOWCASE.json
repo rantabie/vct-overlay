@@ -249,6 +249,13 @@
             "hotkeys": [],
             "id": 13,
             "fade_to_black": false
+        },
+        {
+            "name": "Custom Map Reveal",
+            "duration": 250,
+            "hotkeys": [],
+            "id": 14,
+            "fade_to_black": false
         }
     ],
     "transitions": [
@@ -259,6 +266,15 @@
                 "path": "C:/Users/User/Documents/vct-overlay/assets/vct/overlay/VCT Transition.stinger.mov",
                 "tp_type": 1,
                 "transition_point": 48
+            }
+        },
+        {
+            "name": "Custom Map Reveal",
+            "id": "obs_stinger_transition",
+            "settings": {
+                "path": "C:/Users/User/Documents/vct-overlay/assets/vct/overlay/custom-map-reveal.stinger.mp4",
+                "tp_type": 1,
+                "transition_point": 240
             }
         }
     ],
@@ -681,64 +697,6 @@
                             "color": "",
                             "color-preset": 1
                         }
-                    },
-                    {
-                        "name": "CUSTOM MAP ALERT",
-                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 7,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
-                        }
                     }
                 ]
             },
@@ -1065,64 +1023,6 @@
                         "private_settings": {
                             "color": "",
                             "color-preset": 1
-                        }
-                    },
-                    {
-                        "name": "CUSTOM MAP ALERT",
-                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 7,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
                         }
                     }
                 ]
@@ -1451,64 +1351,6 @@
                             "color": "",
                             "color-preset": 1
                         }
-                    },
-                    {
-                        "name": "CUSTOM MAP ALERT",
-                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 7,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
-                        }
                     }
                 ]
             },
@@ -1835,64 +1677,6 @@
                         "private_settings": {
                             "color": "",
                             "color-preset": 1
-                        }
-                    },
-                    {
-                        "name": "CUSTOM MAP ALERT",
-                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 7,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
                         }
                     }
                 ]
@@ -2221,64 +2005,6 @@
                             "color": "",
                             "color-preset": 1
                         }
-                    },
-                    {
-                        "name": "CUSTOM MAP ALERT",
-                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 7,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
-                        }
                     }
                 ]
             },
@@ -2606,64 +2332,6 @@
                             "color": "",
                             "color-preset": 1
                         }
-                    },
-                    {
-                        "name": "CUSTOM MAP ALERT",
-                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 7,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
-                        }
                     }
                 ]
             },
@@ -2990,64 +2658,6 @@
                         "private_settings": {
                             "color": "",
                             "color-preset": 1
-                        }
-                    },
-                    {
-                        "name": "CUSTOM MAP ALERT",
-                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 7,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
                         }
                     }
                 ]
@@ -3554,64 +3164,6 @@
                             "color": "",
                             "color-preset": 1
                         }
-                    },
-                    {
-                        "name": "CUSTOM MAP ALERT",
-                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 4,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
-                        }
                     }
                 ]
             },
@@ -3943,134 +3495,6 @@
             "private_settings": {}
         },
         {
-            "prev_ver": 520093700,
-            "name": "CUSTOM MAP ALERT VIDEO",
-            "uuid": "c784d0f9-ccdc-4c60-bb42-f71f63135bc9",
-            "id": "browser_source",
-            "versioned_id": "browser_source",
-            "settings": {
-                "url": "https://rantabie.github.io/vct-overlay/overlays/custom-map-alert/",
-                "width": 1920,
-                "height": 1080,
-                "reroute_audio": true,
-                "restart_when_active": true,
-                "shutdown": false
-            },
-            "mixers": 255,
-            "sync": 0,
-            "flags": 0,
-            "volume": 1,
-            "balance": 0.5,
-            "enabled": true,
-            "muted": false,
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "hotkeys": {
-                "libobs.mute": [],
-                "libobs.unmute": [],
-                "libobs.push-to-mute": [],
-                "libobs.push-to-talk": [],
-                "ObsBrowser.Refresh": []
-            },
-            "deinterlace_mode": 0,
-            "deinterlace_field_order": 0,
-            "monitoring_type": 0,
-            "private_settings": {}
-        },
-        {
-            "prev_ver": 520093700,
-            "name": "CUSTOM MAP ALERT",
-            "uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-            "id": "scene",
-            "versioned_id": "scene",
-            "settings": {
-                "custom_size": false,
-                "id_counter": 2,
-                "items": [
-                    {
-                        "name": "CUSTOM MAP ALERT VIDEO",
-                        "source_uuid": "c784d0f9-ccdc-4c60-bb42-f71f63135bc9",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 1,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
-                        }
-                    }
-                ]
-            },
-            "mixers": 0,
-            "sync": 0,
-            "flags": 0,
-            "volume": 1,
-            "balance": 0.5,
-            "enabled": true,
-            "muted": false,
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "hotkeys": {
-                "OBSBasic.SelectScene": [],
-                "libobs.show_scene_item.1": [],
-                "libobs.hide_scene_item.1": []
-            },
-            "deinterlace_mode": 0,
-            "deinterlace_field_order": 0,
-            "monitoring_type": 0,
-            "private_settings": {}
-        },
-        {
             "name": "QUALIFIER RESULTS OVERLAY",
             "uuid": "ba3c227b-06f3-4157-9423-62d9c54e24fa",
             "id": "browser_source",
@@ -4331,64 +3755,6 @@
                         "private_settings": {
                             "color": "",
                             "color-preset": 1
-                        }
-                    },
-                    {
-                        "name": "CUSTOM MAP ALERT",
-                        "source_uuid": "f26f17c7-dfdf-4ff6-8a24-6098a8f0434f",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0,
-                        "scale_ref": {
-                            "x": 1920,
-                            "y": 1080
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 5,
-                        "group_item_backup": false,
-                        "pos": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "pos_rel": {
-                            "x": -1.7777777910232544,
-                            "y": -1
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "scale_rel": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "bounds": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "bounds_rel": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {
-                            "color": "",
-                            "color-preset": 2
                         }
                     }
                 ]
