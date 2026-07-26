@@ -255,6 +255,8 @@ body[data-stage="grandfinals"] {
 
 .detail-label,
 .stat-label {
+  display: block;
+  margin-bottom: 2px;
   color: rgba(249, 228, 211, 0.66);
   font-family: Cambria, Georgia, serif;
   font-size: 15px;
@@ -326,9 +328,10 @@ body[data-stage="grandfinals"] {
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 13px 28px;
+  gap: 12px 24px;
   margin-top: 22px;
   padding-inline: 4px 8px;
+  align-items: start;
 }
 
 .stats-grid > div {
@@ -336,16 +339,20 @@ body[data-stage="grandfinals"] {
   padding: 0;
   border: 0;
   background: transparent;
+  text-align: left;
 }
 
 .stats-grid strong {
   display: block;
   color: var(--vct-cream);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(22px, 1.42vw, 28px);
+  font-family: Cambria, Georgia, "Times New Roman", serif;
+  font-size: 22px;
   font-weight: 700;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
   line-height: 1;
   white-space: nowrap;
+  text-shadow: 0 2px 0 rgba(89, 72, 60, 0.54), 0 5px 10px rgba(0, 0, 0, 0.28);
 }
 
 .showcase-ribbon {

@@ -4,6 +4,7 @@ node_modules/
 *.log
 .env
 .env.local
+data/mappool.json
 assets/vct/overlay/countdown.mp4
 assets/vct/overlay/VCT Transition.mov
 assets/vct/overlay/VCT Transition.fast.mov

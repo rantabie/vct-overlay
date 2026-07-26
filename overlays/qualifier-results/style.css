@@ -153,30 +153,38 @@ body::-webkit-scrollbar {
 
 .seed-summary {
   display: grid;
-  gap: 8px;
-  margin: 25px 0 0;
-  padding: 0 22px;
+  gap: 7px;
+  margin: 24px 0 0;
+  padding: 0 24px;
 }
 
 .seed-summary div {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) 112px;
+  align-items: center;
+  gap: 14px;
+  min-height: 27px;
 }
 
 .seed-summary dt {
   color: rgba(249, 228, 211, 0.72);
-  font-size: 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
   font-weight: 800;
+  line-height: 1;
 }
 
 .seed-summary dd {
   margin: 0;
   color: var(--vct-cream);
-  font-size: 24px;
-  font-weight: 900;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
   text-align: right;
+  text-shadow: 0 2px 4px rgba(42, 30, 22, 0.7);
 }
 
 .bracket-list {

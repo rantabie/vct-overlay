@@ -1,7 +1,8 @@
 (function () {
   "use strict";
 
-  const DATA_URL = "../../data/mappool.json";
+  const DATA_URL = "../../data/mappool.cache.json";
+  const SOURCE_DATA_URL = "../../data/mappool.json";
   const STORAGE_KEY = "vct.mappool.data";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
   const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
@@ -188,17 +189,73 @@
     }
 
     try {
-      const response = await fetch(`${DATA_URL}?v=${Date.now()}`, { cache: "no-store" });
-      if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-      const json = await response.json();
-      setDiagnostics({ json: `loaded ${DATA_URL}` });
-      setControlStatus(`Loaded ${DATA_URL}.`);
+      const cache = await fetchJson(DATA_URL);
+      const source = await fetchJson(SOURCE_DATA_URL).catch(() => null);
+      const json = source ? mergeMappoolSource(cache, source) : cache;
+      setDiagnostics({ json: `loaded ${source ? SOURCE_DATA_URL : DATA_URL}` });
+      setControlStatus(`Loaded ${source ? `${SOURCE_DATA_URL} + ${DATA_URL}` : DATA_URL}.`);
       return json;
     } catch (error) {
       setDiagnostics({ json: `failed: ${error.message}` });
       setControlStatus(`Using built-in placeholder data. Could not read ${DATA_URL}: ${error.message}`);
       return structuredClone(fallbackData);
     }
+  }
+
+  async function fetchJson(url) {
+    const response = await fetch(`${url}?v=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+    return response.json();
+  }
+
+  function mergeMappoolSource(cacheData, sourceData) {
+    const cache = Array.isArray(cacheData) ? { maps: cacheData } : cacheData;
+    const source = Array.isArray(sourceData) ? { maps: sourceData } : sourceData;
+    const cacheMaps = Array.isArray(cache.maps) ? cache.maps : [];
+    const sourceMaps = Array.isArray(source.maps) ? source.maps : [];
+
+    if (!sourceMaps.length) return cacheData;
+
+    const byPick = new Map(cacheMaps.map((map) => [stringifyId(map.pick).toUpperCase(), map]));
+    const byId = new Map(cacheMaps.map((map) => [stringifyId(map.beatmapId || map.id), map]).filter(([id]) => id));
+    const maps = sourceMaps.map((map) => {
+      const cached = byId.get(stringifyId(map.beatmapId || map.id)) || byPick.get(stringifyId(map.pick).toUpperCase()) || {};
+      return mergeMap(cached, map);
+    });
+
+    return {
+      ...cache,
+      ...source,
+      maps
+    };
+  }
+
+  function mergeMap(cached, source) {
+    const merged = { ...cached };
+
+    Object.entries(source).forEach(([key, value]) => {
+      if (shouldUseSourceValue(value)) {
+        merged[key] = value;
+      }
+    });
+
+    const aliases = [
+      ...(Array.isArray(cached.aliases) ? cached.aliases : []),
+      ...(Array.isArray(source.aliases) ? source.aliases : [])
+    ].map(stringifyId).filter(Boolean);
+
+    if (aliases.length) {
+      merged.aliases = [...new Set(aliases)];
+    }
+
+    return merged;
+  }
+
+  function shouldUseSourceValue(value) {
+    if (value === undefined || value === null) return false;
+    if (typeof value === "string") return value.trim() !== "";
+    if (Array.isArray(value)) return value.length > 0;
+    return true;
   }
 
   function normalisePool() {
@@ -221,11 +278,13 @@
       difficulty: map.difficulty || map.version || "",
       mapper: map.mapper || map.mappers || "",
       sr: map.sr || map.starRating || "",
+      moddedSr: map.moddedSr || map.modded?.sr || "",
       ar: map.ar || map.approachRate || map.od || "",
       cs: map.cs || map.circleSize || map.CS || "",
       bpm: map.bpm || "",
       length: map.length || map.drainTime || map.drainLength || map.totalLength || "",
       lengthMs: normaliseDurationMs(map.lengthMs || map.drainTimeMs || map.durationMs || map.drainLengthSeconds || map.totalLengthSeconds || ""),
+      mods: normaliseMods(map.mods),
       background: normaliseBackgroundList(map.background || getCoverCandidates(map.cover)),
       original: Boolean(map.original),
       custom: Boolean(map.custom || map.isCustom)
@@ -300,19 +359,19 @@
   }
 
   function updateDetails(source, live, instant) {
-    const mods = inferDisplayMods(source.pick, live?.mods);
-    const lengthSource = live?.length || source.length || "--:--";
-    const lengthMs = live?.lengthMs || source.lengthMs || parseDurationMs(lengthSource);
+    const mods = inferDisplayMods(source.pick, [...normaliseMods(source.mods), ...normaliseMods(live?.mods)]);
+    const lengthSource = source.length || live?.length || "--:--";
+    const lengthMs = source.lengthMs || live?.lengthMs || parseDurationMs(lengthSource);
     const item = {
       pick: source.pick || (live ? "LIVE" : "VCT"),
       title: live?.title || source.title || "Waiting for current beatmap",
       artist: live?.artist || source.artist || pool.tournament,
       difficulty: live?.difficulty || source.difficulty || inferCatchPool(source.pick),
       mapper: source.mapper || live?.mapper || "Unknown mapper",
-      sr: formatStat(live?.sr || source.sr, "-.--"),
-      ar: formatModdedAr(live?.ar || source.ar, mods),
-      cs: formatStat(live?.cs || source.cs, "-.-"),
-      bpm: formatBpm(live?.bpm || source.bpm),
+      sr: formatStat(live?.sr || source.moddedSr || source.sr, "-.--"),
+      ar: formatModdedAr(source.ar || live?.ar, mods),
+      cs: formatModdedCs(source.cs || live?.cs, mods),
+      bpm: formatModdedBpm(source.bpm || live?.bpm, mods),
       length: formatModdedLength(lengthSource, lengthMs, mods),
       background: live?.background || source.background || "",
       original: Boolean(source.original),
@@ -599,6 +658,20 @@
     return `${formatTime(number / 1.5)}*`;
   }
 
+  function formatModdedCs(value, mods) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return formatStat(value, "-.-");
+
+    const cs = mods.hr ? Math.min(10, number * 1.3) : number;
+    return `${formatStat(cs, "-.-")}${mods.hr ? "*" : ""}`;
+  }
+
+  function formatModdedBpm(value, mods) {
+    const formatted = formatBpmWithMultiplier(value, mods.dt ? 1.5 : 1);
+    if (!formatted || formatted === "---") return formatted;
+    return `${formatted}${mods.dt ? "*" : ""}`;
+  }
+
   function arToMs(ar) {
     return ar < 5 ? 1800 - (120 * ar) : 1200 - (150 * (ar - 5));
   }
@@ -615,10 +688,14 @@
   }
 
   function formatBpm(value) {
+    return formatBpmWithMultiplier(value, 1);
+  }
+
+  function formatBpmWithMultiplier(value, multiplier) {
     if (value === undefined || value === null || value === "") return "---";
     return String(value)
       .replace(/\s+/g, "")
-      .replace(/(\d+(?:\.\d+)?)/g, (match) => String(Math.round(Number(match))));
+      .replace(/(\d+(?:\.\d+)?)/g, (match) => String(Math.round(Number(match) * multiplier)));
   }
 
   function formatBpmRange(min, max) {
@@ -667,6 +744,12 @@
       if (Array.isArray(candidate)) return candidate.map((item) => stringifyId(item.acronym || item.name || item));
       return stringifyId(candidate).split(/[^A-Za-z]+/).filter(Boolean);
     });
+  }
+
+  function normaliseMods(value) {
+    if (!value) return [];
+    if (Array.isArray(value)) return value.map((mod) => stringifyId(mod.acronym || mod.name || mod)).filter(Boolean);
+    return stringifyId(value).split(/[^A-Za-z]+/).filter(Boolean);
   }
 
   function stringifyId(value) {
