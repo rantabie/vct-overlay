@@ -2,7 +2,7 @@
   "use strict";
 
   const DATA_URL = "../../data/seeding.json";
-  const STORAGE_KEY = "vct.qualifierResults.data";
+  const STORAGE_KEY = "vct.qualifierResults.data.v2";
   const DEFAULT_AVATAR = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
   const DEFAULT_BRACKETS = [
     { mod: "NM", label: "NM", seedLabel: "NM Seed" },
@@ -132,7 +132,7 @@
       title: cleanText(qualifierOverlay.title || source.title) || fallbackData.title,
       brackets: normaliseBrackets(qualifierOverlay.brackets || source.brackets),
       maps: normaliseMaps(qualifierOverlay.maps || qualifierPool.maps || source.maps || source.mappool || source.beatmaps),
-      players: normalisePlayers(source.players || source.results || source.seeds)
+      players: sortQualifierPlayers(normalisePlayers(source.players || source.results || source.seeds))
     };
   }
 
@@ -184,6 +184,7 @@
         avatar: cleanText(player.avatar || player.avatarUrl || player.profilePicture || ""),
         globalRank: formatRank(ranks.catch || ranks.ctb || player.globalRank || player.catchRank || player.rank),
         qualifierSeed: formatRank(qualifier.seed || player.qualifierSeed || player.seed || player.overallSeed),
+        qualifierSeedValue: parseRankNumber(qualifier.seed || player.qualifierSeed || player.seed || player.overallSeed),
         percentMaxSum: formatPercent(getFirstValue(
           qualifier.percentMaxSum,
           qualifier.percent_max_sum,
@@ -309,7 +310,7 @@
     data.players.forEach((player, index) => {
       const option = document.createElement("option");
       option.value = String(index);
-      option.textContent = player.username;
+      option.textContent = `${player.qualifierSeed || "-"} ${player.username}`;
       dom.playerSelect.appendChild(option);
     });
   }
@@ -465,6 +466,19 @@
     if (text === "-") return "-";
     if (!text) return "";
     return text.startsWith("#") ? text : `#${text}`;
+  }
+
+  function parseRankNumber(value) {
+    const text = cleanText(value).replace(/^#/g, "");
+    if (!text) return Number.NaN;
+    const number = Number(text);
+    return Number.isFinite(number) ? number : Number.NaN;
+  }
+
+  function sortQualifierPlayers(players) {
+    return players
+      .filter((player) => Number.isFinite(player.qualifierSeedValue))
+      .sort((a, b) => a.qualifierSeedValue - b.qualifierSeedValue || a.username.localeCompare(b.username));
   }
 
   function getInitials(value) {
