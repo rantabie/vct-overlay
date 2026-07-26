@@ -376,14 +376,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 1,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 1007600,
+            "rank": 1
+          },
+          "NM2": {
+            "score": 1000600,
+            "rank": 1
+          },
+          "NM3": {
+            "score": 962153,
+            "rank": 1
+          },
+          "HD1": {
+            "score": 1012754,
+            "rank": 1
+          },
+          "HD2": {
+            "score": 1002200,
+            "rank": 1
+          },
+          "HR1": {
+            "score": 939529,
+            "rank": 2
+          },
+          "HR2": {
+            "score": 931562,
+            "rank": 1
+          },
+          "DT1": {
+            "score": 948727,
+            "rank": 4
+          },
+          "DT2": {
+            "score": 936949,
+            "rank": 2
+          }
+        },
+        "percentMaxSum": 8.948,
+        "averageScore": 971342
       },
       "profileUrl": "https://osu.ppy.sh/users/8525921/fruits",
       "cover": {
@@ -425,14 +464,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 3,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 981412,
+            "rank": 2
+          },
+          "NM2": {
+            "score": 868212,
+            "rank": 3
+          },
+          "NM3": {
+            "score": 766953,
+            "rank": 10
+          },
+          "HD1": {
+            "score": 824035,
+            "rank": 4
+          },
+          "HD2": {
+            "score": 886881,
+            "rank": 3
+          },
+          "HR1": {
+            "score": 749381,
+            "rank": 7
+          },
+          "HR2": {
+            "score": 814715,
+            "rank": 5
+          },
+          "DT1": {
+            "score": 942706,
+            "rank": 5
+          },
+          "DT2": {
+            "score": 939706,
+            "rank": 1
+          }
+        },
+        "percentMaxSum": 7.958,
+        "averageScore": 863778
       },
       "profileUrl": "https://osu.ppy.sh/users/1942877/fruits",
       "cover": {
@@ -474,14 +552,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 14,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 742211,
+            "rank": 17
+          },
+          "NM2": {
+            "score": 788981,
+            "rank": 8
+          },
+          "NM3": {
+            "score": 729692,
+            "rank": 13
+          },
+          "HD1": {
+            "score": 779318,
+            "rank": 9
+          },
+          "HD2": {
+            "score": 770320,
+            "rank": 7
+          },
+          "HR1": {
+            "score": 592689,
+            "rank": 14
+          },
+          "HR2": {
+            "score": 571587,
+            "rank": 14
+          },
+          "DT1": {
+            "score": 668974,
+            "rank": 19
+          },
+          "DT2": {
+            "score": 605158,
+            "rank": 15
+          }
+        },
+        "percentMaxSum": 6.382,
+        "averageScore": 694326
       },
       "profileUrl": "https://osu.ppy.sh/users/30352551/fruits",
       "cover": {
@@ -523,14 +640,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 20,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 684895,
+            "rank": 18
+          },
+          "NM2": {
+            "score": 449856,
+            "rank": 20
+          },
+          "NM3": {
+            "score": 616023,
+            "rank": 22
+          },
+          "HD1": {
+            "score": 614633,
+            "rank": 13
+          },
+          "HD2": {
+            "score": 613227,
+            "rank": 15
+          },
+          "HR1": {
+            "score": 447277,
+            "rank": 19
+          },
+          "HR2": {
+            "score": 453438,
+            "rank": 20
+          },
+          "DT1": {
+            "score": 785759,
+            "rank": 9
+          },
+          "DT2": {
+            "score": 509810,
+            "rank": 22
+          }
+        },
+        "percentMaxSum": 5.287,
+        "averageScore": 574991
       },
       "profileUrl": "https://osu.ppy.sh/users/17804095/fruits",
       "cover": {
@@ -572,14 +728,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 25,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 415841,
+            "rank": 26
+          },
+          "NM2": {
+            "score": 314005,
+            "rank": 26
+          },
+          "NM3": {
+            "score": 601720,
+            "rank": 24
+          },
+          "HD1": {
+            "score": 356820,
+            "rank": 28
+          },
+          "HD2": {
+            "score": 570206,
+            "rank": 19
+          },
+          "HR1": {
+            "score": 261002,
+            "rank": 25
+          },
+          "HR2": {
+            "score": 363627,
+            "rank": 25
+          },
+          "DT1": {
+            "score": 466201,
+            "rank": 24
+          },
+          "DT2": {
+            "score": 444809,
+            "rank": 27
+          }
+        },
+        "percentMaxSum": 3.885,
+        "averageScore": 421581
       },
       "profileUrl": "https://osu.ppy.sh/users/28080038/fruits",
       "cover": {
@@ -621,14 +816,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 9,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 949226,
+            "rank": 5
+          },
+          "NM2": {
+            "score": 774666,
+            "rank": 10
+          },
+          "NM3": {
+            "score": 854521,
+            "rank": 6
+          },
+          "HD1": {
+            "score": 815810,
+            "rank": 5
+          },
+          "HD2": {
+            "score": 780609,
+            "rank": 6
+          },
+          "HR1": {
+            "score": 660827,
+            "rank": 12
+          },
+          "HR2": {
+            "score": 592711,
+            "rank": 13
+          },
+          "DT1": {
+            "score": 722184,
+            "rank": 14
+          },
+          "DT2": {
+            "score": 632626,
+            "rank": 13
+          }
+        },
+        "percentMaxSum": 6.926,
+        "averageScore": 753687
       },
       "profileUrl": "https://osu.ppy.sh/users/27175001/fruits",
       "cover": {
@@ -670,14 +904,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 13,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 942705,
+            "rank": 6
+          },
+          "NM2": {
+            "score": 807158,
+            "rank": 7
+          },
+          "NM3": {
+            "score": 819342,
+            "rank": 8
+          },
+          "HD1": {
+            "score": 423169,
+            "rank": 21
+          },
+          "HD2": {
+            "score": 387590,
+            "rank": 31
+          },
+          "HR1": {
+            "score": 732948,
+            "rank": 9
+          },
+          "HR2": {
+            "score": 594554,
+            "rank": 12
+          },
+          "DT1": {
+            "score": 834434,
+            "rank": 8
+          },
+          "DT2": {
+            "score": 761452,
+            "rank": 9
+          }
+        },
+        "percentMaxSum": 6.465,
+        "averageScore": 700372
       },
       "profileUrl": "https://osu.ppy.sh/users/33376146/fruits",
       "cover": {
@@ -719,14 +992,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 5,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 934968,
+            "rank": 8
+          },
+          "NM2": {
+            "score": 836164,
+            "rank": 5
+          },
+          "NM3": {
+            "score": 814826,
+            "rank": 9
+          },
+          "HD1": {
+            "score": 793690,
+            "rank": 7
+          },
+          "HD2": {
+            "score": 736078,
+            "rank": 9
+          },
+          "HR1": {
+            "score": 729447,
+            "rank": 10
+          },
+          "HR2": {
+            "score": 794789,
+            "rank": 6
+          },
+          "DT1": {
+            "score": 973142,
+            "rank": 3
+          },
+          "DT2": {
+            "score": 858606,
+            "rank": 6
+          }
+        },
+        "percentMaxSum": 7.651,
+        "averageScore": 830190
       },
       "profileUrl": "https://osu.ppy.sh/users/10275799/fruits",
       "cover": {
@@ -768,14 +1080,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 32,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 117539,
+            "rank": 32
+          },
+          "NM2": {
+            "score": 99358,
+            "rank": 32
+          },
+          "NM3": {
+            "score": 313956,
+            "rank": 32
+          },
+          "HD1": {
+            "score": 225313,
+            "rank": 31
+          },
+          "HD2": {
+            "score": 387891,
+            "rank": 30
+          },
+          "HR1": {
+            "score": 57837,
+            "rank": 32
+          },
+          "HR2": {
+            "score": 148791,
+            "rank": 30
+          },
+          "DT1": {
+            "score": 165875,
+            "rank": 32
+          },
+          "DT2": {
+            "score": 202198,
+            "rank": 32
+          }
+        },
+        "percentMaxSum": 1.756,
+        "averageScore": 190973
       },
       "profileUrl": "https://osu.ppy.sh/users/36042814/fruits",
       "cover": {
@@ -866,14 +1217,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 7,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 828608,
+            "rank": 14
+          },
+          "NM2": {
+            "score": 735119,
+            "rank": 13
+          },
+          "NM3": {
+            "score": 893774,
+            "rank": 3
+          },
+          "HD1": {
+            "score": 721812,
+            "rank": 10
+          },
+          "HD2": {
+            "score": 830441,
+            "rank": 4
+          },
+          "HR1": {
+            "score": 757129,
+            "rank": 6
+          },
+          "HR2": {
+            "score": 912683,
+            "rank": 2
+          },
+          "DT1": {
+            "score": 726736,
+            "rank": 13
+          },
+          "DT2": {
+            "score": 813200,
+            "rank": 7
+          }
+        },
+        "percentMaxSum": 7.406,
+        "averageScore": 802167
       },
       "profileUrl": "https://osu.ppy.sh/users/27819084/fruits",
       "cover": {
@@ -915,14 +1305,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 10,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 922194,
+            "rank": 9
+          },
+          "NM2": {
+            "score": 757771,
+            "rank": 12
+          },
+          "NM3": {
+            "score": 756921,
+            "rank": 11
+          },
+          "HD1": {
+            "score": 793694,
+            "rank": 6
+          },
+          "HD2": {
+            "score": 621428,
+            "rank": 14
+          },
+          "HR1": {
+            "score": 765068,
+            "rank": 5
+          },
+          "HR2": {
+            "score": 623697,
+            "rank": 11
+          },
+          "DT1": {
+            "score": 784035,
+            "rank": 10
+          },
+          "DT2": {
+            "score": 741867,
+            "rank": 11
+          }
+        },
+        "percentMaxSum": 6.922,
+        "averageScore": 751853
       },
       "profileUrl": "https://osu.ppy.sh/users/35863392/fruits",
       "cover": {
@@ -964,14 +1393,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 28,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 399130,
+            "rank": 27
+          },
+          "NM2": {
+            "score": 275054,
+            "rank": 28
+          },
+          "NM3": {
+            "score": 546885,
+            "rank": 26
+          },
+          "HD1": {
+            "score": 361893,
+            "rank": 27
+          },
+          "HD2": {
+            "score": 555233,
+            "rank": 20
+          },
+          "HR1": {
+            "score": 235157,
+            "rank": 27
+          },
+          "HR2": {
+            "score": 348889,
+            "rank": 26
+          },
+          "DT1": {
+            "score": 381416,
+            "rank": 27
+          },
+          "DT2": {
+            "score": 459820,
+            "rank": 26
+          }
+        },
+        "percentMaxSum": 3.65,
+        "averageScore": 395942
       },
       "profileUrl": "https://osu.ppy.sh/users/13826244/fruits",
       "cover": {
@@ -1062,14 +1530,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 6,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 937778,
+            "rank": 7
+          },
+          "NM2": {
+            "score": 770869,
+            "rank": 11
+          },
+          "NM3": {
+            "score": 938190,
+            "rank": 2
+          },
+          "HD1": {
+            "score": 909262,
+            "rank": 3
+          },
+          "HD2": {
+            "score": 897754,
+            "rank": 2
+          },
+          "HR1": {
+            "score": 702242,
+            "rank": 11
+          },
+          "HR2": {
+            "score": 720424,
+            "rank": 9
+          },
+          "DT1": {
+            "score": 704190,
+            "rank": 15
+          },
+          "DT2": {
+            "score": 776227,
+            "rank": 8
+          }
+        },
+        "percentMaxSum": 7.522,
+        "averageScore": 817437
       },
       "profileUrl": "https://osu.ppy.sh/users/10920086/fruits",
       "cover": {
@@ -1111,14 +1618,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 26,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 435683,
+            "rank": 25
+          },
+          "NM2": {
+            "score": 415831,
+            "rank": 23
+          },
+          "NM3": {
+            "score": 586796,
+            "rank": 25
+          },
+          "HD1": {
+            "score": 439161,
+            "rank": 20
+          },
+          "HD2": {
+            "score": 651715,
+            "rank": 13
+          },
+          "HR1": {
+            "score": 286598,
+            "rank": 24
+          },
+          "HR2": {
+            "score": 100392,
+            "rank": 31
+          },
+          "DT1": {
+            "score": 429801,
+            "rank": 25
+          },
+          "DT2": {
+            "score": 426338,
+            "rank": 28
+          }
+        },
+        "percentMaxSum": 3.841,
+        "averageScore": 419146
       },
       "profileUrl": "https://osu.ppy.sh/users/29662189/fruits",
       "cover": {
@@ -1160,14 +1706,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 23,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 518480,
+            "rank": 23
+          },
+          "NM2": {
+            "score": 391997,
+            "rank": 24
+          },
+          "NM3": {
+            "score": 640620,
+            "rank": 21
+          },
+          "HD1": {
+            "score": 472758,
+            "rank": 19
+          },
+          "HD2": {
+            "score": 426488,
+            "rank": 29
+          },
+          "HR1": {
+            "score": 412743,
+            "rank": 21
+          },
+          "HR2": {
+            "score": 451114,
+            "rank": 21
+          },
+          "DT1": {
+            "score": 532131,
+            "rank": 22
+          },
+          "DT2": {
+            "score": 573263,
+            "rank": 17
+          }
+        },
+        "percentMaxSum": 4.533,
+        "averageScore": 491066
       },
       "profileUrl": "https://osu.ppy.sh/users/10494860/fruits",
       "cover": {
@@ -1209,14 +1794,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 22,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 560549,
+            "rank": 22
+          },
+          "NM2": {
+            "score": 419472,
+            "rank": 22
+          },
+          "NM3": {
+            "score": 544578,
+            "rank": 27
+          },
+          "HD1": {
+            "score": 534781,
+            "rank": 16
+          },
+          "HD2": {
+            "score": 574109,
+            "rank": 18
+          },
+          "HR1": {
+            "score": 400740,
+            "rank": 23
+          },
+          "HR2": {
+            "score": 455204,
+            "rank": 19
+          },
+          "DT1": {
+            "score": 573532,
+            "rank": 21
+          },
+          "DT2": {
+            "score": 491965,
+            "rank": 24
+          }
+        },
+        "percentMaxSum": 4.659,
+        "averageScore": 506103
       },
       "profileUrl": "https://osu.ppy.sh/users/11538640/fruits",
       "cover": {
@@ -1258,14 +1882,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 17,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 837779,
+            "rank": 13
+          },
+          "NM2": {
+            "score": 585684,
+            "rank": 17
+          },
+          "NM3": {
+            "score": 645192,
+            "rank": 20
+          },
+          "HD1": {
+            "score": 626730,
+            "rank": 12
+          },
+          "HD2": {
+            "score": 611343,
+            "rank": 16
+          },
+          "HR1": {
+            "score": 502440,
+            "rank": 17
+          },
+          "HR2": {
+            "score": 508343,
+            "rank": 16
+          },
+          "DT1": {
+            "score": 491564,
+            "rank": 23
+          },
+          "DT2": {
+            "score": 525629,
+            "rank": 21
+          }
+        },
+        "percentMaxSum": 5.449,
+        "averageScore": 592745
       },
       "profileUrl": "https://osu.ppy.sh/users/35689909/fruits",
       "cover": {
@@ -1307,14 +1970,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 4,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 958029,
+            "rank": 4
+          },
+          "NM2": {
+            "score": 867281,
+            "rank": 4
+          },
+          "NM3": {
+            "score": 826038,
+            "rank": 7
+          },
+          "HD1": {
+            "score": 719713,
+            "rank": 11
+          },
+          "HD2": {
+            "score": 694314,
+            "rank": 11
+          },
+          "HR1": {
+            "score": 849729,
+            "rank": 3
+          },
+          "HR2": {
+            "score": 838474,
+            "rank": 4
+          },
+          "DT1": {
+            "score": 982060,
+            "rank": 1
+          },
+          "DT2": {
+            "score": 883858,
+            "rank": 4
+          }
+        },
+        "percentMaxSum": 7.811,
+        "averageScore": 846611
       },
       "profileUrl": "https://osu.ppy.sh/users/4964095/fruits",
       "cover": {
@@ -1356,14 +2058,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 21,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 613645,
+            "rank": 21
+          },
+          "NM2": {
+            "score": 421381,
+            "rank": 21
+          },
+          "NM3": {
+            "score": 741140,
+            "rank": 12
+          },
+          "HD1": {
+            "score": 414536,
+            "rank": 22
+          },
+          "HD2": {
+            "score": 529244,
+            "rank": 21
+          },
+          "HR1": {
+            "score": 409238,
+            "rank": 22
+          },
+          "HR2": {
+            "score": 471941,
+            "rank": 18
+          },
+          "DT1": {
+            "score": 671365,
+            "rank": 18
+          },
+          "DT2": {
+            "score": 548283,
+            "rank": 20
+          }
+        },
+        "percentMaxSum": 4.941,
+        "averageScore": 535641
       },
       "profileUrl": "https://osu.ppy.sh/users/27944659/fruits",
       "cover": {
@@ -1405,14 +2146,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 16,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 790320,
+            "rank": 15
+          },
+          "NM2": {
+            "score": 610861,
+            "rank": 16
+          },
+          "NM3": {
+            "score": 702871,
+            "rank": 16
+          },
+          "HD1": {
+            "score": 505634,
+            "rank": 18
+          },
+          "HD2": {
+            "score": 460618,
+            "rank": 25
+          },
+          "HR1": {
+            "score": 524150,
+            "rank": 16
+          },
+          "HR2": {
+            "score": 505922,
+            "rank": 17
+          },
+          "DT1": {
+            "score": 675734,
+            "rank": 17
+          },
+          "DT2": {
+            "score": 570563,
+            "rank": 19
+          }
+        },
+        "percentMaxSum": 5.472,
+        "averageScore": 594075
       },
       "profileUrl": "https://osu.ppy.sh/users/26635826/fruits",
       "cover": {
@@ -1454,14 +2234,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 8,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 838730,
+            "rank": 12
+          },
+          "NM2": {
+            "score": 781410,
+            "rank": 9
+          },
+          "NM3": {
+            "score": 884043,
+            "rank": 5
+          },
+          "HD1": {
+            "score": 556399,
+            "rank": 14
+          },
+          "HD2": {
+            "score": 661256,
+            "rank": 12
+          },
+          "HR1": {
+            "score": 742517,
+            "rank": 8
+          },
+          "HR2": {
+            "score": 790510,
+            "rank": 7
+          },
+          "DT1": {
+            "score": 932104,
+            "rank": 6
+          },
+          "DT2": {
+            "score": 883598,
+            "rank": 5
+          }
+        },
+        "percentMaxSum": 7.258,
+        "averageScore": 785619
       },
       "profileUrl": "https://osu.ppy.sh/users/19207842/fruits",
       "cover": {
@@ -1552,14 +2371,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 24,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 482667,
+            "rank": 24
+          },
+          "NM2": {
+            "score": 335956,
+            "rank": 25
+          },
+          "NM3": {
+            "score": 688087,
+            "rank": 17
+          },
+          "HD1": {
+            "score": 385626,
+            "rank": 24
+          },
+          "HD2": {
+            "score": 427277,
+            "rank": 27
+          },
+          "HR1": {
+            "score": 232568,
+            "rank": 28
+          },
+          "HR2": {
+            "score": 386379,
+            "rank": 24
+          },
+          "DT1": {
+            "score": 393994,
+            "rank": 26
+          },
+          "DT2": {
+            "score": 584840,
+            "rank": 16
+          }
+        },
+        "percentMaxSum": 4.019,
+        "averageScore": 435266
       },
       "profileUrl": "https://osu.ppy.sh/users/15852798/fruits",
       "cover": {
@@ -1601,14 +2459,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 31,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 192640,
+            "rank": 31
+          },
+          "NM2": {
+            "score": 164069,
+            "rank": 30
+          },
+          "NM3": {
+            "score": 386036,
+            "rank": 30
+          },
+          "HD1": {
+            "score": 259267,
+            "rank": 29
+          },
+          "HD2": {
+            "score": 426914,
+            "rank": 28
+          },
+          "HR1": {
+            "score": 105708,
+            "rank": 31
+          },
+          "HR2": {
+            "score": 217023,
+            "rank": 29
+          },
+          "DT1": {
+            "score": 206568,
+            "rank": 31
+          },
+          "DT2": {
+            "score": 264026,
+            "rank": 31
+          }
+        },
+        "percentMaxSum": 2.273,
+        "averageScore": 246917
       },
       "profileUrl": "https://osu.ppy.sh/users/16868806/fruits",
       "cover": {
@@ -1650,14 +2547,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 19,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 671963,
+            "rank": 19
+          },
+          "NM2": {
+            "score": 524260,
+            "rank": 19
+          },
+          "NM3": {
+            "score": 715983,
+            "rank": 14
+          },
+          "HD1": {
+            "score": 367011,
+            "rank": 26
+          },
+          "HD2": {
+            "score": 453835,
+            "rank": 26
+          },
+          "HR1": {
+            "score": 470845,
+            "rank": 18
+          },
+          "HR2": {
+            "score": 570093,
+            "rank": 15
+          },
+          "DT1": {
+            "score": 775054,
+            "rank": 11
+          },
+          "DT2": {
+            "score": 623580,
+            "rank": 14
+          }
+        },
+        "percentMaxSum": 5.309,
+        "averageScore": 574736
       },
       "profileUrl": "https://osu.ppy.sh/users/14772180/fruits",
       "cover": {
@@ -1699,14 +2635,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 30,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 212154,
+            "rank": 29
+          },
+          "NM2": {
+            "score": 207916,
+            "rank": 29
+          },
+          "NM3": {
+            "score": 399699,
+            "rank": 29
+          },
+          "HD1": {
+            "score": 229497,
+            "rank": 30
+          },
+          "HD2": {
+            "score": 381290,
+            "rank": 32
+          },
+          "HR1": {
+            "score": 150422,
+            "rank": 29
+          },
+          "HR2": {
+            "score": 46131,
+            "rank": 32
+          },
+          "DT1": {
+            "score": 262697,
+            "rank": 29
+          },
+          "DT2": {
+            "score": 355339,
+            "rank": 29
+          }
+        },
+        "percentMaxSum": 2.294,
+        "averageScore": 249461
       },
       "profileUrl": "https://osu.ppy.sh/users/34897682/fruits",
       "cover": {
@@ -1748,14 +2723,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 12,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 652990,
+            "rank": 20
+          },
+          "NM2": {
+            "score": 719326,
+            "rank": 14
+          },
+          "NM3": {
+            "score": 602131,
+            "rank": 23
+          },
+          "HD1": {
+            "score": 793083,
+            "rank": 8
+          },
+          "HD2": {
+            "score": 750983,
+            "rank": 8
+          },
+          "HR1": {
+            "score": 660024,
+            "rank": 13
+          },
+          "HR2": {
+            "score": 714784,
+            "rank": 10
+          },
+          "DT1": {
+            "score": 701103,
+            "rank": 16
+          },
+          "DT2": {
+            "score": 728508,
+            "rank": 12
+          }
+        },
+        "percentMaxSum": 6.474,
+        "averageScore": 702548
       },
       "profileUrl": "https://osu.ppy.sh/users/6403418/fruits",
       "cover": {
@@ -1846,14 +2860,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 27,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 372854,
+            "rank": 28
+          },
+          "NM2": {
+            "score": 284284,
+            "rank": 27
+          },
+          "NM3": {
+            "score": 539215,
+            "rank": 28
+          },
+          "HD1": {
+            "score": 396176,
+            "rank": 23
+          },
+          "HD2": {
+            "score": 588853,
+            "rank": 17
+          },
+          "HR1": {
+            "score": 244833,
+            "rank": 26
+          },
+          "HR2": {
+            "score": 335594,
+            "rank": 27
+          },
+          "DT1": {
+            "score": 368440,
+            "rank": 28
+          },
+          "DT2": {
+            "score": 484869,
+            "rank": 25
+          }
+        },
+        "percentMaxSum": 3.701,
+        "averageScore": 401680
       },
       "profileUrl": "https://osu.ppy.sh/users/17619649/fruits",
       "cover": {
@@ -1895,14 +2948,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 11,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 847838,
+            "rank": 11
+          },
+          "NM2": {
+            "score": 807763,
+            "rank": 6
+          },
+          "NM3": {
+            "score": 704453,
+            "rank": 15
+          },
+          "HD1": {
+            "score": 548143,
+            "rank": 15
+          },
+          "HD2": {
+            "score": 464392,
+            "rank": 24
+          },
+          "HR1": {
+            "score": 833191,
+            "rank": 4
+          },
+          "HR2": {
+            "score": 759306,
+            "rank": 8
+          },
+          "DT1": {
+            "score": 835325,
+            "rank": 7
+          },
+          "DT2": {
+            "score": 757099,
+            "rank": 10
+          }
+        },
+        "percentMaxSum": 6.73,
+        "averageScore": 728612
       },
       "profileUrl": "https://osu.ppy.sh/users/37162760/fruits",
       "cover": {
@@ -1944,14 +3036,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 29,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 203036,
+            "rank": 30
+          },
+          "NM2": {
+            "score": 162957,
+            "rank": 31
+          },
+          "NM3": {
+            "score": 383887,
+            "rank": 31
+          },
+          "HD1": {
+            "score": 178688,
+            "rank": 32
+          },
+          "HD2": {
+            "score": 518282,
+            "rank": 22
+          },
+          "HR1": {
+            "score": 143474,
+            "rank": 30
+          },
+          "HR2": {
+            "score": 250293,
+            "rank": 28
+          },
+          "DT1": {
+            "score": 255131,
+            "rank": 30
+          },
+          "DT2": {
+            "score": 298972,
+            "rank": 30
+          }
+        },
+        "percentMaxSum": 2.454,
+        "averageScore": 266080
       },
       "profileUrl": "https://osu.ppy.sh/users/20569104/fruits",
       "cover": {
@@ -1993,14 +3124,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 18,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 777697,
+            "rank": 16
+          },
+          "NM2": {
+            "score": 571909,
+            "rank": 18
+          },
+          "NM3": {
+            "score": 671531,
+            "rank": 19
+          },
+          "HD1": {
+            "score": 524127,
+            "rank": 17
+          },
+          "HD2": {
+            "score": 714712,
+            "rank": 10
+          },
+          "HR1": {
+            "score": 420401,
+            "rank": 20
+          },
+          "HR2": {
+            "score": 427946,
+            "rank": 23
+          },
+          "DT1": {
+            "score": 586394,
+            "rank": 20
+          },
+          "DT2": {
+            "score": 509768,
+            "rank": 23
+          }
+        },
+        "percentMaxSum": 5.312,
+        "averageScore": 578276
       },
       "profileUrl": "https://osu.ppy.sh/users/38140261/fruits",
       "cover": {
@@ -2042,14 +3212,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 2,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 959783,
+            "rank": 3
+          },
+          "NM2": {
+            "score": 906517,
+            "rank": 2
+          },
+          "NM3": {
+            "score": 886765,
+            "rank": 4
+          },
+          "HD1": {
+            "score": 913275,
+            "rank": 2
+          },
+          "HD2": {
+            "score": 791206,
+            "rank": 5
+          },
+          "HR1": {
+            "score": 953881,
+            "rank": 1
+          },
+          "HR2": {
+            "score": 859122,
+            "rank": 3
+          },
+          "DT1": {
+            "score": 981165,
+            "rank": 2
+          },
+          "DT2": {
+            "score": 884460,
+            "rank": 3
+          }
+        },
+        "percentMaxSum": 8.334,
+        "averageScore": 904019
       },
       "profileUrl": "https://osu.ppy.sh/users/22329458/fruits",
       "cover": {
@@ -2140,14 +3349,53 @@
         "catchCountry": ""
       },
       "qualifier": {
-        "seed": "",
+        "seed": 15,
         "bracketSeeds": {
           "NM": "",
           "HD": "",
           "HR": "",
           "DT": ""
         },
-        "scores": {}
+        "scores": {
+          "NM1": {
+            "score": 867306,
+            "rank": 10
+          },
+          "NM2": {
+            "score": 648000,
+            "rank": 15
+          },
+          "NM3": {
+            "score": 674009,
+            "rank": 18
+          },
+          "HD1": {
+            "score": 378286,
+            "rank": 25
+          },
+          "HD2": {
+            "score": 509409,
+            "rank": 23
+          },
+          "HR1": {
+            "score": 542314,
+            "rank": 15
+          },
+          "HR2": {
+            "score": 449303,
+            "rank": 22
+          },
+          "DT1": {
+            "score": 774470,
+            "rank": 12
+          },
+          "DT2": {
+            "score": 571194,
+            "rank": 18
+          }
+        },
+        "percentMaxSum": 5.538,
+        "averageScore": 601588
       },
       "profileUrl": "https://osu.ppy.sh/users/30832040/fruits",
       "cover": {

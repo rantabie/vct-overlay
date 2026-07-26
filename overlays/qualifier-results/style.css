@@ -153,9 +153,9 @@ body::-webkit-scrollbar {
 
 .seed-summary {
   display: grid;
-  gap: 10px;
-  margin: 32px 0 0;
-  padding: 0 28px;
+  gap: 8px;
+  margin: 25px 0 0;
+  padding: 0 22px;
 }
 
 .seed-summary div {
@@ -167,14 +167,14 @@ body::-webkit-scrollbar {
 
 .seed-summary dt {
   color: rgba(249, 228, 211, 0.72);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
 }
 
 .seed-summary dd {
   margin: 0;
   color: var(--vct-cream);
-  font-size: 29px;
+  font-size: 24px;
   font-weight: 900;
   text-align: right;
 }

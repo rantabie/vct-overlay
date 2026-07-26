@@ -26,6 +26,8 @@
     playerCountry: document.getElementById("playerCountry"),
     globalRank: document.getElementById("globalRank"),
     qualifierSeed: document.getElementById("qualifierSeed"),
+    percentMaxSum: document.getElementById("percentMaxSum"),
+    averageScore: document.getElementById("averageScore"),
     bracketList: document.getElementById("bracketList"),
     emptyState: document.getElementById("emptyState"),
     controlStatus: document.getElementById("controlStatus"),
@@ -171,6 +173,7 @@
 
     return value.map((player, index) => {
       const qualifier = player.qualifier || player.qualifiers || player.qualifierResults || {};
+      const summary = qualifier.summary || qualifier.metrics || player.summary || player.metrics || {};
       const ranks = player.ranks || {};
 
       return {
@@ -181,6 +184,61 @@
         avatar: cleanText(player.avatar || player.avatarUrl || player.profilePicture || ""),
         globalRank: formatRank(ranks.catch || ranks.ctb || player.globalRank || player.catchRank || player.rank),
         qualifierSeed: formatRank(qualifier.seed || player.qualifierSeed || player.seed || player.overallSeed),
+        percentMaxSum: formatPercent(getFirstValue(
+          qualifier.percentMaxSum,
+          qualifier.percent_max_sum,
+          qualifier.percentMax,
+          qualifier["%max sum"],
+          qualifier["%Max Sum"],
+          qualifier["percent max sum"],
+          qualifier["Percent Max Sum"],
+          qualifier.maxPercentSum,
+          qualifier.max_sum_percent,
+          summary.percentMaxSum,
+          summary.percent_max_sum,
+          summary.percentMax,
+          summary["%max sum"],
+          summary["%Max Sum"],
+          summary["percent max sum"],
+          summary["Percent Max Sum"],
+          summary.maxPercentSum,
+          summary.max_sum_percent,
+          player.percentMaxSum,
+          player.percent_max_sum,
+          player.percentMax,
+          player["%max sum"],
+          player["%Max Sum"],
+          player["percent max sum"],
+          player["Percent Max Sum"],
+          player.maxPercentSum,
+          player.max_sum_percent
+        )),
+        averageScore: formatScore(getFirstValue(
+          qualifier.averageScore,
+          qualifier.avgScore,
+          qualifier.avg_score,
+          qualifier["avg score"],
+          qualifier["Avg Score"],
+          qualifier["Avg. Score"],
+          qualifier["average score"],
+          qualifier["Average Score"],
+          summary.averageScore,
+          summary.avgScore,
+          summary.avg_score,
+          summary["avg score"],
+          summary["Avg Score"],
+          summary["Avg. Score"],
+          summary["average score"],
+          summary["Average Score"],
+          player.averageScore,
+          player.avgScore,
+          player.avg_score,
+          player["avg score"],
+          player["Avg Score"],
+          player["Avg. Score"],
+          player["average score"],
+          player["Average Score"]
+        )),
         bracketSeeds: normaliseBracketSeeds(qualifier.bracketSeeds || player.bracketSeeds || player.modSeeds || player.brackets),
         scores: normaliseScores(qualifier.scores || player.scores || player.maps || player.results)
       };
@@ -273,6 +331,8 @@
     dom.playerCountry.textContent = player?.country || "";
     dom.globalRank.textContent = player?.globalRank || "-";
     dom.qualifierSeed.textContent = player?.qualifierSeed || "#---";
+    dom.percentMaxSum.textContent = player?.percentMaxSum || "-";
+    dom.averageScore.textContent = player?.averageScore || "-";
     dom.avatarFallback.textContent = getInitials(name);
 
     if (player?.avatar) {
@@ -383,6 +443,23 @@
     return Number.isFinite(number) ? number.toLocaleString("en-US") : text;
   }
 
+  function formatPercent(value) {
+    const text = cleanText(value);
+    if (!text) return "";
+    if (text === "-") return "-";
+    const numeric = Number(text.replace(/%/g, "").replace(/,/g, ""));
+    if (!Number.isFinite(numeric)) return text;
+    const percent = numeric > 0 && numeric <= 1 ? numeric * 100 : numeric;
+    return `${formatDecimal(percent, 3)}%`;
+  }
+
+  function formatDecimal(value, maximumFractionDigits = 2) {
+    return value.toLocaleString("en-US", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits
+    });
+  }
+
   function formatRank(value) {
     const text = cleanText(value);
     if (text === "-") return "-";
@@ -398,6 +475,10 @@
 
   function cleanText(value) {
     return value === undefined || value === null ? "" : String(value).trim();
+  }
+
+  function getFirstValue(...values) {
+    return values.find((value) => cleanText(value));
   }
 
   function escapeHtml(value) {
