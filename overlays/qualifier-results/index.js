@@ -297,13 +297,15 @@
       const maps = data.maps.filter((map) => map.mod === bracket.mod);
       const section = document.createElement("article");
       section.className = "bracket";
+      section.dataset.mod = bracket.mod.toLowerCase();
+      section.style.setProperty("--map-count", String(Math.max(1, maps.length)));
 
       const header = document.createElement("header");
       header.className = "bracket-header";
+      const bracketSeed = player?.bracketSeeds?.[bracket.mod] || "";
       header.innerHTML = `
-        <div class="mod-seed">
-          <span>${escapeHtml(bracket.seedLabel)}</span>
-          <strong>${escapeHtml(player?.bracketSeeds?.[bracket.mod] || "#---")}</strong>
+        <div class="mod-seed${bracketSeed ? "" : " is-empty"}">
+          <strong>${escapeHtml(bracketSeed)}</strong>
         </div>
       `;
       section.appendChild(header);
@@ -317,11 +319,10 @@
         row.className = "map-row";
         row.innerHTML = `
           <div class="map-copy">
-            <div class="map-title">${escapeHtml(map.title)}</div>
-            <div class="map-meta">${escapeHtml(formatMapMeta(map))}</div>
+            <div class="map-title">${escapeHtml(formatMapLine(map))}</div>
           </div>
-          <div class="map-score">${escapeHtml(score.score || "-")}</div>
-          <div class="map-rank">${escapeHtml(score.rank || "#---")}</div>
+          <div class="map-score">${escapeHtml(score.score || "")}</div>
+          <div class="map-rank">${escapeHtml(score.rank || "")}</div>
         `;
         rows.appendChild(row);
       });
@@ -332,10 +333,9 @@
         row.innerHTML = `
           <div class="map-copy">
             <div class="map-title">No maps added for this bracket</div>
-            <div class="map-meta">Add a map with mod "${escapeHtml(bracket.mod)}"</div>
           </div>
-          <div class="map-score">-</div>
-          <div class="map-rank">#---</div>
+          <div class="map-score"></div>
+          <div class="map-rank"></div>
         `;
         rows.appendChild(row);
       }
@@ -367,12 +367,13 @@
     return cleanText(value);
   }
 
-  function formatMapMeta(map) {
-    return [
-      map.artist,
-      map.difficulty ? `[${map.difficulty}]` : "",
-      map.mapper ? `by ${map.mapper}` : ""
-    ].filter(Boolean).join(" ");
+  function formatMapLine(map) {
+    const title = cleanText(map.title) || "Untitled map";
+    const mapper = cleanText(map.mapper);
+    const artist = cleanText(map.artist);
+    if (mapper) return `${title} by ${mapper}`;
+    if (artist) return `${title} by ${artist}`;
+    return title;
   }
 
   function formatScore(value) {
