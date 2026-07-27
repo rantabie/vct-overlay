@@ -373,7 +373,7 @@
       "avatar": "https://a.ppy.sh/8525921?1773059545.png",
       "ranks": {
         "catch": "#89",
-        "catchCountry": ""
+        "catchCountry": "#1"
       },
       "qualifier": {
         "seed": 1,
@@ -461,7 +461,7 @@
       "avatar": "https://a.ppy.sh/1942877?1752330485.jpeg",
       "ranks": {
         "catch": "#385",
-        "catchCountry": ""
+        "catchCountry": "#6"
       },
       "qualifier": {
         "seed": 3,
@@ -549,7 +549,7 @@
       "avatar": "https://a.ppy.sh/30352551?1783516890.jpeg",
       "ranks": {
         "catch": "#2154",
-        "catchCountry": ""
+        "catchCountry": "#42"
       },
       "qualifier": {
         "seed": 14,
@@ -637,7 +637,7 @@
       "avatar": "https://a.ppy.sh/17804095?1760193759.jpeg",
       "ranks": {
         "catch": "#2565",
-        "catchCountry": ""
+        "catchCountry": "#56"
       },
       "qualifier": {
         "seed": 20,
@@ -725,7 +725,7 @@
       "avatar": "https://a.ppy.sh/28080038?1783007914.jpeg",
       "ranks": {
         "catch": "#5946",
-        "catchCountry": ""
+        "catchCountry": "#143"
       },
       "qualifier": {
         "seed": 25,
@@ -813,7 +813,7 @@
       "avatar": "https://a.ppy.sh/27175001?1778678722.jpeg",
       "ranks": {
         "catch": "#2131",
-        "catchCountry": ""
+        "catchCountry": "#41"
       },
       "qualifier": {
         "seed": 9,
@@ -901,7 +901,7 @@
       "avatar": "https://a.ppy.sh/33376146?1691298108.jpeg",
       "ranks": {
         "catch": "#1012",
-        "catchCountry": ""
+        "catchCountry": "#19"
       },
       "qualifier": {
         "seed": 13,
@@ -989,7 +989,7 @@
       "avatar": "https://a.ppy.sh/10275799?1719976990.jpeg",
       "ranks": {
         "catch": "#1219",
-        "catchCountry": ""
+        "catchCountry": "#24"
       },
       "qualifier": {
         "seed": 5,
@@ -1077,7 +1077,7 @@
       "avatar": "https://a.ppy.sh/36042814?1784783757.jpeg",
       "ranks": {
         "catch": "#18900",
-        "catchCountry": ""
+        "catchCountry": "#475"
       },
       "qualifier": {
         "seed": 32,
@@ -1165,7 +1165,7 @@
       "avatar": "https://a.ppy.sh/36132512?1762868157.jpeg",
       "ranks": {
         "catch": "#7668",
-        "catchCountry": ""
+        "catchCountry": "#203"
       },
       "qualifier": {
         "seed": "",
@@ -1214,7 +1214,7 @@
       "avatar": "https://a.ppy.sh/27819084?1744221728.jpeg",
       "ranks": {
         "catch": "#805",
-        "catchCountry": ""
+        "catchCountry": "#15"
       },
       "qualifier": {
         "seed": 7,
@@ -1302,7 +1302,7 @@
       "avatar": "https://a.ppy.sh/35863392?1784178482.jpeg",
       "ranks": {
         "catch": "#772",
-        "catchCountry": ""
+        "catchCountry": "#13"
       },
       "qualifier": {
         "seed": 10,
@@ -1390,7 +1390,7 @@
       "avatar": "https://a.ppy.sh/13826244?1784969260.png",
       "ranks": {
         "catch": "#5586",
-        "catchCountry": ""
+        "catchCountry": "#139"
       },
       "qualifier": {
         "seed": 28,
@@ -1478,7 +1478,7 @@
       "avatar": "https://a.ppy.sh/25959426?1782653101.jpeg",
       "ranks": {
         "catch": "#7391",
-        "catchCountry": ""
+        "catchCountry": "#193"
       },
       "qualifier": {
         "seed": "",
@@ -1527,7 +1527,7 @@
       "avatar": "https://a.ppy.sh/10920086?1784773218.png",
       "ranks": {
         "catch": "#576",
-        "catchCountry": ""
+        "catchCountry": "#9"
       },
       "qualifier": {
         "seed": 6,
@@ -1615,7 +1615,7 @@
       "avatar": "https://a.ppy.sh/29662189?1747657653.jpeg",
       "ranks": {
         "catch": "#7104",
-        "catchCountry": ""
+        "catchCountry": "#184"
       },
       "qualifier": {
         "seed": 26,
@@ -1703,7 +1703,7 @@
       "avatar": "https://a.ppy.sh/10494860?1759050223.jpeg",
       "ranks": {
         "catch": "#7140",
-        "catchCountry": ""
+        "catchCountry": "#186"
       },
       "qualifier": {
         "seed": 23,
@@ -1791,7 +1791,7 @@
       "avatar": "https://a.ppy.sh/11538640?1761212829.jpeg",
       "ranks": {
         "catch": "#3876",
-        "catchCountry": ""
+        "catchCountry": "#93"
       },
       "qualifier": {
         "seed": 22,
@@ -1879,7 +1879,7 @@
       "avatar": "https://a.ppy.sh/35689909?1782738544.jpeg",
       "ranks": {
         "catch": "#2312",
-        "catchCountry": ""
+        "catchCountry": "#48"
       },
       "qualifier": {
         "seed": 17,
@@ -1967,7 +1967,7 @@
       "avatar": "https://a.ppy.sh/4964095?1756146024.jpeg",
       "ranks": {
         "catch": "#126",
-        "catchCountry": ""
+        "catchCountry": "#2"
       },
       "qualifier": {
         "seed": 4,
@@ -2055,7 +2055,7 @@
       "avatar": "https://a.ppy.sh/27944659?1675009829.jpeg",
       "ranks": {
         "catch": "#2184",
-        "catchCountry": ""
+        "catchCountry": "#43"
       },
       "qualifier": {
         "seed": 21,
@@ -2143,7 +2143,7 @@
       "avatar": "https://a.ppy.sh/26635826?1777643357.jpeg",
       "ranks": {
         "catch": "#2413",
-        "catchCountry": ""
+        "catchCountry": "#53"
       },
       "qualifier": {
         "seed": 16,
@@ -2231,7 +2231,7 @@
       "avatar": "https://a.ppy.sh/19207842?1784647373.jpeg",
       "ranks": {
         "catch": "#1173",
-        "catchCountry": ""
+        "catchCountry": "#23"
       },
       "qualifier": {
         "seed": 8,
@@ -2319,7 +2319,7 @@
       "avatar": "https://a.ppy.sh/35600396?1781621351.jpeg",
       "ranks": {
         "catch": "#4571",
-        "catchCountry": ""
+        "catchCountry": "#110"
       },
       "qualifier": {
         "seed": "",
@@ -2368,7 +2368,7 @@
       "avatar": "https://a.ppy.sh/15852798?1736534025.jpeg",
       "ranks": {
         "catch": "#3724",
-        "catchCountry": ""
+        "catchCountry": "#90"
       },
       "qualifier": {
         "seed": 24,
@@ -2544,7 +2544,7 @@
       "avatar": "https://a.ppy.sh/14772180?1730304801.jpeg",
       "ranks": {
         "catch": "#2095",
-        "catchCountry": ""
+        "catchCountry": "#40"
       },
       "qualifier": {
         "seed": 19,
@@ -2632,7 +2632,7 @@
       "avatar": "https://a.ppy.sh/34897682?1726065374.jpeg",
       "ranks": {
         "catch": "#13803",
-        "catchCountry": ""
+        "catchCountry": "#339"
       },
       "qualifier": {
         "seed": 30,
@@ -2720,7 +2720,7 @@
       "avatar": "https://a.ppy.sh/6403418?1687596647.jpeg",
       "ranks": {
         "catch": "#578",
-        "catchCountry": ""
+        "catchCountry": "#10"
       },
       "qualifier": {
         "seed": 12,
@@ -2808,7 +2808,7 @@
       "avatar": "https://a.ppy.sh/25679389?1765820774.jpeg",
       "ranks": {
         "catch": "#1102",
-        "catchCountry": ""
+        "catchCountry": "#20"
       },
       "qualifier": {
         "seed": "",
@@ -2857,7 +2857,7 @@
       "avatar": "https://a.ppy.sh/17619649?1783913303.png",
       "ranks": {
         "catch": "#9005",
-        "catchCountry": ""
+        "catchCountry": "#231"
       },
       "qualifier": {
         "seed": 27,
@@ -2945,7 +2945,7 @@
       "avatar": "https://a.ppy.sh/37162760?1782606187.jpeg",
       "ranks": {
         "catch": "#4753",
-        "catchCountry": ""
+        "catchCountry": "#118"
       },
       "qualifier": {
         "seed": 11,
@@ -3033,7 +3033,7 @@
       "avatar": "https://a.ppy.sh/20569104?1778418283.jpeg",
       "ranks": {
         "catch": "#4614",
-        "catchCountry": ""
+        "catchCountry": "#113"
       },
       "qualifier": {
         "seed": 29,
@@ -3121,7 +3121,7 @@
       "avatar": "https://a.ppy.sh/38140261?1784720264.png",
       "ranks": {
         "catch": "#3877",
-        "catchCountry": ""
+        "catchCountry": "#92"
       },
       "qualifier": {
         "seed": 18,
@@ -3209,7 +3209,7 @@
       "avatar": "https://a.ppy.sh/22329458?1715556047.jpeg",
       "ranks": {
         "catch": "#329",
-        "catchCountry": ""
+        "catchCountry": "#3"
       },
       "qualifier": {
         "seed": 2,
@@ -3297,7 +3297,7 @@
       "avatar": "https://a.ppy.sh/37459882?1784291133.jpeg",
       "ranks": {
         "catch": "#1753",
-        "catchCountry": ""
+        "catchCountry": "#35"
       },
       "qualifier": {
         "seed": "",
@@ -3346,7 +3346,7 @@
       "avatar": "https://osu.ppy.sh/images/layout/avatar-guest@2x.png",
       "ranks": {
         "catch": "#1300",
-        "catchCountry": ""
+        "catchCountry": "#27"
       },
       "qualifier": {
         "seed": 15,
@@ -3434,7 +3434,7 @@
       "avatar": "https://a.ppy.sh/27620293?1709884387.jpeg",
       "ranks": {
         "catch": "#4408",
-        "catchCountry": ""
+        "catchCountry": "#107"
       },
       "qualifier": {
         "seed": "",

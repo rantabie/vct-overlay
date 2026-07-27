@@ -137,6 +137,10 @@ body::-webkit-scrollbar {
 }
 
 .player-country {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   margin-top: 3px;
   overflow: hidden;
   color: rgba(249, 228, 211, 0.74);
@@ -147,6 +151,14 @@ body::-webkit-scrollbar {
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.country-flag {
+  display: block;
+  width: 30px;
+  height: 20px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px rgba(42, 30, 22, 0.58));
 }
 
 .player-country:empty {
@@ -246,9 +258,13 @@ body::-webkit-scrollbar {
 .bracket-header {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 31px;
   width: 132px;
   height: 30px;
+}
+
+.bracket[data-mod="nm"] .bracket-header {
+  top: 9px;
 }
 
 .mod-seed {
@@ -258,7 +274,7 @@ body::-webkit-scrollbar {
   justify-content: center;
   width: 56px;
   height: 24px;
-  margin-left: 76px;
+  margin-left: 106px;
   border-radius: 999px;
   background: rgba(249, 228, 211, 0.92);
   box-shadow: 0 2px 5px rgba(28, 23, 18, 0.32);
@@ -275,9 +291,11 @@ body::-webkit-scrollbar {
 .mod-seed strong {
   min-width: 0;
   color: #59483C;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 16px;
-  font-weight: 900;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-weight: 800;
   line-height: 1;
   text-align: right;
 }

@@ -193,6 +193,7 @@ async function getUser(token, lookup) {
 
 async function getUserById(token, id) {
   const url = new URL(`${API_BASE}/users/${encodeURIComponent(id)}/${MODE}`);
+  url.searchParams.set("key", "id");
   return apiGet(token, url);
 }
 

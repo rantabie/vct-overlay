@@ -342,7 +342,7 @@
     dom.playerName.textContent = name;
     dom.playerName.classList.toggle("is-placeholder", !player);
     fitPlayerName(name);
-    dom.playerCountry.textContent = formatCountryLine(player);
+    dom.playerCountry.innerHTML = formatCountryLine(player);
     dom.globalRank.textContent = player?.globalRank || "-";
     dom.qualifierSeed.textContent = player?.qualifierSeed || "#---";
     dom.percentMaxSum.textContent = player?.percentMaxSum || "-";
@@ -500,18 +500,17 @@
   function formatCountryLine(player) {
     if (!player) return "";
 
-    const flag = getCountryFlag(player.countryCode);
+    const flag = getCountryFlagHtml(player.countryCode);
     if (player.countryRank || flag) return [player.countryRank || "#---", flag].filter(Boolean).join(" ");
-    return [player.country, flag].filter(Boolean).join(" ");
+    return escapeHtml(player.country);
   }
 
-  function getCountryFlag(countryCode) {
+  function getCountryFlagHtml(countryCode) {
     const code = cleanText(countryCode).toUpperCase();
     if (!/^[A-Z]{2}$/.test(code)) return "";
 
-    return [...code]
-      .map((letter) => String.fromCodePoint(127397 + letter.charCodeAt(0)))
-      .join("");
+    const src = `https://osuflags.omkserver.nl/${encodeURIComponent(code)}-20.png`;
+    return `<img class="country-flag" src="${src}" alt="${escapeHtml(code)}">`;
   }
 
   function formatPercent(value) {
