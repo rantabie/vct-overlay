@@ -140,8 +140,10 @@ body::-webkit-scrollbar {
   margin-top: 3px;
   overflow: hidden;
   color: rgba(249, 228, 211, 0.74);
+  font-family: Cambria, Georgia, "Segoe UI Emoji", "Apple Color Emoji", serif;
   font-size: 21px;
   font-weight: 700;
+  line-height: 1.15;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;

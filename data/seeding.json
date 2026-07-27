@@ -378,10 +378,10 @@
       "qualifier": {
         "seed": 1,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 1,
+          "HD": 1,
+          "HR": 1,
+          "DT": 3
         },
         "scores": {
           "NM1": {
@@ -466,10 +466,10 @@
       "qualifier": {
         "seed": 3,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 4,
+          "HD": 3,
+          "HR": 6,
+          "DT": 4
         },
         "scores": {
           "NM1": {
@@ -554,10 +554,10 @@
       "qualifier": {
         "seed": 14,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 13,
+          "HD": 7,
+          "HR": 14,
+          "DT": 17
         },
         "scores": {
           "NM1": {
@@ -642,10 +642,10 @@
       "qualifier": {
         "seed": 20,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 21,
+          "HD": 15,
+          "HR": 19,
+          "DT": 16
         },
         "scores": {
           "NM1": {
@@ -730,10 +730,10 @@
       "qualifier": {
         "seed": 25,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 26,
+          "HD": 22,
+          "HR": 24,
+          "DT": 25
         },
         "scores": {
           "NM1": {
@@ -818,10 +818,10 @@
       "qualifier": {
         "seed": 9,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 6,
+          "HD": 5,
+          "HR": 13,
+          "DT": 13
         },
         "scores": {
           "NM1": {
@@ -906,10 +906,10 @@
       "qualifier": {
         "seed": 13,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 7,
+          "HD": 28,
+          "HR": 11,
+          "DT": 7
         },
         "scores": {
           "NM1": {
@@ -994,10 +994,10 @@
       "qualifier": {
         "seed": 5,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 8,
+          "HD": 9,
+          "HR": 8,
+          "DT": 5
         },
         "scores": {
           "NM1": {
@@ -1082,10 +1082,10 @@
       "qualifier": {
         "seed": 32,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 32,
+          "HD": 31,
+          "HR": 32,
+          "DT": 32
         },
         "scores": {
           "NM1": {
@@ -1219,10 +1219,10 @@
       "qualifier": {
         "seed": 7,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 10,
+          "HD": 6,
+          "HR": 4,
+          "DT": 9
         },
         "scores": {
           "NM1": {
@@ -1307,10 +1307,10 @@
       "qualifier": {
         "seed": 10,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 11,
+          "HD": 10,
+          "HR": 9,
+          "DT": 10
         },
         "scores": {
           "NM1": {
@@ -1395,10 +1395,10 @@
       "qualifier": {
         "seed": 28,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 27,
+          "HD": 23,
+          "HR": 26,
+          "DT": 28
         },
         "scores": {
           "NM1": {
@@ -1532,10 +1532,10 @@
       "qualifier": {
         "seed": 6,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 5,
+          "HD": 2,
+          "HR": 10,
+          "DT": 11
         },
         "scores": {
           "NM1": {
@@ -1620,10 +1620,10 @@
       "qualifier": {
         "seed": 26,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 25,
+          "HD": 16,
+          "HR": 28,
+          "DT": 26
         },
         "scores": {
           "NM1": {
@@ -1708,10 +1708,10 @@
       "qualifier": {
         "seed": 23,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 23,
+          "HD": 24,
+          "HR": 21,
+          "DT": 20
         },
         "scores": {
           "NM1": {
@@ -1796,10 +1796,10 @@
       "qualifier": {
         "seed": 22,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 24,
+          "HD": 17,
+          "HR": 22,
+          "DT": 24
         },
         "scores": {
           "NM1": {
@@ -1884,10 +1884,10 @@
       "qualifier": {
         "seed": 17,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 16,
+          "HD": 14,
+          "HR": 17,
+          "DT": 23
         },
         "scores": {
           "NM1": {
@@ -1972,10 +1972,10 @@
       "qualifier": {
         "seed": 4,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 3,
+          "HD": 11,
+          "HR": 3,
+          "DT": 1
         },
         "scores": {
           "NM1": {
@@ -2060,10 +2060,10 @@
       "qualifier": {
         "seed": 21,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 19,
+          "HD": 21,
+          "HR": 20,
+          "DT": 19
         },
         "scores": {
           "NM1": {
@@ -2148,10 +2148,10 @@
       "qualifier": {
         "seed": 16,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 15,
+          "HD": 20,
+          "HR": 16,
+          "DT": 18
         },
         "scores": {
           "NM1": {
@@ -2236,10 +2236,10 @@
       "qualifier": {
         "seed": 8,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 9,
+          "HD": 12,
+          "HR": 7,
+          "DT": 6
         },
         "scores": {
           "NM1": {
@@ -2373,10 +2373,10 @@
       "qualifier": {
         "seed": 24,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 22,
+          "HD": 26,
+          "HR": 25,
+          "DT": 21
         },
         "scores": {
           "NM1": {
@@ -2461,10 +2461,10 @@
       "qualifier": {
         "seed": 31,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 30,
+          "HD": 30,
+          "HR": 30,
+          "DT": 31
         },
         "scores": {
           "NM1": {
@@ -2549,10 +2549,10 @@
       "qualifier": {
         "seed": 19,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 17,
+          "HD": 27,
+          "HR": 15,
+          "DT": 12
         },
         "scores": {
           "NM1": {
@@ -2637,10 +2637,10 @@
       "qualifier": {
         "seed": 30,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 29,
+          "HD": 32,
+          "HR": 31,
+          "DT": 29
         },
         "scores": {
           "NM1": {
@@ -2725,10 +2725,10 @@
       "qualifier": {
         "seed": 12,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 20,
+          "HD": 8,
+          "HR": 12,
+          "DT": 14
         },
         "scores": {
           "NM1": {
@@ -2862,10 +2862,10 @@
       "qualifier": {
         "seed": 27,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 28,
+          "HD": 19,
+          "HR": 27,
+          "DT": 27
         },
         "scores": {
           "NM1": {
@@ -2950,10 +2950,10 @@
       "qualifier": {
         "seed": 11,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 12,
+          "HD": 18,
+          "HR": 5,
+          "DT": 8
         },
         "scores": {
           "NM1": {
@@ -3038,10 +3038,10 @@
       "qualifier": {
         "seed": 29,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 31,
+          "HD": 29,
+          "HR": 29,
+          "DT": 30
         },
         "scores": {
           "NM1": {
@@ -3126,10 +3126,10 @@
       "qualifier": {
         "seed": 18,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 18,
+          "HD": 13,
+          "HR": 23,
+          "DT": 22
         },
         "scores": {
           "NM1": {
@@ -3214,10 +3214,10 @@
       "qualifier": {
         "seed": 2,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 2,
+          "HD": 4,
+          "HR": 2,
+          "DT": 2
         },
         "scores": {
           "NM1": {
@@ -3351,10 +3351,10 @@
       "qualifier": {
         "seed": 15,
         "bracketSeeds": {
-          "NM": "",
-          "HD": "",
-          "HR": "",
-          "DT": ""
+          "NM": 14,
+          "HD": 25,
+          "HR": 18,
+          "DT": 15
         },
         "scores": {
           "NM1": {

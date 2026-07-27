@@ -80,6 +80,14 @@ async function syncPlayerData(token, data, failed) {
       }
 
       applyUser(player, user);
+      if (!clean(player.ranks?.catchCountry)) {
+        try {
+          applyUser(player, await getUserById(token, id));
+          await wait(160);
+        } catch (error) {
+          failed.push(`${player.username || id}: country rank lookup failed (${error.message})`);
+        }
+      }
       updated += 1;
       console.log(`${player.username}: catch rank ${player.ranks?.catch || "-"}`);
     }
@@ -180,6 +188,11 @@ async function getUsers(token, ids) {
 async function getUser(token, lookup) {
   const url = new URL(`${API_BASE}/users/${encodeURIComponent(lookup.value)}/${MODE}`);
   url.searchParams.set("key", lookup.key);
+  return apiGet(token, url);
+}
+
+async function getUserById(token, id) {
+  const url = new URL(`${API_BASE}/users/${encodeURIComponent(id)}/${MODE}`);
   return apiGet(token, url);
 }
 

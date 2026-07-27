@@ -2,10 +2,11 @@
   "use strict";
 
   const DATA_URL = "../../data/seeding.json";
-  const STORAGE_KEY = "vct.qualifierResults.data.v3";
+  const STORAGE_KEY = "vct.qualifierResults.data.v4";
   const OLD_STORAGE_KEYS = [
     "vct.qualifierResults.data",
-    "vct.qualifierResults.data.v2"
+    "vct.qualifierResults.data.v2",
+    "vct.qualifierResults.data.v3"
   ];
   const DEFAULT_AVATAR = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
   const DEFAULT_BRACKETS = [
@@ -143,6 +144,7 @@
       maps: normaliseMaps(qualifierOverlay.maps || qualifierPool.maps || source.maps || source.mappool || source.beatmaps),
       players: sortQualifierPlayers(normalisePlayers(source.players || source.results || source.seeds))
     };
+    applyCalculatedBracketSeeds();
   }
 
   function normaliseBrackets(value) {
@@ -190,8 +192,10 @@
         osuId: cleanText(player.osuId || player.osu_id || ""),
         username: cleanText(player.username || player.name || `Player ${index + 1}`),
         country: cleanText(player.country || player.team || ""),
+        countryCode: cleanText(player.countryCode || player.country_code || player.country?.code || ""),
         avatar: cleanText(player.avatar || player.avatarUrl || player.profilePicture || ""),
         globalRank: formatRank(ranks.catch || ranks.ctb || player.globalRank || player.catchRank || player.rank),
+        countryRank: formatRank(ranks.catchCountry || ranks.countryCatch || ranks.catch_country || player.countryRank || player.catchCountryRank),
         qualifierSeed: formatRank(qualifier.seed || player.qualifierSeed || player.seed || player.overallSeed),
         qualifierSeedValue: parseRankNumber(qualifier.seed || player.qualifierSeed || player.seed || player.overallSeed),
         percentMaxSum: formatPercent(getFirstValue(
@@ -338,7 +342,7 @@
     dom.playerName.textContent = name;
     dom.playerName.classList.toggle("is-placeholder", !player);
     fitPlayerName(name);
-    dom.playerCountry.textContent = player?.country || "";
+    dom.playerCountry.textContent = formatCountryLine(player);
     dom.globalRank.textContent = player?.globalRank || "-";
     dom.qualifierSeed.textContent = player?.qualifierSeed || "#---";
     dom.percentMaxSum.textContent = player?.percentMaxSum || "-";
@@ -415,6 +419,41 @@
     });
   }
 
+  function applyCalculatedBracketSeeds() {
+    data.brackets.forEach((bracket) => {
+      const maps = data.maps.filter((map) => map.mod === bracket.mod);
+      const rows = [];
+
+      data.players.forEach((player) => {
+        player.bracketSeeds = player.bracketSeeds && typeof player.bracketSeeds === "object" ? player.bracketSeeds : {};
+        const scores = maps.map((map) => player.scores?.[map.pick] || {});
+        const ranks = scores.map((score) => parseRankNumber(score.rank));
+
+        if (!maps.length || ranks.some((rank) => !Number.isFinite(rank))) {
+          player.bracketSeeds[bracket.mod] = "";
+          return;
+        }
+
+        rows.push({
+          player,
+          rankSum: ranks.reduce((sum, rank) => sum + rank, 0),
+          scoreSum: scores.reduce((sum, score) => sum + parseScoreNumber(score.score), 0)
+        });
+      });
+
+      rows.sort((a, b) => (
+        a.rankSum - b.rankSum ||
+        b.scoreSum - a.scoreSum ||
+        a.player.qualifierSeedValue - b.player.qualifierSeedValue ||
+        a.player.username.localeCompare(b.player.username)
+      ));
+
+      rows.forEach((row, index) => {
+        row.player.bracketSeeds[bracket.mod] = formatRank(index + 1);
+      });
+    });
+  }
+
   function cyclePlayer(direction) {
     if (!data.players.length) return;
     playerIndex = (playerIndex + direction + data.players.length) % data.players.length;
@@ -451,6 +490,28 @@
     if (!text) return "";
     const number = Number(text.replace(/,/g, ""));
     return Number.isFinite(number) ? number.toLocaleString("en-US") : text;
+  }
+
+  function parseScoreNumber(value) {
+    const number = Number(cleanText(value).replace(/[,\s]/g, ""));
+    return Number.isFinite(number) ? number : 0;
+  }
+
+  function formatCountryLine(player) {
+    if (!player) return "";
+
+    const flag = getCountryFlag(player.countryCode);
+    if (player.countryRank || flag) return [player.countryRank || "#---", flag].filter(Boolean).join(" ");
+    return [player.country, flag].filter(Boolean).join(" ");
+  }
+
+  function getCountryFlag(countryCode) {
+    const code = cleanText(countryCode).toUpperCase();
+    if (!/^[A-Z]{2}$/.test(code)) return "";
+
+    return [...code]
+      .map((letter) => String.fromCodePoint(127397 + letter.charCodeAt(0)))
+      .join("");
   }
 
   function formatPercent(value) {
