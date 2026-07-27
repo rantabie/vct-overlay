@@ -258,13 +258,21 @@ body::-webkit-scrollbar {
 .bracket-header {
   position: absolute;
   left: 0;
-  top: 31px;
+  top: 51px;
   width: 132px;
   height: 30px;
 }
 
 .bracket[data-mod="nm"] .bracket-header {
-  top: 9px;
+  top: 13px;
+}
+
+.bracket[data-mod="hr"] .bracket-header {
+  top: 59px;
+}
+
+.bracket[data-mod="dt"] .bracket-header {
+  top: 62px;
 }
 
 .mod-seed {
@@ -272,9 +280,9 @@ body::-webkit-scrollbar {
   grid-column: 1;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 24px;
-  margin-left: 106px;
+  width: 48px;
+  height: 21px;
+  margin-left: 132px;
   border-radius: 999px;
   background: rgba(249, 228, 211, 0.92);
   box-shadow: 0 2px 5px rgba(28, 23, 18, 0.32);
@@ -298,6 +306,7 @@ body::-webkit-scrollbar {
   font-weight: 800;
   line-height: 1;
   text-align: right;
+  transform: translateY(-0.5px);
 }
 
 .map-rows {
