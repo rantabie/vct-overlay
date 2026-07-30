@@ -207,17 +207,19 @@ body.is-gameplay .diagnostics-panel {
   display: flex;
   align-items: center;
   gap: var(--point-gap, 5px);
-  width: 430px;
+  width: 360px;
   height: 37px;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .point-track-left {
-  left: 102px;
+  left: 138px;
   justify-content: center;
 }
 
 .point-track-right {
-  left: 1389px;
+  left: 1422px;
   justify-content: center;
 }
 
@@ -225,6 +227,7 @@ body.is-gameplay .diagnostics-panel {
   width: var(--point-width, 67px);
   height: var(--point-height, 37px);
   filter: drop-shadow(0 2px 2px rgba(41, 28, 20, 0.34));
+  user-select: none;
 }
 
 .pick-badge {
@@ -246,11 +249,11 @@ body.is-gameplay .diagnostics-panel {
 }
 
 .pick-badge-left {
-  left: 536px;
+  left: 510px;
 }
 
 .pick-badge-right {
-  left: 1364px;
+  left: 1352px;
 }
 
 .pick-badge.is-visible {

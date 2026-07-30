@@ -107,6 +107,9 @@ Inside OBS Interact on `MATCH MAPPOOL OVERLAY`:
 - Ctrl + click: clear that map's pick/ban/win mark.
 - Alt + left click: mark Player Left win.
 - Alt + right click: mark Player Right win.
+- Left click a point image: set that player to that many points.
+- Right click a point image: set that player to one less than that point.
+- Ctrl + click a point image: return the match score to tosu.
 
 ## During Stream Flow
 
@@ -129,5 +132,6 @@ Inside OBS Interact on `MATCH MAPPOOL OVERLAY`:
 - A map should be cleared entirely: Ctrl + click that map.
 - Auto picked the wrong side: click `Undo Action`, then click `Player Ban/Pick`, then click the correct map.
 - Score/win did not mark: Alt + left/right click the map to mark the winner.
+- Points are wrong: click the point images to set the visible score. Ctrl + click a point image after tosu is correct again.
 - Overlay did not switch scene: click `Switch to Gameplay/Mappool`.
 - Tosu is not connected: check Allowed IPs and refresh the browser source.

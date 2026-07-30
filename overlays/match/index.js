@@ -3,6 +3,7 @@
 
   const DATA_URL = "../../data/match.json";
   const STORAGE_KEY = "vct.match.data";
+  const SCORE_OVERRIDE_KEY = "vct.match.score-override";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
   const ASSET_VERSION = "20260730c";
   const EMPTY_POINT = `../../assets/vct/match/point_empty.png?v=${ASSET_VERSION}`;
@@ -90,6 +91,11 @@
   }
 
   function wireControls() {
+    dom.leftStars.addEventListener("click", (event) => handlePointClick(event, "left"));
+    dom.leftStars.addEventListener("contextmenu", (event) => handlePointContextMenu(event, "left"));
+    dom.rightStars.addEventListener("click", (event) => handlePointClick(event, "right"));
+    dom.rightStars.addEventListener("contextmenu", (event) => handlePointContextMenu(event, "right"));
+
     dom.reloadDataButton.addEventListener("click", async () => {
       localStorage.removeItem(STORAGE_KEY);
       matchData = await loadMatchData();
@@ -138,7 +144,7 @@
     });
 
     window.addEventListener("storage", (event) => {
-      if (event.key === "vct.match-mappool.state") queueRender();
+      if (event.key === "vct.match-mappool.state" || event.key === SCORE_OVERRIDE_KEY) queueRender();
     });
 
     dom.clearStorageButton.addEventListener("click", () => {
@@ -199,7 +205,8 @@
     const leftPlayer = resolvePlayer("left");
     const rightPlayer = resolvePlayer("right");
     const pointCount = pointsToWin(resolveBestOf());
-    const nextState = createRenderState(leftPlayer, rightPlayer, pointCount);
+    const displayStars = resolveDisplayedStars(pointCount);
+    const nextState = createRenderState(leftPlayer, rightPlayer, pointCount, displayStars);
     const previous = previousRenderState || nextState;
 
     setAnimatedText(dom.leftSeed, leftPlayer.seed, previous.leftSeed);
@@ -211,13 +218,13 @@
     fitPlayerName(dom.leftName, leftPlayer.name);
     fitPlayerName(dom.rightName, rightPlayer.name);
 
-    dom.matchScore.hidden = !liveState.visibility.stars;
-    dom.leftStars.hidden = !liveState.visibility.stars;
-    dom.rightStars.hidden = !liveState.visibility.stars;
-    renderStars(dom.leftStars, liveState.stars.left, pointCount, previous.leftStars);
-    renderStars(dom.rightStars, liveState.stars.right, pointCount, previous.rightStars);
-    setAnimatedText(dom.leftLiveScore, formatScore(liveState.stars.left), formatScore(previous.leftStars));
-    setAnimatedText(dom.rightLiveScore, formatScore(liveState.stars.right), formatScore(previous.rightStars));
+    dom.matchScore.hidden = !(liveState.visibility.stars || displayStars.overridden);
+    dom.leftStars.hidden = !(liveState.visibility.stars || displayStars.overridden);
+    dom.rightStars.hidden = !(liveState.visibility.stars || displayStars.overridden);
+    renderStars(dom.leftStars, displayStars.left, pointCount, previous.leftStars);
+    renderStars(dom.rightStars, displayStars.right, pointCount, previous.rightStars);
+    setAnimatedText(dom.leftLiveScore, formatScore(displayStars.left), formatScore(previous.leftStars));
+    setAnimatedText(dom.rightLiveScore, formatScore(displayStars.right), formatScore(previous.rightStars));
     setAnimatedText(dom.stageLabel, nextState.stage, previous.stage);
     renderGameplayScore(previous);
     renderBeatmap(previous);
@@ -227,7 +234,7 @@
 
     setDiagnostics({
       players: `${leftPlayer.name} vs ${rightPlayer.name}`,
-      stars: `${liveState.stars.left}-${liveState.stars.right} / ${pointCount}`,
+      stars: `${displayStars.left}-${displayStars.right} / ${pointCount}${displayStars.overridden ? " manual" : ""}`,
       score: `${liveState.gameplayScore.left}-${liveState.gameplayScore.right}`,
       beatmap: liveState.beatmap.title
     });
@@ -257,14 +264,14 @@
     }
   }
 
-  function createRenderState(leftPlayer, rightPlayer, pointCount) {
+  function createRenderState(leftPlayer, rightPlayer, pointCount, displayStars) {
     return {
       leftSeed: leftPlayer.seed,
       rightSeed: rightPlayer.seed,
       leftName: leftPlayer.name,
       rightName: rightPlayer.name,
-      leftStars: clampNumber(liveState.stars.left, 0, pointCount),
-      rightStars: clampNumber(liveState.stars.right, 0, pointCount),
+      leftStars: displayStars.left,
+      rightStars: displayStars.right,
       stage: resolveStage(),
       leftScore: liveState.gameplayScore.left,
       rightScore: liveState.gameplayScore.right,
@@ -276,6 +283,102 @@
     };
   }
 
+  function resolveDisplayedStars(pointCount) {
+    const saved = readScoreOverride(pointCount);
+    if (saved.enabled) {
+      return {
+        left: saved.left,
+        right: saved.right,
+        overridden: true
+      };
+    }
+
+    return {
+      left: clampNumber(liveState.stars.left, 0, pointCount),
+      right: clampNumber(liveState.stars.right, 0, pointCount),
+      overridden: false
+    };
+  }
+
+  function readScoreOverride(pointCount = 99) {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SCORE_OVERRIDE_KEY) || "{}");
+      if (saved.enabled !== true) return { enabled: false, left: 0, right: 0 };
+
+      return {
+        enabled: true,
+        left: clampNumber(saved.left, 0, pointCount),
+        right: clampNumber(saved.right, 0, pointCount)
+      };
+    } catch (error) {
+      localStorage.removeItem(SCORE_OVERRIDE_KEY);
+      return { enabled: false, left: 0, right: 0 };
+    }
+  }
+
+  function handlePointClick(event, side) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.ctrlKey) {
+      clearManualScore();
+      return;
+    }
+
+    const value = pointScoreFromEvent(event, 0);
+    if (value === null) return;
+    setManualScore(side, value);
+  }
+
+  function handlePointContextMenu(event, side) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.ctrlKey) {
+      clearManualScore();
+      return;
+    }
+
+    const value = pointScoreFromEvent(event, -1);
+    if (value === null) return;
+    setManualScore(side, value);
+  }
+
+  function pointScoreFromEvent(event, offset) {
+    const point = event.target.closest(".point-track img");
+    if (!point || !event.currentTarget.contains(point)) return null;
+
+    const value = Number(point.dataset.score);
+    return Number.isFinite(value) ? value + offset : null;
+  }
+
+  function setManualScore(side, value) {
+    const pointCount = pointsToWin(resolveBestOf());
+    const saved = readScoreOverride(pointCount);
+    const base = saved.enabled
+      ? saved
+      : {
+        left: clampNumber(liveState.stars.left, 0, pointCount),
+        right: clampNumber(liveState.stars.right, 0, pointCount)
+      };
+    const next = {
+      enabled: true,
+      left: base.left,
+      right: base.right
+    };
+
+    next[side] = clampNumber(value, 0, pointCount);
+    localStorage.setItem(SCORE_OVERRIDE_KEY, JSON.stringify(next));
+    queueRender();
+    setControlStatus(`Manual score: ${next.left} - ${next.right}. Ctrl+click the point track to use tosu again.`);
+  }
+
+  function clearManualScore() {
+    localStorage.removeItem(SCORE_OVERRIDE_KEY);
+    queueRender();
+    setControlStatus("Using tosu score again.");
+  }
+
   function renderStars(container, value, count, previousValue) {
     container.innerHTML = "";
     setPointSizing(container, count);
@@ -285,6 +388,8 @@
       const point = document.createElement("img");
       point.src = index < filled ? FULL_POINT : EMPTY_POINT;
       point.alt = "";
+      point.dataset.score = String(index + 1);
+      point.draggable = false;
       if (index + 1 === filled && filled > previousValue) {
         point.classList.add("is-new-point");
       }

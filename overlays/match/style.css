@@ -198,6 +198,8 @@ body[data-layer="background"] .workspace {
   gap: var(--point-gap, 5px);
   width: 430px;
   height: 37px;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .point-track[hidden] {
@@ -218,6 +220,7 @@ body[data-layer="background"] .workspace {
   width: var(--point-width, 67px);
   height: var(--point-height, 37px);
   filter: drop-shadow(0 2px 2px rgba(41, 28, 20, 0.34));
+  user-select: none;
 }
 
 .point-track img.is-new-point {

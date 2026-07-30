@@ -3,6 +3,7 @@
 
   const DATA_URL = "../../data/match.json";
   const STORAGE_KEY = "vct.match-winner.data";
+  const SCORE_OVERRIDE_KEY = "vct.match.score-override";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
 
   const fallbackData = {
@@ -86,6 +87,10 @@
       localStorage.removeItem(STORAGE_KEY);
       setControlStatus("Saved browser JSON cleared.");
     });
+
+    window.addEventListener("storage", (event) => {
+      if (event.key === SCORE_OVERRIDE_KEY) queueRender();
+    });
   }
 
   async function loadMatchData() {
@@ -121,9 +126,9 @@
   }
 
   function render() {
-    const side = resolveWinnerSide();
-    const winner = resolvePlayer(side);
     const score = resolveScore();
+    const side = resolveWinnerSide(score);
+    const winner = resolvePlayer(side);
 
     dom.winnerName.textContent = winner.name;
     dom.stageName.textContent = matchData.stage;
@@ -133,11 +138,10 @@
     setDiagnostics({ winner: `${winner.name} (${side || "unresolved"})` });
   }
 
-  function resolveWinnerSide() {
+  function resolveWinnerSide(score = resolveScore()) {
     if (forcedWinner) return forcedWinner;
-    if (liveState.stars.left !== liveState.stars.right) return liveState.stars.left > liveState.stars.right ? "left" : "right";
+    if (score.left !== score.right) return score.left > score.right ? "left" : "right";
     if (matchData.winner) return matchData.winner;
-    if (matchData.score.left !== matchData.score.right) return matchData.score.left > matchData.score.right ? "left" : "right";
     return "left";
   }
 
@@ -149,8 +153,26 @@
   }
 
   function resolveScore() {
+    const saved = readScoreOverride();
+    if (saved.enabled) return { left: saved.left, right: saved.right };
     if (liveState.stars.left || liveState.stars.right) return liveState.stars;
     return matchData.score;
+  }
+
+  function readScoreOverride() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SCORE_OVERRIDE_KEY) || "{}");
+      if (saved.enabled !== true) return { enabled: false, left: 0, right: 0 };
+
+      return {
+        enabled: true,
+        left: numberOrZero(saved.left),
+        right: numberOrZero(saved.right)
+      };
+    } catch (error) {
+      localStorage.removeItem(SCORE_OVERRIDE_KEY);
+      return { enabled: false, left: 0, right: 0 };
+    }
   }
 
   function connectTosu() {

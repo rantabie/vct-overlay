@@ -5,6 +5,7 @@
   const MATCH_URL = "../../data/match.json";
   const STORAGE_KEY = "vct.match-mappool.data";
   const STATE_STORAGE_KEY = "vct.match-mappool.state";
+  const SCORE_OVERRIDE_KEY = "vct.match.score-override";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
   const ASSET_VERSION = "20260730a";
   const EMPTY_POINT = `../../assets/vct/match/point_empty.png?v=${ASSET_VERSION}`;
@@ -120,6 +121,10 @@
   function wireControls() {
     dom.poolBoard.addEventListener("click", handleMapClick);
     dom.poolBoard.addEventListener("contextmenu", handleMapContextMenu);
+    dom.leftStars.addEventListener("click", (event) => handlePointClick(event, "left"));
+    dom.leftStars.addEventListener("contextmenu", (event) => handlePointContextMenu(event, "left"));
+    dom.rightStars.addEventListener("click", (event) => handlePointClick(event, "right"));
+    dom.rightStars.addEventListener("contextmenu", (event) => handlePointContextMenu(event, "right"));
     dom.body.addEventListener("dblclick", handleSceneDoubleClick);
     window.addEventListener("keydown", handleShortcut);
 
@@ -172,6 +177,13 @@
     dom.clearStorageButton.addEventListener("click", () => {
       localStorage.removeItem(STORAGE_KEY);
       setControlStatus("Saved browser mappool cleared. Use Reload JSON to read the repo data again.");
+    });
+
+    window.addEventListener("storage", (event) => {
+      if (event.key === SCORE_OVERRIDE_KEY) {
+        updateControls();
+        queueRender();
+      }
     });
   }
 
@@ -299,13 +311,14 @@
     const leftPlayer = resolvePlayer("left");
     const rightPlayer = resolvePlayer("right");
     const pointCount = pointsToWin(resolveBestOf());
+    const displayStars = resolveDisplayedStars(pointCount);
     const state = {
       leftName: leftPlayer.name,
       rightName: rightPlayer.name,
       leftSeed: leftPlayer.seed,
       rightSeed: rightPlayer.seed,
-      leftStars: clamp(liveState.stars.left, 0, pointCount),
-      rightStars: clamp(liveState.stars.right, 0, pointCount),
+      leftStars: displayStars.left,
+      rightStars: displayStars.right,
       stage: resolveStage(),
       commentators: matchData.commentators.join(" / "),
       activeMap: liveState.activeMap,
@@ -322,7 +335,7 @@
     fitPlayerName(dom.leftName, state.leftName);
     fitPlayerName(dom.rightName, state.rightName);
 
-    dom.matchScore.hidden = !liveState.visibility.stars;
+    dom.matchScore.hidden = !(liveState.visibility.stars || displayStars.overridden);
     renderPointTrack(dom.leftStars, state.leftStars, pointCount, previous.leftStars);
     renderPointTrack(dom.rightStars, state.rightStars, pointCount, previous.rightStars);
     setAnimatedText(dom.stageLabel, state.stage, previous.stage);
@@ -335,7 +348,7 @@
 
     setDiagnostics({
       players: `${state.leftName} vs ${state.rightName}`,
-      score: `${state.leftStars}-${state.rightStars} / ${pointCount}`,
+      score: `${state.leftStars}-${state.rightStars} / ${pointCount}${displayStars.overridden ? " manual" : ""}`,
       map: state.activeMap.pick || state.activeMap.id || "-"
     });
     previousState = state;
@@ -360,13 +373,15 @@
       const point = document.createElement("img");
       point.src = index < value ? FULL_POINT : EMPTY_POINT;
       point.alt = "";
+      point.dataset.score = String(index + 1);
+      point.draggable = false;
       if (index + 1 === value && value > previousValue) point.classList.add("is-data-fresh");
       container.appendChild(point);
     }
   }
 
   function setPointSizing(container, count) {
-    const maxWidth = 430;
+    const maxWidth = 360;
     const defaultWidth = 67;
     const defaultHeight = 37;
     const gap = count > 5 ? 4 : 5;
@@ -528,6 +543,104 @@
 
     if (!options.silent) {
       setControlStatus(`${sideName(side)} won ${map.pick}.`);
+    }
+  }
+
+  function handlePointClick(event, side) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.ctrlKey) {
+      clearManualScore();
+      return;
+    }
+
+    const value = pointScoreFromEvent(event, 0);
+    if (value === null) return;
+    setManualScore(side, value);
+  }
+
+  function handlePointContextMenu(event, side) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.ctrlKey) {
+      clearManualScore();
+      return;
+    }
+
+    const value = pointScoreFromEvent(event, -1);
+    if (value === null) return;
+    setManualScore(side, value);
+  }
+
+  function pointScoreFromEvent(event, offset) {
+    const point = event.target.closest(".point-track img");
+    if (!point || !event.currentTarget.contains(point)) return null;
+
+    const value = Number(point.dataset.score);
+    return Number.isFinite(value) ? value + offset : null;
+  }
+
+  function setManualScore(side, value) {
+    const pointCount = pointsToWin(resolveBestOf());
+    const saved = readScoreOverride(pointCount);
+    const base = saved.enabled
+      ? saved
+      : {
+        left: clamp(liveState.stars.left, 0, pointCount),
+        right: clamp(liveState.stars.right, 0, pointCount)
+      };
+    const next = {
+      enabled: true,
+      left: base.left,
+      right: base.right
+    };
+
+    next[side] = clamp(value, 0, pointCount);
+    localStorage.setItem(SCORE_OVERRIDE_KEY, JSON.stringify(next));
+    updateControls();
+    queueRender();
+    setControlStatus(`Manual score: ${next.left} - ${next.right}. Ctrl+click the point track to use tosu again.`);
+  }
+
+  function clearManualScore() {
+    localStorage.removeItem(SCORE_OVERRIDE_KEY);
+    updateControls();
+    queueRender();
+    setControlStatus("Using tosu score again.");
+  }
+
+  function resolveDisplayedStars(pointCount) {
+    const saved = readScoreOverride(pointCount);
+    if (saved.enabled) {
+      return {
+        left: saved.left,
+        right: saved.right,
+        overridden: true
+      };
+    }
+
+    return {
+      left: clamp(liveState.stars.left, 0, pointCount),
+      right: clamp(liveState.stars.right, 0, pointCount),
+      overridden: false
+    };
+  }
+
+  function readScoreOverride(pointCount = 99) {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SCORE_OVERRIDE_KEY) || "{}");
+      if (saved.enabled !== true) return { enabled: false, left: 0, right: 0 };
+
+      return {
+        enabled: true,
+        left: clamp(saved.left, 0, pointCount),
+        right: clamp(saved.right, 0, pointCount)
+      };
+    } catch (error) {
+      localStorage.removeItem(SCORE_OVERRIDE_KEY);
+      return { enabled: false, left: 0, right: 0 };
     }
   }
 
