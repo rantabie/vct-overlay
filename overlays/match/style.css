@@ -175,7 +175,7 @@ body[data-layer="background"] .workspace {
   position: absolute;
   left: 821px;
   top: 100px;
-  display: grid;
+  display: none;
   width: 278px;
   height: 34px;
   place-items: center;

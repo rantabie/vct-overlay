@@ -186,7 +186,7 @@ body.is-gameplay .diagnostics-panel {
   position: absolute;
   left: 821px;
   top: 100px;
-  display: grid;
+  display: none;
   width: 278px;
   height: 34px;
   place-items: center;
@@ -410,17 +410,20 @@ body.is-gameplay .diagnostics-panel {
   right: 13px;
 }
 
-.map-card.is-picked .map-copy {
+.map-card.is-picked .map-copy,
+.map-card.is-banned .map-copy {
   width: 258px;
 }
 
-.map-card.is-picked .map-pick {
+.map-card.is-picked .map-pick,
+.map-card.is-banned .map-pick {
   top: 0;
   height: 39px;
   font-size: 26px;
 }
 
-.map-card.is-picked .status-label {
+.map-card.is-picked .status-label,
+.map-card.is-banned .status-label {
   right: 16px;
   bottom: 5px;
   display: grid;
@@ -457,18 +460,6 @@ body.is-gameplay .diagnostics-panel {
   inset: 0;
   background: rgba(25, 17, 12, 0.52);
   z-index: 1;
-}
-
-.map-card.is-banned .status-label {
-  inset: 0;
-  display: grid;
-  width: auto;
-  height: auto;
-  place-items: center;
-  background: transparent;
-  color: var(--cream);
-  font-size: 20px;
-  text-shadow: 0 3px 5px rgba(24, 16, 12, 0.9);
 }
 
 .pool-board.is-empty::after {
