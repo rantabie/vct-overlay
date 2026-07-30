@@ -1,0 +1,171 @@
+{
+  "current_scene": "MATCH SCHEDULE",
+  "current_program_scene": "MATCH SCHEDULE",
+  "scene_order": [
+    {
+      "name": "MATCH SCHEDULE"
+    }
+  ],
+  "name": "VCT - MATCH SCHEDULE",
+  "groups": [],
+  "quick_transitions": [
+    {
+      "name": "Cut",
+      "duration": 250,
+      "hotkeys": [],
+      "id": 10,
+      "fade_to_black": false
+    },
+    {
+      "name": "Fade",
+      "duration": 250,
+      "hotkeys": [],
+      "id": 11,
+      "fade_to_black": false
+    }
+  ],
+  "transitions": [],
+  "current_transition": "Fade",
+  "transition_duration": 250,
+  "preview_locked": false,
+  "scaling_enabled": false,
+  "scaling_level": 0,
+  "scaling_off_x": 0,
+  "scaling_off_y": 0,
+  "resolution": {
+    "x": 1920,
+    "y": 1080
+  },
+  "version": 2,
+  "migration_resolution": {
+    "x": 1920,
+    "y": 1080
+  },
+  "sources": [
+    {
+      "name": "MATCH SCHEDULE BACKGROUND",
+      "uuid": "5cf34593-4463-4d68-9a77-dd1a19c56e1f",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/match-schedule/?layer=background&fresh=1",
+        "width": 1920,
+        "height": 1080,
+        "reroute_audio": false,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "ObsBrowser.Refresh": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH SCHEDULE HUD",
+      "uuid": "2c3e2184-7ceb-4845-a4b8-ac6a24174d70",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/match-schedule/?layer=hud&fresh=1",
+        "width": 1920,
+        "height": 1080,
+        "reroute_audio": false,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "ObsBrowser.Refresh": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH SCHEDULE",
+      "uuid": "58d54c5f-119e-4cb2-a3d0-6d7ad78e3aa5",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "custom_size": false,
+        "id_counter": 2,
+        "items": [
+          {
+            "name": "MATCH SCHEDULE BACKGROUND",
+            "source_uuid": "5cf34593-4463-4d68-9a77-dd1a19c56e1f",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 1,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          },
+          {
+            "name": "MATCH SCHEDULE HUD",
+            "source_uuid": "2c3e2184-7ceb-4845-a4b8-ac6a24174d70",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 2,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          }
+        ]
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "OBSBasic.SelectScene": []
+      },
+      "private_settings": {}
+    }
+  ]
+}

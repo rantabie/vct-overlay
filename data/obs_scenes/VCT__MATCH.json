@@ -1,0 +1,384 @@
+{
+  "current_scene": "MATCH",
+  "current_program_scene": "MATCH",
+  "scene_order": [
+    {
+      "name": "MATCH"
+    }
+  ],
+  "name": "VCT - MATCH",
+  "groups": [
+    {
+      "name": "MATCH CLIENTS",
+      "uuid": "ca6f136f-1773-42d4-9664-3a18c1a53f59",
+      "id": "group",
+      "versioned_id": "group",
+      "settings": {
+        "id_counter": 2,
+        "custom_size": true,
+        "cx": 1920,
+        "cy": 720,
+        "items": [
+          {
+            "name": "MATCH CLIENT 1",
+            "source_uuid": "9b26daf4-bb97-4423-8ff0-51bc53d41821",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "align": 5,
+            "bounds_type": 1,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "bounds": {
+              "x": 960,
+              "y": 720
+            },
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "id": 1,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          },
+          {
+            "name": "MATCH CLIENT 2",
+            "source_uuid": "d6a6cf69-a67f-41ac-b828-e053289c6b2c",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "pos": {
+              "x": 960,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "align": 5,
+            "bounds_type": 1,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "bounds": {
+              "x": 960,
+              "y": 720
+            },
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "id": 2,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          }
+        ]
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {},
+      "private_settings": {}
+    }
+  ],
+  "quick_transitions": [
+    {
+      "name": "Cut",
+      "duration": 250,
+      "hotkeys": [],
+      "id": 10,
+      "fade_to_black": false
+    },
+    {
+      "name": "Fade",
+      "duration": 250,
+      "hotkeys": [],
+      "id": 11,
+      "fade_to_black": false
+    }
+  ],
+  "transitions": [],
+  "current_transition": "Fade",
+  "transition_duration": 250,
+  "preview_locked": false,
+  "scaling_enabled": false,
+  "scaling_level": 0,
+  "scaling_off_x": 0,
+  "scaling_off_y": 0,
+  "resolution": {
+    "x": 1920,
+    "y": 1080
+  },
+  "version": 2,
+  "migration_resolution": {
+    "x": 1920,
+    "y": 1080
+  },
+  "sources": [
+    {
+      "name": "MATCH BACKGROUND",
+      "uuid": "6c16dccb-e92d-48da-bf95-3058b063ecfb",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/match/?layer=background&fresh=1",
+        "width": 1920,
+        "height": 1080,
+        "reroute_audio": false,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "ObsBrowser.Refresh": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH HUD",
+      "uuid": "a0d10ac6-d42b-4e5a-9ec4-26e1fe2b303f",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/match/?layer=hud&fresh=1",
+        "width": 1920,
+        "height": 1080,
+        "reroute_audio": false,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "ObsBrowser.Refresh": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH MAPPOOL OVERLAY",
+      "uuid": "84c2f946-6cd8-4abe-9b71-b70383f1a6c9",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/match-mappool/?mode=match&fresh=1",
+        "width": 2240,
+        "height": 1080,
+        "reroute_audio": false,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "ObsBrowser.Refresh": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH CLIENT 1",
+      "uuid": "9b26daf4-bb97-4423-8ff0-51bc53d41821",
+      "id": "game_capture",
+      "versioned_id": "game_capture",
+      "settings": {
+        "window": " Tournament Client 0:WindowsForms10.Window.2b.app.0.1ca0192_r8_ad1:osu!.exe",
+        "capture_mode": "window",
+        "priority": 1,
+        "capture_cursor": false
+      },
+      "mixers": 255,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "hotkey_start": [],
+        "hotkey_stop": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH CLIENT 2",
+      "uuid": "d6a6cf69-a67f-41ac-b828-e053289c6b2c",
+      "id": "game_capture",
+      "versioned_id": "game_capture",
+      "settings": {
+        "window": " Tournament Client 1:WindowsForms10.Window.2b.app.0.1ca0192_r8_ad1:osu!.exe",
+        "capture_mode": "window",
+        "priority": 1,
+        "capture_cursor": false
+      },
+      "mixers": 255,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "hotkey_start": [],
+        "hotkey_stop": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH",
+      "uuid": "c39109f2-cc99-4dcc-a5f9-c9857e38be49",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "custom_size": false,
+        "id_counter": 4,
+        "items": [
+          {
+            "name": "MATCH BACKGROUND",
+            "source_uuid": "6c16dccb-e92d-48da-bf95-3058b063ecfb",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 1,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          },
+          {
+            "name": "MATCH CLIENTS",
+            "source_uuid": "ca6f136f-1773-42d4-9664-3a18c1a53f59",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 2,
+            "pos": {
+              "x": 0,
+              "y": 150
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          },
+          {
+            "name": "MATCH HUD",
+            "source_uuid": "a0d10ac6-d42b-4e5a-9ec4-26e1fe2b303f",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 3,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          },
+          {
+            "name": "MATCH MAPPOOL OVERLAY",
+            "source_uuid": "84c2f946-6cd8-4abe-9b71-b70383f1a6c9",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 4,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          }
+        ]
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "OBSBasic.SelectScene": []
+      },
+      "private_settings": {}
+    }
+  ]
+}

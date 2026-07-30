@@ -1,0 +1,6 @@
+Usecase: obs-overlay
+Name: VCT-MATCH
+Author: VCT Staff
+CompatibleWith: tosu,obs-browser
+Resolution: 1920x1080
+Entry: index.html

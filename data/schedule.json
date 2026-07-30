@@ -1,0 +1,67 @@
+{
+  "schema": "vct-match-schedule-data",
+  "schemaVersion": 1,
+  "timezone": "Asia/Kuala_Lumpur",
+  "matches": [
+    {
+      "id": "ro32-a",
+      "round": "Round of 32",
+      "time": "2026-07-30T18:00:00+08:00",
+      "players": {
+        "left": "Player A",
+        "right": "Player B"
+      },
+      "score": {
+        "left": 5,
+        "right": 3
+      },
+      "winner": "left",
+      "status": "completed"
+    },
+    {
+      "id": "ro32-b",
+      "round": "Round of 32",
+      "time": "2026-07-30T19:00:00+08:00",
+      "players": {
+        "left": "Player C",
+        "right": "Player D"
+      },
+      "score": {
+        "left": 2,
+        "right": 5
+      },
+      "winner": "right",
+      "status": "completed"
+    },
+    {
+      "id": "ro32-c",
+      "round": "Round of 32",
+      "time": "2026-07-30T20:00:00+08:00",
+      "players": {
+        "left": "Player E",
+        "right": "Player F"
+      },
+      "status": "next"
+    },
+    {
+      "id": "ro32-d",
+      "round": "Round of 32",
+      "time": "2026-07-30T21:00:00+08:00",
+      "players": {
+        "left": "Player G",
+        "right": "Player H"
+      },
+      "status": "scheduled"
+    },
+    {
+      "id": "ro32-e",
+      "round": "Round of 32",
+      "time": "2026-07-30T22:00:00+08:00",
+      "players": {
+        "left": "Player I",
+        "right": "Player J"
+      },
+      "status": "scheduled"
+    }
+  ]
+}

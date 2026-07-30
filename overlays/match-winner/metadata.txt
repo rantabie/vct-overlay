@@ -1,0 +1,10 @@
+VCT Match Winner
+
+1920x1080 browser source.
+
+Suggested OBS URLs:
+- Full scene: /overlays/match-winner/?fresh=1
+- Force left winner: /overlays/match-winner/?winner=left&fresh=1
+- Force right winner: /overlays/match-winner/?winner=right&fresh=1
+
+The overlay reads data/match.json and will use tosu match stars when available.

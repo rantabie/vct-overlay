@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VCT Match Mappool</title>
+    <link rel="stylesheet" href="style.css?v=20260730m">
+  </head>
+  <body>
+    <main class="workspace">
+      <section class="overlay-stage" aria-label="VCT match mappool overlay">
+        <img class="mappool-background" src="../../assets/vct/match/mappool.png" alt="">
+
+        <section class="mappool-hud" aria-label="Mappool information">
+          <div class="player player-left">
+            <div class="player-copy">
+              <div class="player-seed" id="leftSeed"></div>
+              <div class="player-name" id="leftName">Player Left</div>
+            </div>
+          </div>
+
+          <div class="player player-right">
+            <div class="player-copy">
+              <div class="player-seed" id="rightSeed"></div>
+              <div class="player-name" id="rightName">Player Right</div>
+            </div>
+          </div>
+
+          <div class="score-hub" id="matchScore">
+            <div class="stage-label" id="stageLabel">Round of 32</div>
+            <div class="point-track point-track-left" id="leftStars"></div>
+            <div class="point-track point-track-right" id="rightStars"></div>
+            <div class="pick-badge pick-badge-left" id="leftPickBadge">Pick</div>
+            <div class="pick-badge pick-badge-right" id="rightPickBadge">Pick</div>
+          </div>
+
+          <div class="pool-board" id="poolBoard"></div>
+          <div class="chat-list" id="chatList"></div>
+          <div class="commentator-list" id="commentatorList"></div>
+        </section>
+
+        <div class="connection-chip" id="connectionChip">tosu offline</div>
+        <pre class="diagnostics-panel" id="diagnosticsPanel" aria-hidden="true"></pre>
+      </section>
+
+      <aside class="control-panel">
+        <h1>VCT Match Mappool</h1>
+        <div class="control-status" id="controlStatus"></div>
+        <button type="button" id="stageButton">Current Stage: RO32</button>
+        <button type="button" id="actionButton">Left Player Ban</button>
+        <button type="button" id="actionSignButton">Hide Pick/Ban Sign</button>
+        <button type="button" id="sceneButton">Switch to Gameplay</button>
+        <button type="button" id="undoButton">Undo Action</button>
+        <div class="control-subtitle">Auto Controls</div>
+        <button type="button" class="toggle-button" id="autoPickButton">Auto Pick: ON</button>
+        <button type="button" class="toggle-button" id="autoSceneButton">Auto Scene: ON</button>
+        <button type="button" id="reloadDataButton">Reload JSON</button>
+        <label class="file-button" for="jsonFileInput">Load Mappool JSON</label>
+        <input id="jsonFileInput" type="file" accept="application/json,.json">
+        <button type="button" id="clearStorageButton">Clear Saved JSON</button>
+      </aside>
+    </main>
+
+    <script src="index.js?v=20260730m"></script>
+  </body>
+</html>

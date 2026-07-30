@@ -1,0 +1,199 @@
+@font-face {
+  font-family: "Berkshire Swash";
+  src: url("../../assets/fonts/BerkshireSwash-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --cream: #ffe0ca;
+  --ink: #3b2a20;
+  --shadow: rgba(34, 22, 15, 0.62);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 2240px;
+  min-height: 1080px;
+  overflow: auto;
+  background: transparent;
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.workspace {
+  display: flex;
+  width: 2240px;
+  min-height: 1080px;
+}
+
+.overlay-stage {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  flex: 0 0 1920px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.winner-background {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 1920px;
+  height: 1080px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.winner-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  text-align: center;
+}
+
+.winner-name {
+  position: absolute;
+  left: 520px;
+  top: 516px;
+  width: 880px;
+  color: var(--cream);
+  font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: var(--winner-size, 64px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow:
+    0 5px 0 var(--ink),
+    0 8px 18px var(--shadow);
+  white-space: nowrap;
+}
+
+.winner-details {
+  position: absolute;
+  left: 600px;
+  top: 603px;
+  display: flex;
+  width: 720px;
+  justify-content: center;
+  gap: 34px;
+  color: rgba(255, 224, 202, 0.86);
+  font-family: "Berkshire Swash", Georgia, serif;
+  font-size: 30px;
+  line-height: 1;
+  text-shadow: 0 3px 8px var(--shadow);
+}
+
+.winner-details span {
+  min-width: 120px;
+}
+
+.connection-chip {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  z-index: 80;
+  padding: 7px 12px 6px;
+  border: 1px solid rgba(255, 224, 202, 0.36);
+  border-radius: 999px;
+  background: rgba(55, 41, 31, 0.72);
+  color: rgba(255, 224, 202, 0.86);
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.debug .connection-chip {
+  opacity: 1;
+}
+
+.diagnostics-panel {
+  display: none;
+  position: absolute;
+  left: 24px;
+  top: 64px;
+  z-index: 80;
+  width: 440px;
+  max-height: 260px;
+  margin: 0;
+  padding: 14px 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 224, 202, 0.34);
+  border-radius: 6px;
+  background: rgba(45, 32, 24, 0.9);
+  color: var(--cream);
+  font: 15px/1.45 Consolas, "Courier New", monospace;
+  white-space: pre-wrap;
+}
+
+.debug .diagnostics-panel {
+  display: block;
+}
+
+.control-panel {
+  width: 320px;
+  min-height: 1080px;
+  padding: 28px 22px;
+  background: #35271e;
+  color: var(--cream);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.control-panel h1 {
+  margin: 0 0 18px;
+  font-size: 28px;
+  letter-spacing: 0;
+}
+
+.control-status,
+.control-panel p {
+  color: rgba(255, 224, 202, 0.72);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.control-status {
+  min-height: 62px;
+  margin-bottom: 18px;
+}
+
+.control-panel button,
+.file-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255, 224, 202, 0.42);
+  border-radius: 6px;
+  background: #5f493a;
+  color: var(--cream);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.control-panel button:hover,
+.file-button:hover {
+  background: #735844;
+}
+
+#jsonFileInput {
+  display: none;
+}

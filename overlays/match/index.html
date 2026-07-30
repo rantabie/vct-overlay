@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VCT Match Overlay</title>
+    <link rel="stylesheet" href="style.css?v=20260730h">
+  </head>
+  <body>
+    <main class="workspace">
+      <section class="overlay-stage" aria-label="VCT match overlay">
+        <img class="match-background" src="../../assets/vct/match/match.png" alt="">
+
+        <section class="match-hud" aria-label="Match information">
+          <div class="player player-left">
+            <div class="player-copy">
+              <div class="player-seed" id="leftSeed"></div>
+              <div class="player-name" id="leftName">Player Left</div>
+            </div>
+          </div>
+
+          <div class="player player-right">
+            <div class="player-copy">
+              <div class="player-seed" id="rightSeed"></div>
+              <div class="player-name" id="rightName">Player Right</div>
+            </div>
+          </div>
+
+          <div class="score-hub" id="matchScore" aria-label="Current map score">
+            <div class="stage-label" id="stageLabel">Round of 32</div>
+            <div class="point-track point-track-left" id="leftStars" aria-label="Left player points"></div>
+            <div class="live-score">
+              <span class="score-number" id="leftLiveScore">0</span>
+              <span class="score-label">Score</span>
+              <span class="score-number" id="rightLiveScore">0</span>
+            </div>
+            <div class="point-track point-track-right" id="rightStars" aria-label="Right player points"></div>
+          </div>
+
+          <div class="game-score" id="gameScorePanel" aria-label="Gameplay score">
+            <div class="advantage-bars">
+              <div class="advantage-side advantage-side-left">
+                <div class="advantage-fill" id="leftScoreBar"></div>
+              </div>
+              <div class="advantage-side advantage-side-right">
+                <div class="advantage-fill" id="rightScoreBar"></div>
+              </div>
+            </div>
+            <div class="score-difference">
+              <span id="diffLeft">+0</span>
+              <span id="diffRight">+0</span>
+            </div>
+            <div class="win-row">
+              <span id="leftWin">Win</span>
+              <span id="rightWin">Win</span>
+            </div>
+            <div class="gameplay-scores">
+              <span id="leftGameplayScore">0</span>
+              <span id="rightGameplayScore">0</span>
+            </div>
+            <div class="difference-label">difference</div>
+          </div>
+
+          <div class="map-playbill">
+            <img src="../../assets/vct/match/mappick.png" alt="">
+            <div class="map-code" id="beatmapPick">NM</div>
+            <div class="map-copy">
+              <div class="map-title marquee" id="beatmapTitleWrap">
+                <span id="beatmapTitle">Waiting for current beatmap</span>
+              </div>
+              <div class="map-meta" id="beatmapMeta">tosu offline</div>
+            </div>
+          </div>
+
+          <div class="commentator-list" id="commentatorList"></div>
+        </section>
+
+        <div class="connection-chip" id="connectionChip">tosu offline</div>
+        <pre class="diagnostics-panel" id="diagnosticsPanel" aria-hidden="true"></pre>
+      </section>
+
+      <aside class="control-panel">
+        <h1>VCT Match</h1>
+        <div class="control-status" id="controlStatus"></div>
+        <button type="button" id="reloadDataButton">Reload JSON</button>
+        <label class="file-button" for="jsonFileInput">Load JSON File</label>
+        <input id="jsonFileInput" type="file" accept="application/json,.json">
+        <div class="control-row">
+          <button type="button" id="swapPlayersButton">Swap Sides</button>
+          <button type="button" id="clearStorageButton">Clear Saved JSON</button>
+        </div>
+        <p>
+          Use <code>?layer=background</code> under gameplay and
+          <code>?layer=hud</code> over gameplay. Default mode previews both.
+        </p>
+      </aside>
+    </main>
+
+    <script src="index.js?v=20260730h"></script>
+  </body>
+</html>

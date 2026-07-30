@@ -1,0 +1,7 @@
+Usecase: obs-overlay
+Name: VCT-MATCH-MAPPOOL
+Author: VCT Staff
+CompatibleWith: tosu,obs-browser
+Resolution: 1920x1080 broadcast area, 2240x1080 with off-screen control panel
+Entry: index.html
+Guide: docs/vct-match-overlay-streamer-guide.md

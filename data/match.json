@@ -1,0 +1,17 @@
+{
+  "schema": "vct-match-overlay-data",
+  "schemaVersion": 1,
+  "stage": "Round of 32",
+  "bestOf": 9,
+  "players": {
+    "left": {
+      "name": "Player Left",
+      "seed": ""
+    },
+    "right": {
+      "name": "Player Right",
+      "seed": ""
+    }
+  },
+  "commentators": []
+}

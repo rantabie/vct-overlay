@@ -7,8 +7,13 @@ if (!baseUrl) {
   process.exit(1);
 }
 
-const sceneFile = "data/obs_scenes/VCT__SHOWCASE.json";
-const scene = JSON.parse(fs.readFileSync(sceneFile, "utf8"));
+const sceneFiles = [
+  "data/obs_scenes/VCT__SHOWCASE.json",
+  "data/obs_scenes/VCT__MATCH.json",
+  "data/obs_scenes/VCT__MATCH_MAPPOOL.json",
+  "data/obs_scenes/VCT__MATCH_WINNER.json",
+  "data/obs_scenes/VCT__MATCH_SCHEDULE.json"
+].filter((file) => fs.existsSync(file));
 
 const showcaseStages = {
   QUALIFIERS: "qualifiers",
@@ -20,70 +25,54 @@ const showcaseStages = {
   "GRAND FINALS": "grandfinals"
 };
 
-for (const source of scene.sources) {
-  const showcaseMatch = source.name.match(/^(?:VCT )?SHOWCASE - (.+) OVERLAY$/);
-  const stage = showcaseMatch ? showcaseStages[showcaseMatch[1]] : null;
-  const url = stage
-    ? `${baseUrl}/overlays/mappool/?stage=${stage}&fresh=1`
-    : source.name === "COUNTDOWN"
-      ? `${baseUrl}/overlays/countdown/`
-      : source.name === "ENDING VIDEO"
-        ? `${baseUrl}/overlays/ending/`
-      : source.name === "CUSTOM MAP ALERT VIDEO"
-        ? `${baseUrl}/overlays/custom-map-alert/`
-      : source.name === "QUALIFIER RESULTS OVERLAY"
-        ? `${baseUrl}/overlays/qualifier-results/?fresh=1`
-      : null;
+const overlaySources = {
+  COUNTDOWN: { path: "/overlays/countdown/", width: 2240, height: 1080 },
+  "ENDING VIDEO": { path: "/overlays/ending/", reroute_audio: true },
+  "CUSTOM MAP ALERT VIDEO": {
+    path: "/overlays/custom-map-alert/",
+    reroute_audio: true,
+    restart_when_active: true
+  },
+  "QUALIFIER RESULTS OVERLAY": { path: "/overlays/qualifier-results/?fresh=1", width: 2240, height: 1080 },
+  "MATCH BACKGROUND": { path: "/overlays/match/?layer=background&fresh=1" },
+  "MATCH HUD": { path: "/overlays/match/?layer=hud&fresh=1" },
+  "MATCH MAPPOOL OVERLAY": { path: "/overlays/match-mappool/?mode=match&fresh=1", width: 2240 },
+  "MATCH MAPPOOL BACKGROUND": { path: "/overlays/match-mappool/?layer=background&fresh=1" },
+  "MATCH MAPPOOL HUD": { path: "/overlays/match-mappool/?layer=hud&fresh=1" },
+  "MATCH WINNER OVERLAY": { path: "/overlays/match-winner/?fresh=1" },
+  "MATCH SCHEDULE BACKGROUND": { path: "/overlays/match-schedule/?layer=background&fresh=1" },
+  "MATCH SCHEDULE HUD": { path: "/overlays/match-schedule/?layer=hud&fresh=1" }
+};
 
-  if (!url) continue;
+for (const sceneFile of sceneFiles) {
+  const scene = JSON.parse(fs.readFileSync(sceneFile, "utf8"));
 
-  source.id = "browser_source";
-  source.versioned_id = "browser_source";
-  source.settings = source.name === "COUNTDOWN"
-    ? {
-        url,
-        width: 2240,
-        height: 1080,
-        reroute_audio: false,
-        restart_when_active: false,
-        shutdown: false
-      }
-    : source.name === "ENDING VIDEO"
-      ? {
-          url,
-          width: 1920,
-          height: 1080,
-          reroute_audio: true,
-          restart_when_active: false,
-          shutdown: false
-        }
-    : source.name === "CUSTOM MAP ALERT VIDEO"
-      ? {
-          url,
-          width: 1920,
-          height: 1080,
-          reroute_audio: true,
-          restart_when_active: true,
-          shutdown: false
-        }
-    : source.name === "QUALIFIER RESULTS OVERLAY"
-      ? {
-          url,
-          width: 2240,
-          height: 1080,
-          reroute_audio: false,
-          restart_when_active: false,
-          shutdown: false
-        }
-    : {
-        ...(source.settings || {}),
-        url,
-        width: 2240,
-        height: 1080,
-        restart_when_active: false,
-        shutdown: false
-      };
+  for (const source of scene.sources) {
+    const overlay = getOverlaySource(source.name);
+    if (!overlay) continue;
+
+    source.id = "browser_source";
+    source.versioned_id = "browser_source";
+    source.settings = {
+      url: `${baseUrl}${overlay.path}`,
+      width: overlay.width || 1920,
+      height: overlay.height || 1080,
+      reroute_audio: Boolean(overlay.reroute_audio),
+      restart_when_active: Boolean(overlay.restart_when_active),
+      shutdown: false
+    };
+  }
+
+  fs.writeFileSync(sceneFile, JSON.stringify(scene, null, 4));
+  console.log(`Updated ${sceneFile} to use ${baseUrl}`);
 }
 
-fs.writeFileSync(sceneFile, JSON.stringify(scene, null, 4));
-console.log(`Updated ${sceneFile} to use ${baseUrl}`);
+function getOverlaySource(name) {
+  const showcaseMatch = name.match(/^(?:VCT )?SHOWCASE - (.+) OVERLAY$/);
+  if (showcaseMatch) {
+    const stage = showcaseStages[showcaseMatch[1]];
+    return stage ? { path: `/overlays/mappool/?stage=${stage}&fresh=1`, width: 2240, height: 1080 } : null;
+  }
+
+  return overlaySources[name] || null;
+}

@@ -1,0 +1,6 @@
+Usecase: obs-overlay
+Name: VCT-MATCH-SCHEDULE
+Author: VCT Staff
+CompatibleWith: obs-browser
+Resolution: 1920x1080
+Entry: index.html
