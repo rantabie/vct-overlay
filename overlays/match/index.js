@@ -346,10 +346,18 @@
 
   function pointScoreFromEvent(event, offset) {
     const point = event.target.closest(".point-track img");
-    if (!point || !event.currentTarget.contains(point)) return null;
+    if (point && event.currentTarget.contains(point)) {
+      const value = Number(point.dataset.score);
+      return Number.isFinite(value) ? value + offset : null;
+    }
 
-    const value = Number(point.dataset.score);
-    return Number.isFinite(value) ? value + offset : null;
+    const points = [...event.currentTarget.querySelectorAll("img")];
+    if (!points.length) return null;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const step = bounds.width / points.length;
+    const index = Math.max(0, Math.min(points.length - 1, Math.floor((event.clientX - bounds.left) / step)));
+    return index + 1 + offset;
   }
 
   function setManualScore(side, value) {

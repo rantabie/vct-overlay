@@ -48,7 +48,7 @@ ClientNameSize = 0
 2. Make sure the lobby has valid 1v1 player names.
 3. Set the Best Of correctly in the tournament client.
 4. In OBS, open `Interact` on `MATCH MAPPOOL OVERLAY`.
-5. Click `Load Mappool JSON` and select the mappool JSON provided by staff.
+5. The overlay reads `data/mappool.json` for the repo mappool. Click `Load Mappool JSON` only when staff gives you a one-off replacement file.
 6. Click `Current Stage` until it matches the round being streamed.
 7. Check who won roll and set the `Player Ban/Pick` button to the correct first action.
 

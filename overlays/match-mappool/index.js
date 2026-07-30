@@ -1,7 +1,8 @@
 (function () {
   "use strict";
 
-  const MAPPOOL_URL = "../../data/mappool.cache.json";
+  const SOURCE_MAPPOOL_URL = "../../data/mappool.json";
+  const CACHE_MAPPOOL_URL = "../../data/mappool.cache.json";
   const MATCH_URL = "../../data/match.json";
   const STORAGE_KEY = "vct.match-mappool.data";
   const STATE_STORAGE_KEY = "vct.match-mappool.state";
@@ -37,7 +38,7 @@
 
   const fallbackMaps = [
     { pick: "NM1", title: "Waiting for mappool data", artist: "VCT", difficulty: "Mappool", mapper: "VCT Staff" },
-    { pick: "NM2", title: "Add maps to data/mappool.cache.json", artist: "VCT", difficulty: "Mappool", mapper: "VCT Staff" }
+    { pick: "NM2", title: "Add maps to data/mappool.json", artist: "VCT", difficulty: "Mappool", mapper: "VCT Staff" }
   ];
 
   const dom = {
@@ -281,13 +282,22 @@
     }
 
     try {
-      maps = normaliseMaps(await fetchJson(MAPPOOL_URL));
-      setDiagnostics({ mappool: `loaded ${MAPPOOL_URL}` });
-      setControlStatus(`Loaded ${MATCH_URL} and ${MAPPOOL_URL}.`);
+      const cache = await fetchJson(CACHE_MAPPOOL_URL).catch(() => null);
+      const source = await fetchJson(SOURCE_MAPPOOL_URL);
+      const json = cache ? mergeMappoolSource(cache, source) : source;
+      maps = normaliseMaps(json);
+      setDiagnostics({ mappool: `loaded ${SOURCE_MAPPOOL_URL}${cache ? ` + ${CACHE_MAPPOOL_URL}` : ""}` });
+      setControlStatus(`Loaded ${MATCH_URL} and ${SOURCE_MAPPOOL_URL}${cache ? ` + ${CACHE_MAPPOOL_URL}` : ""}.`);
     } catch (error) {
-      maps = normaliseMaps(fallbackMaps);
-      setDiagnostics({ mappool: `fallback: ${error.message}` });
-      setControlStatus(`Using placeholder mappool. Could not read ${MAPPOOL_URL}: ${error.message}`);
+      try {
+        maps = normaliseMaps(await fetchJson(CACHE_MAPPOOL_URL));
+        setDiagnostics({ mappool: `loaded fallback ${CACHE_MAPPOOL_URL}` });
+        setControlStatus(`Could not read ${SOURCE_MAPPOOL_URL}; using ${CACHE_MAPPOOL_URL}.`);
+      } catch (cacheError) {
+        maps = normaliseMaps(fallbackMaps);
+        setDiagnostics({ mappool: `fallback: ${error.message}` });
+        setControlStatus(`Using placeholder mappool. Could not read ${SOURCE_MAPPOOL_URL}: ${error.message}`);
+      }
     }
   }
 
@@ -576,10 +586,18 @@
 
   function pointScoreFromEvent(event, offset) {
     const point = event.target.closest(".point-track img");
-    if (!point || !event.currentTarget.contains(point)) return null;
+    if (point && event.currentTarget.contains(point)) {
+      const value = Number(point.dataset.score);
+      return Number.isFinite(value) ? value + offset : null;
+    }
 
-    const value = Number(point.dataset.score);
-    return Number.isFinite(value) ? value + offset : null;
+    const points = [...event.currentTarget.querySelectorAll("img")];
+    if (!points.length) return null;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const step = bounds.width / points.length;
+    const index = Math.max(0, Math.min(points.length - 1, Math.floor((event.clientX - bounds.left) / step)));
+    return index + 1 + offset;
   }
 
   function setManualScore(side, value) {
@@ -976,6 +994,60 @@
     };
   }
 
+  function mergeMappoolSource(cacheData, sourceData) {
+    const cache = Array.isArray(cacheData) ? { maps: cacheData } : cacheData || {};
+    const source = Array.isArray(sourceData) ? { maps: sourceData } : sourceData || {};
+    const cacheMaps = Array.isArray(cache.maps) ? cache.maps : [];
+    const sourceMaps = Array.isArray(source.maps) ? source.maps : [];
+
+    if (!sourceMaps.length) return sourceData;
+
+    const byPick = new Map(cacheMaps.map((map) => [cleanText(map.pick).toUpperCase(), map]));
+    const byId = new Map(cacheMaps
+      .map((map) => [cleanText(map.beatmapId || map.beatmap_id || map.id), map])
+      .filter(([id]) => id));
+    const maps = sourceMaps.map((map) => {
+      const sourceId = cleanText(map.beatmapId || map.beatmap_id || map.id);
+      const cached = byId.get(sourceId)
+        || (sourceId ? {} : byPick.get(cleanText(map.pick).toUpperCase()))
+        || {};
+      return mergeMapData(cached, map);
+    });
+
+    return Array.isArray(sourceData)
+      ? maps
+      : {
+        ...cache,
+        ...source,
+        maps
+      };
+  }
+
+  function mergeMapData(cached, source) {
+    const merged = { ...cached };
+
+    Object.entries(source || {}).forEach(([key, value]) => {
+      if (shouldUseSourceValue(value)) {
+        merged[key] = value;
+      }
+    });
+
+    const aliases = [
+      ...(Array.isArray(cached?.aliases) ? cached.aliases : []),
+      ...(Array.isArray(source?.aliases) ? source.aliases : [])
+    ].map(cleanText).filter(Boolean);
+
+    if (aliases.length) merged.aliases = [...new Set(aliases)];
+    return merged;
+  }
+
+  function shouldUseSourceValue(value) {
+    if (value === undefined || value === null) return false;
+    if (typeof value === "string") return value.trim() !== "";
+    if (Array.isArray(value)) return value.length > 0;
+    return true;
+  }
+
   function normaliseMaps(source) {
     const list = Array.isArray(source)
       ? source
@@ -984,12 +1056,13 @@
     return list.map((map, index) => {
       const pick = cleanText(map.pick || map.code || map.id || `MAP${index + 1}`).toUpperCase();
       const urlStatus = statusFromUrl(pick);
+      const beatmapId = cleanText(map.beatmapId || map.beatmap_id || map.id || "");
       return {
         pick,
         group: cleanText(map.group || map.mod || ""),
-        beatmapId: cleanText(map.beatmapId || map.beatmap_id || map.id || ""),
+        beatmapId,
         aliases: Array.isArray(map.aliases) ? map.aliases.map(cleanText).filter(Boolean) : [],
-        title: cleanText(map.title || map.name || ""),
+        title: cleanText(map.title || map.name || fallbackMapTitle(beatmapId)),
         artist: cleanText(map.artist || ""),
         difficulty: cleanText(map.difficulty || map.version || ""),
         mapper: cleanText(map.mapper || map.mappers || map.creator || ""),
@@ -1002,6 +1075,13 @@
         protectedBy: normaliseSide(map.protectedBy || map.protectBy || urlStatus.protectedBy)
       };
     }).filter((map) => map.pick);
+  }
+
+  function fallbackMapTitle(beatmapId) {
+    const text = cleanText(beatmapId);
+    if (!text) return "";
+    if (/^\d+$/.test(text)) return `Beatmap ${text}`;
+    return text.replace(/\.osu$/i, "");
   }
 
   function normalisePlayer(value, fallback) {
