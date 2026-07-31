@@ -303,7 +303,18 @@ body.is-gameplay .diagnostics-panel {
 }
 
 .map-card::before {
-  display: none;
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 2px solid rgba(255, 235, 221, 0.96);
+  border-radius: 29px;
+  box-shadow:
+    inset 0 0 0 1px rgba(82, 60, 45, 0.36),
+    0 0 12px rgba(255, 224, 202, 0.38);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+  z-index: 3;
 }
 
 .map-card.is-current {
