@@ -152,7 +152,7 @@
         "restart_when_active": false,
         "shutdown": false
       },
-      "mixers": 0,
+      "mixers": 255,
       "sync": 0,
       "flags": 0,
       "volume": 1,
@@ -160,9 +160,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "ObsBrowser.Refresh": []
+        "ObsBrowser.Refresh": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH HUD",
@@ -177,7 +188,7 @@
         "restart_when_active": false,
         "shutdown": false
       },
-      "mixers": 0,
+      "mixers": 255,
       "sync": 0,
       "flags": 0,
       "volume": 1,
@@ -185,9 +196,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "ObsBrowser.Refresh": []
+        "ObsBrowser.Refresh": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH MAPPOOL OVERLAY",
@@ -202,7 +224,7 @@
         "restart_when_active": false,
         "shutdown": false
       },
-      "mixers": 0,
+      "mixers": 255,
       "sync": 0,
       "flags": 0,
       "volume": 1,
@@ -210,9 +232,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "ObsBrowser.Refresh": []
+        "ObsBrowser.Refresh": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH CLIENT 1",
@@ -234,9 +267,20 @@
       "muted": false,
       "hotkeys": {
         "hotkey_start": [],
-        "hotkey_stop": []
+        "hotkey_stop": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH CLIENT 2",
@@ -258,9 +302,20 @@
       "muted": false,
       "hotkeys": {
         "hotkey_start": [],
-        "hotkey_stop": []
+        "hotkey_stop": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH",
@@ -385,9 +440,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "OBSBasic.SelectScene": []
+        "OBSBasic.SelectScene": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH WINNER OVERLAY",
@@ -402,7 +468,7 @@
         "restart_when_active": false,
         "shutdown": false
       },
-      "mixers": 0,
+      "mixers": 255,
       "sync": 0,
       "flags": 0,
       "volume": 1,
@@ -410,9 +476,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "ObsBrowser.Refresh": []
+        "ObsBrowser.Refresh": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH WINNER",
@@ -459,9 +536,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "OBSBasic.SelectScene": []
+        "OBSBasic.SelectScene": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH SCHEDULE BACKGROUND",
@@ -476,7 +564,7 @@
         "restart_when_active": false,
         "shutdown": false
       },
-      "mixers": 0,
+      "mixers": 255,
       "sync": 0,
       "flags": 0,
       "volume": 1,
@@ -484,9 +572,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "ObsBrowser.Refresh": []
+        "ObsBrowser.Refresh": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH SCHEDULE HUD",
@@ -501,7 +600,7 @@
         "restart_when_active": false,
         "shutdown": false
       },
-      "mixers": 0,
+      "mixers": 255,
       "sync": 0,
       "flags": 0,
       "volume": 1,
@@ -509,9 +608,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "ObsBrowser.Refresh": []
+        "ObsBrowser.Refresh": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "MATCH SCHEDULE",
@@ -584,9 +694,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "OBSBasic.SelectScene": []
+        "OBSBasic.SelectScene": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "COUNTDOWN OVERLAY",
@@ -609,9 +730,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "ObsBrowser.Refresh": []
+        "ObsBrowser.Refresh": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     },
     {
       "name": "COUNTDOWN",
@@ -658,9 +790,20 @@
       "enabled": true,
       "muted": false,
       "hotkeys": {
-        "OBSBasic.SelectScene": []
+        "OBSBasic.SelectScene": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
       },
-      "private_settings": {}
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     }
   ]
 }
