@@ -344,6 +344,25 @@ body.is-gameplay .diagnostics-panel {
   white-space: nowrap;
 }
 
+.map-title > span,
+.map-meta > span {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  will-change: transform;
+}
+
+.map-title.is-long > span,
+.map-meta.is-long > span {
+  max-width: none;
+  overflow: visible;
+  padding-right: 42px;
+  animation: mapCardMarquee var(--marquee-duration, 12s) ease-in-out infinite;
+  text-overflow: clip;
+}
+
 .map-title {
   font-size: 13.5px;
   font-style: italic;
@@ -670,6 +689,22 @@ body.is-gameplay .diagnostics-panel {
 
   50% {
     box-shadow: 0 0 26px rgba(255, 224, 202, 0.46);
+  }
+}
+
+@keyframes mapCardMarquee {
+  0%,
+  14% {
+    transform: translateX(0);
+  }
+
+  48%,
+  64% {
+    transform: translateX(calc(-1 * var(--marquee-distance, 0px)));
+  }
+
+  100% {
+    transform: translateX(0);
   }
 }
 

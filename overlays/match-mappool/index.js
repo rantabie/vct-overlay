@@ -8,9 +8,17 @@
   const STATE_STORAGE_KEY = "vct.match-mappool.state";
   const SCORE_OVERRIDE_KEY = "vct.match.score-override";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
-  const ASSET_VERSION = "20260730a";
+  const ASSET_VERSION = "20260731a";
   const EMPTY_POINT = `../../assets/vct/match/point_empty.png?v=${ASSET_VERSION}`;
   const FULL_POINT = `../../assets/vct/match/point_full.png?v=${ASSET_VERSION}`;
+  const DEFAULT_BACKGROUND = "../../assets/vct/match/mappool.png";
+  const STAGE_BACKGROUNDS = {
+    ro16: "../../assets/vct/match/stages/mappool-ro16.png",
+    quarterfinals: "../../assets/vct/match/stages/mappool-quarterfinals.png",
+    semifinals: "../../assets/vct/match/stages/mappool-semifinals.png",
+    finals: "../../assets/vct/match/stages/mappool-finals.png",
+    grandfinals: "../../assets/vct/match/stages/mappool-grandfinals.png"
+  };
   const ROW_ORDER = ["RC", "LN", "HB", "SV", "MD", "NM", "HD", "HR", "DT", "FM", "TB"];
   const GAMEPLAY_STATE = 3;
   const RESULT_STATE = 4;
@@ -43,6 +51,7 @@
 
   const dom = {
     body: document.body,
+    mappoolBackground: document.getElementById("mappoolBackground"),
     leftSeed: document.getElementById("leftSeed"),
     rightSeed: document.getElementById("rightSeed"),
     leftName: document.getElementById("leftName"),
@@ -76,6 +85,7 @@
   const freshData = params.get("fresh") === "1";
   const staticMode = params.get("static") === "1";
   const layer = normaliseLayer(params.get("layer"));
+  const stageParam = cleanText(params.get("stage") || params.get("round"));
   const initialActivePick = cleanText(params.get("pick") || params.get("current"));
   const initialPickingSide = normaliseSide(params.get("turn") || params.get("picking"));
   const initialAutoPick = params.get("autoPick") !== "0";
@@ -116,6 +126,7 @@
     interactionState = loadInteractionState();
     setSceneView(interactionState.view, false);
     queueRender(true);
+    document.fonts?.ready?.then(setupMapCardMarquees);
     if (!staticMode && layer !== "background") connectTosu();
   }
 
@@ -341,6 +352,7 @@
     };
     const previous = previousState || state;
 
+    updateStageBackground(state.stage);
     setAnimatedText(dom.leftSeed, state.leftSeed, previous.leftSeed);
     setAnimatedText(dom.rightSeed, state.rightSeed, previous.rightSeed);
     setAnimatedText(dom.leftName, state.leftName, previous.leftName);
@@ -422,7 +434,7 @@
 
   function renderPool(activeMap) {
     const signature = [
-      maps.map((map) => `${map.pick}:${map.title}:${map.beatmapId}`).join("|"),
+      maps.map((map) => `${map.pick}:${map.title}:${map.beatmapId}:${formatMapMeta(map)}`).join("|"),
       JSON.stringify(interactionState.actions),
       activeMap.pick,
       activeMap.id,
@@ -440,6 +452,8 @@
       row.maps.forEach((map) => rowElement.appendChild(createCard(map, activeMap)));
       dom.poolBoard.appendChild(rowElement);
     }
+
+    setupMapCardMarquees();
   }
 
   function createCard(map, activeMap) {
@@ -469,11 +483,11 @@
 
     const title = document.createElement("div");
     title.className = "map-title";
-    title.textContent = displayMap.title || "Untitled";
+    title.appendChild(createTextSpan(displayMap.title || "Untitled"));
 
     const meta = document.createElement("div");
     meta.className = "map-meta";
-    meta.textContent = formatMapMeta(displayMap);
+    meta.appendChild(createTextSpan(formatMapMeta(displayMap)));
 
     const pick = document.createElement("div");
     pick.className = displayMap.pick.length > 3 ? "map-pick is-long" : "map-pick";
@@ -486,6 +500,57 @@
     copy.append(title, meta);
     card.append(copy, pick, label);
     return card;
+  }
+
+  function createTextSpan(value) {
+    const span = document.createElement("span");
+    span.textContent = value || "";
+    return span;
+  }
+
+  function updateStageBackground(stage) {
+    const baseSource = STAGE_BACKGROUNDS[stageKey(stage)] || DEFAULT_BACKGROUND;
+    const source = `${baseSource}?v=${ASSET_VERSION}`;
+    if (dom.mappoolBackground.dataset.source === source) return;
+
+    dom.mappoolBackground.src = source;
+    dom.mappoolBackground.dataset.source = source;
+  }
+
+  function stageKey(value) {
+    const text = cleanText(value).toLowerCase().replace(/[^a-z0-9]+/g, "");
+    if (text === "ro16" || text === "roundof16") return "ro16";
+    if (text === "qf" || text === "quarterfinal" || text === "quarterfinals") return "quarterfinals";
+    if (text === "sf" || text === "semifinal" || text === "semifinals") return "semifinals";
+    if (text === "f" || text === "final" || text === "finals") return "finals";
+    if (text === "gf" || text === "grandfinal" || text === "grandfinals") return "grandfinals";
+    return "ro32";
+  }
+
+  function setupMapCardMarquees() {
+    const lines = [...dom.poolBoard.querySelectorAll(".map-title, .map-meta")];
+
+    lines.forEach((line) => {
+      line.classList.remove("is-long");
+      line.style.removeProperty("--marquee-distance");
+      line.style.removeProperty("--marquee-duration");
+    });
+
+    requestAnimationFrame(() => {
+      lines.forEach((line) => {
+        const text = line.querySelector("span");
+        if (!text) return;
+
+        const distance = text.scrollWidth - line.clientWidth;
+        const overflow = distance > 4;
+        line.classList.toggle("is-long", overflow);
+
+        if (overflow) {
+          line.style.setProperty("--marquee-distance", `${Math.ceil(distance)}px`);
+          line.style.setProperty("--marquee-duration", `${Math.max(8, Math.min(18, 8 + distance / 42))}s`);
+        }
+      });
+    });
   }
 
   function withInteraction(map) {
@@ -1235,6 +1300,7 @@
   }
 
   function resolveStage() {
+    if (stageParam) return normaliseStage(stageParam);
     return interactionState.stageOverride || matchData.stage;
   }
 

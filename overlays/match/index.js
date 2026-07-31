@@ -7,9 +7,17 @@
   const SOURCE_MAPPOOL_URL = "../../data/mappool.json";
   const CACHE_MAPPOOL_URL = "../../data/mappool.cache.json";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
-  const ASSET_VERSION = "20260730c";
+  const ASSET_VERSION = "20260731a";
   const EMPTY_POINT = `../../assets/vct/match/point_empty.png?v=${ASSET_VERSION}`;
   const FULL_POINT = `../../assets/vct/match/point_full.png?v=${ASSET_VERSION}`;
+  const DEFAULT_BACKGROUND = "../../assets/vct/match/match.png";
+  const STAGE_BACKGROUNDS = {
+    ro16: "../../assets/vct/match/stages/match-ro16.png",
+    quarterfinals: "../../assets/vct/match/stages/match-quarterfinals.png",
+    semifinals: "../../assets/vct/match/stages/match-semifinals.png",
+    finals: "../../assets/vct/match/stages/match-finals.png",
+    grandfinals: "../../assets/vct/match/stages/match-grandfinals.png"
+  };
 
   const fallbackData = {
     stage: "Round of 32",
@@ -23,6 +31,7 @@
 
   const dom = {
     body: document.body,
+    matchBackground: document.getElementById("matchBackground"),
     leftSeed: document.getElementById("leftSeed"),
     rightSeed: document.getElementById("rightSeed"),
     leftName: document.getElementById("leftName"),
@@ -61,6 +70,7 @@
   const freshData = params.get("fresh") === "1";
   const staticMode = params.get("static") === "1";
   const layer = normaliseLayer(params.get("layer"));
+  const stageParam = cleanText(params.get("stage") || params.get("round"));
   const tosuHost = params.get("tosu") || (location.port === "24050" ? location.host : DEFAULT_TOSU_HOST);
   const socketUrl = `ws://${tosuHost}/ws`;
   const diagnostics = {
@@ -341,6 +351,7 @@
     const nextState = createRenderState(leftPlayer, rightPlayer, pointCount, displayStars);
     const previous = previousRenderState || nextState;
 
+    updateStageBackground(nextState.stage);
     setAnimatedText(dom.leftSeed, leftPlayer.seed, previous.leftSeed);
     setAnimatedText(dom.rightSeed, rightPlayer.seed, previous.rightSeed);
     setAnimatedText(dom.leftName, leftPlayer.name, previous.leftName);
@@ -388,9 +399,11 @@
   }
 
   function resolveStage() {
+    if (stageParam) return stageLabel(stageParam);
+
     try {
       const state = JSON.parse(localStorage.getItem("vct.match-mappool.state") || "{}");
-      return cleanText(state.stageOverride) || matchData.stage;
+      return stageLabel(state.stageOverride) || matchData.stage;
     } catch (error) {
       return matchData.stage;
     }
@@ -413,6 +426,37 @@
       beatmapPick: liveState.beatmap.pick,
       commentators: matchData.commentators.join(" / ")
     };
+  }
+
+  function updateStageBackground(stage) {
+    const baseSource = STAGE_BACKGROUNDS[stageKey(stage)] || DEFAULT_BACKGROUND;
+    const source = `${baseSource}?v=${ASSET_VERSION}`;
+    if (dom.matchBackground.dataset.source === source) return;
+
+    dom.matchBackground.src = source;
+    dom.matchBackground.dataset.source = source;
+  }
+
+  function stageKey(value) {
+    const text = cleanText(value).toLowerCase().replace(/[^a-z0-9]+/g, "");
+    if (text === "ro16" || text === "roundof16") return "ro16";
+    if (text === "qf" || text === "quarterfinal" || text === "quarterfinals") return "quarterfinals";
+    if (text === "sf" || text === "semifinal" || text === "semifinals") return "semifinals";
+    if (text === "f" || text === "final" || text === "finals") return "finals";
+    if (text === "gf" || text === "grandfinal" || text === "grandfinals") return "grandfinals";
+    return "ro32";
+  }
+
+  function stageLabel(value) {
+    const labels = {
+      ro16: "Round of 16",
+      quarterfinals: "Quarterfinals",
+      semifinals: "Semifinals",
+      finals: "Finals",
+      grandfinals: "Grand Finals"
+    };
+
+    return labels[stageKey(value)] || cleanText(value);
   }
 
   function resolveDisplayedStars(pointCount) {
