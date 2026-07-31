@@ -312,29 +312,33 @@ body[data-layer="background"] .workspace {
 
 .score-difference {
   position: absolute;
-  left: 0;
+  left: 630px;
   top: 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 160px;
-  width: 1420px;
+  width: 160px;
+  height: 19px;
   color: rgba(255, 224, 202, 0.9);
   font-family: Cambria, Georgia, serif;
-  font-size: 17px;
+  font-size: 15px;
   font-style: italic;
   font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0 2px 5px rgba(48, 31, 22, 0.58);
+  pointer-events: none;
 }
 
 #diffLeft {
-  text-align: right;
+  text-align: center;
 }
 
 #diffRight {
-  text-align: left;
+  text-align: center;
 }
 
 #diffLeft,
 #diffRight {
+  position: absolute;
+  inset: 0;
   opacity: 0;
   transition: opacity 220ms ease;
 }
@@ -387,23 +391,26 @@ body[data-layer="background"] .workspace {
 
 .difference-label {
   position: absolute;
-  left: 0;
-  top: 64px;
-  width: 1420px;
+  left: 630px;
+  top: 63px;
+  width: 160px;
   color: rgba(255, 224, 202, 0.74);
   font-family: Cambria, Georgia, serif;
-  font-size: 16px;
+  font-size: 14px;
   font-style: italic;
   font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  pointer-events: none;
 }
 
 .map-playbill {
   position: absolute;
   left: 54px;
-  bottom: 24px;
+  bottom: 23px;
   z-index: 24;
-  width: 1280px;
-  height: 110px;
+  width: 1270px;
+  height: 96px;
 }
 
 .map-playbill > img {
@@ -413,29 +420,33 @@ body[data-layer="background"] .workspace {
 .map-code {
   position: absolute;
   left: 0;
-  top: 17px;
+  top: 5px;
   display: grid;
-  width: 112px;
-  height: 70px;
+  width: 132px;
+  height: 82px;
   place-items: center;
   color: var(--cream);
   font-family: "Berkshire Swash", Georgia, serif;
-  font-size: 55px;
+  font-size: 66px;
   line-height: 1;
   text-shadow: 0 3px 8px rgba(48, 31, 22, 0.62);
 }
 
+.map-code.is-long {
+  font-size: 52px;
+}
+
 .map-copy {
   position: absolute;
-  left: 132px;
-  top: 22px;
-  width: 780px;
+  left: 147px;
+  top: 9px;
+  width: 1030px;
   min-width: 0;
 }
 
 .map-title {
   overflow: hidden;
-  min-height: 34px;
+  min-height: 27px;
   white-space: nowrap;
 }
 
@@ -444,10 +455,10 @@ body[data-layer="background"] .workspace {
   max-width: 100%;
   overflow: hidden;
   color: var(--cream);
-  font-size: 24px;
+  font-size: 25px;
   font-style: italic;
   font-weight: 700;
-  line-height: 1.08;
+  line-height: 1.05;
   text-overflow: ellipsis;
   text-shadow: 0 3px 8px rgba(48, 31, 22, 0.62);
 }
@@ -460,16 +471,47 @@ body[data-layer="background"] .workspace {
   text-overflow: clip;
 }
 
-.map-meta {
+.map-subtitle {
   overflow: hidden;
-  margin-top: 4px;
-  color: rgba(255, 224, 202, 0.74);
+  margin-top: -1px;
+  color: rgba(255, 224, 202, 0.78);
+  font-family: Cambria, Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.08;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.map-stats {
+  display: flex;
+  overflow: hidden;
+  max-width: 100%;
+  margin-top: 7px;
+  align-items: center;
+  gap: 15px;
+  color: rgba(255, 224, 202, 0.82);
   font-family: Cambria, Georgia, serif;
   font-size: 15px;
-  font-weight: 700;
-  text-overflow: ellipsis;
-  text-transform: uppercase;
+  font-style: italic;
+  line-height: 1;
+  text-shadow: 0 3px 8px rgba(48, 31, 22, 0.62);
   white-space: nowrap;
+}
+
+.map-stat {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.map-stat-label {
+  color: var(--cream);
+  font-weight: 900;
+}
+
+.map-stat-value {
+  font-weight: 700;
 }
 
 .commentator-list {

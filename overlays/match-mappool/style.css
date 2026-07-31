@@ -285,7 +285,7 @@ body.is-gameplay .diagnostics-panel {
 
 .map-card {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   width: 418px;
   height: 58px;
   border: 2px solid rgba(255, 224, 202, 0.86);
@@ -312,15 +312,15 @@ body.is-gameplay .diagnostics-panel {
 
 .card-highlight {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 418px;
-  height: 58px;
+  left: -30px;
+  top: -6px;
+  width: 478px;
+  height: 70px;
   opacity: 0;
-  object-fit: fill;
+  object-fit: contain;
   pointer-events: none;
   transition: opacity 180ms ease;
-  z-index: 1;
+  z-index: 3;
 }
 
 .map-card.is-current .card-highlight {
@@ -333,7 +333,7 @@ body.is-gameplay .diagnostics-panel {
   top: 10px;
   width: 282px;
   min-width: 0;
-  z-index: 2;
+  z-index: 4;
 }
 
 .map-title,
@@ -394,7 +394,7 @@ body.is-gameplay .diagnostics-panel {
   line-height: 1;
   text-align: center;
   text-shadow: 0 3px 4px rgba(24, 16, 12, 0.74);
-  z-index: 2;
+  z-index: 4;
 }
 
 .map-pick.is-long {
@@ -417,7 +417,7 @@ body.is-gameplay .diagnostics-panel {
   line-height: 1.1;
   text-align: center;
   text-transform: uppercase;
-  z-index: 2;
+  z-index: 4;
 }
 
 .map-card.has-status .status-label {
@@ -481,7 +481,7 @@ body.is-gameplay .diagnostics-panel {
   position: absolute;
   inset: 0;
   background: rgba(25, 17, 12, 0.52);
-  z-index: 1;
+  z-index: 3;
 }
 
 .pool-board.is-empty::after {

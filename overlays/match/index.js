@@ -11,6 +11,8 @@
   const EMPTY_POINT = `../../assets/vct/match/point_empty.png?v=${ASSET_VERSION}`;
   const FULL_POINT = `../../assets/vct/match/point_full.png?v=${ASSET_VERSION}`;
   const DEFAULT_BACKGROUND = "../../assets/vct/match/match.png";
+  const ADVANTAGE_BAR_MAX_WIDTH = 460;
+  const ADVANTAGE_BAR_FULL_DIFF = 300000;
   const STAGE_BACKGROUNDS = {
     ro16: "../../assets/vct/match/stages/match-ro16.png",
     quarterfinals: "../../assets/vct/match/stages/match-quarterfinals.png",
@@ -54,7 +56,8 @@
     beatmapPick: document.getElementById("beatmapPick"),
     beatmapTitleWrap: document.getElementById("beatmapTitleWrap"),
     beatmapTitle: document.getElementById("beatmapTitle"),
-    beatmapMeta: document.getElementById("beatmapMeta"),
+    beatmapSubtitle: document.getElementById("beatmapSubtitle"),
+    beatmapStats: document.getElementById("beatmapStats"),
     commentatorList: document.getElementById("commentatorList"),
     connectionChip: document.getElementById("connectionChip"),
     diagnosticsPanel: document.getElementById("diagnosticsPanel"),
@@ -369,7 +372,7 @@
     setAnimatedText(dom.leftLiveScore, formatScore(displayStars.left), formatScore(previous.leftStars));
     setAnimatedText(dom.rightLiveScore, formatScore(displayStars.right), formatScore(previous.rightStars));
     setAnimatedText(dom.stageLabel, nextState.stage, previous.stage);
-    renderGameplayScore(previous);
+    renderGameplayScore();
     renderBeatmap(previous);
     setAnimatedText(dom.commentatorList, matchData.commentators.join(" / "), previous.commentators);
     fitSingleLine(dom.commentatorList, matchData.commentators.join(" / "), 21, 16, 32);
@@ -422,7 +425,8 @@
       rightScore: liveState.gameplayScore.right,
       scoreDifference: Math.abs(liveState.gameplayScore.left - liveState.gameplayScore.right),
       beatmapTitle: liveState.beatmap.title,
-      beatmapMeta: formatBeatmapMeta(liveState.beatmap),
+      beatmapSubtitle: formatBeatmapSubtitle(liveState.beatmap),
+      beatmapStats: formatBeatmapStatsText(liveState.beatmap),
       beatmapPick: liveState.beatmap.pick,
       commentators: matchData.commentators.join(" / ")
     };
@@ -598,20 +602,23 @@
     container.style.setProperty("--point-height", `${height}px`);
   }
 
-  function renderGameplayScore(previous) {
+  function renderGameplayScore() {
     const leftScore = numberOrZero(liveState.gameplayScore.left);
     const rightScore = numberOrZero(liveState.gameplayScore.right);
     const difference = Math.abs(leftScore - rightScore);
     const leftIsWinning = leftScore > rightScore;
     const rightIsWinning = rightScore > leftScore;
-    const barWidth = Math.min(710, Math.round((difference / 150000) * 710));
+    const barWidth = Math.min(
+      ADVANTAGE_BAR_MAX_WIDTH,
+      Math.round((difference / ADVANTAGE_BAR_FULL_DIFF) * ADVANTAGE_BAR_MAX_WIDTH)
+    );
     const showWin = liveState.ipcState === 4 && difference > 0;
 
     dom.gameScorePanel.hidden = !liveState.visibility.score;
-    setAnimatedText(dom.leftGameplayScore, formatScore(leftScore), formatScore(previous.leftScore));
-    setAnimatedText(dom.rightGameplayScore, formatScore(rightScore), formatScore(previous.rightScore));
-    setAnimatedText(dom.diffLeft, `+${formatScore(difference)}`, `+${formatScore(previous.scoreDifference)}`);
-    setAnimatedText(dom.diffRight, `+${formatScore(difference)}`, `+${formatScore(previous.scoreDifference)}`);
+    setScoreText(dom.leftGameplayScore, formatScore(leftScore));
+    setScoreText(dom.rightGameplayScore, formatScore(rightScore));
+    setScoreText(dom.diffLeft, `+${formatScore(difference)}`);
+    setScoreText(dom.diffRight, `+${formatScore(difference)}`);
 
     dom.leftScoreBar.style.width = leftIsWinning ? `${barWidth}px` : "0";
     dom.rightScoreBar.style.width = rightIsWinning ? `${barWidth}px` : "0";
@@ -625,10 +632,14 @@
 
   function renderBeatmap(previous) {
     const beatmap = liveState.beatmap;
-    const meta = formatBeatmapMeta(beatmap) || diagnostics.socket;
-    setAnimatedText(dom.beatmapPick, beatmap.pick || "NM", previous.beatmapPick);
+    const pick = beatmap.pick || "NM";
+    const subtitle = formatBeatmapSubtitle(beatmap) || diagnostics.socket;
+
+    dom.beatmapPick.classList.toggle("is-long", pick.length > 3);
+    setAnimatedText(dom.beatmapPick, pick, previous.beatmapPick);
     setAnimatedText(dom.beatmapTitle, beatmap.title || "Waiting for current beatmap", previous.beatmapTitle);
-    setAnimatedText(dom.beatmapMeta, meta, previous.beatmapMeta);
+    setAnimatedText(dom.beatmapSubtitle, subtitle, previous.beatmapSubtitle);
+    renderBeatmapStats(beatmap, previous.beatmapStats);
   }
 
   function connectTosu() {
@@ -838,32 +849,82 @@
     element.classList.add("is-data-fresh");
   }
 
-  function formatBeatmapMeta(beatmap) {
+  function setScoreText(element, value) {
+    const text = cleanText(value);
+    if (element.textContent === text) return;
+
+    element.textContent = text;
+    element.classList.remove("is-data-fresh");
+  }
+
+  function formatBeatmapSubtitle(beatmap) {
     return [
       beatmap.artist,
-      beatmap.difficulty ? `[${beatmap.difficulty}]` : "",
-      formatBpm(beatmap),
-      formatStat("SR", beatmap.sr, 2),
-      formatStat("AR", beatmap.ar, 1),
-      formatStat("CS", beatmap.cs, 1),
-      formatStat("OD", beatmap.od, 1),
-      beatmap.length ? `LEN ${beatmap.length}` : "",
-      beatmap.mapper ? `mapped by ${beatmap.mapper}` : ""
+      beatmap.difficulty ? `[${beatmap.difficulty}]` : ""
     ].filter(Boolean).join(" / ");
   }
 
-  function formatBpm(beatmap) {
+  function renderBeatmapStats(beatmap, previousText) {
+    const entries = beatmapStatEntries(beatmap);
+    const text = formatBeatmapStatsText(beatmap);
+    if (dom.beatmapStats.dataset.text === text) return;
+
+    dom.beatmapStats.replaceChildren();
+    entries.forEach(([label, value]) => {
+      const item = document.createElement("span");
+      item.className = "map-stat";
+
+      const labelElement = document.createElement("span");
+      labelElement.className = "map-stat-label";
+      labelElement.textContent = label;
+
+      const valueElement = document.createElement("span");
+      valueElement.className = "map-stat-value";
+      valueElement.textContent = value;
+
+      item.append(labelElement, document.createTextNode(" "), valueElement);
+      dom.beatmapStats.appendChild(item);
+    });
+
+    dom.beatmapStats.dataset.text = text;
+    if (text && text !== cleanText(previousText)) {
+      dom.beatmapStats.classList.remove("is-data-fresh");
+      void dom.beatmapStats.offsetWidth;
+      dom.beatmapStats.classList.add("is-data-fresh");
+    }
+  }
+
+  function formatBeatmapStatsText(beatmap) {
+    return beatmapStatEntries(beatmap)
+      .map(([label, value]) => `${label} ${value}`)
+      .join(" / ");
+  }
+
+  function beatmapStatEntries(beatmap) {
+    return [
+      ["BPM", formatBpmValue(beatmap)],
+      ["SR", formatStatNumber(beatmap.sr, 2)],
+      ["OD", formatStatNumber(beatmap.od, 1)],
+      ["LEN", formatDisplayLength(beatmap.length)],
+      ["Mapper", beatmap.mapper]
+    ].filter(([, value]) => cleanText(value));
+  }
+
+  function formatBpmValue(beatmap) {
     const min = beatmap.bpmMin;
     const max = beatmap.bpmMax ?? min;
     if (min == null) return "";
+
     const minText = formatStatNumber(min, 0);
     const maxText = formatStatNumber(max, 0);
-    return minText === maxText ? `BPM ${minText}` : `BPM ${minText}-${maxText}`;
+    return minText === maxText ? minText : `${minText}-${maxText}`;
   }
 
-  function formatStat(label, value, decimals) {
-    if (value == null) return "";
-    return `${label} ${formatStatNumber(value, decimals)}`;
+  function formatDisplayLength(value) {
+    const text = cleanText(value);
+    const match = text.match(/^(\d+):(\d{1,2})$/);
+    if (!match) return text;
+    return `${String(Number(match[1])).padStart(2, "0")}:${match[2].padStart(2, "0")}`;
   }
 
   function formatStatNumber(value, decimals) {

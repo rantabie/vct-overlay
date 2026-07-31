@@ -1322,14 +1322,23 @@
   }
 
   function formatMapMeta(map) {
+    const mapper = firstMapper(map.mapper);
+
     return [
       map.artist,
       map.difficulty ? `[${map.difficulty}]` : "",
       map.sr ? `SR ${formatNumber(map.sr, 2)}` : "",
       map.bpm ? `BPM ${map.bpm}` : "",
       map.length ? `LEN ${map.length}` : "",
-      map.mapper ? `Mapper ${map.mapper}` : ""
+      mapper ? `Mapper ${mapper}` : ""
     ].filter(Boolean).join(" / ");
+  }
+
+  function firstMapper(value) {
+    return cleanText(value)
+      .split(/\s*(?:,|;|\band\b|&|\+)\s*/i)
+      .map(cleanText)
+      .find(Boolean) || "";
   }
 
   function isActiveMap(map, activeMap) {
