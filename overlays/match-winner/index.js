@@ -2,7 +2,7 @@
   "use strict";
 
   const DATA_URL = "../../data/match.json";
-  const STORAGE_KEY = "vct.match-winner.data";
+  const STORAGE_KEY = "vct.match.data";
   const SCORE_OVERRIDE_KEY = "vct.match.score-override";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
 
@@ -217,16 +217,17 @@
   }
 
   function normaliseMatch(source) {
-    const players = source?.players || source?.teams || {};
-    const score = source?.score || source?.stars || {};
+    const scene = source?.scenes?.winner || source?.winnerScene || {};
+    const players = scene.players || source?.players || source?.teams || {};
+    const score = scene.score || source?.score || source?.stars || {};
 
     return {
-      stage: cleanText(source?.stage || source?.round || source?.title) || fallbackData.stage,
+      stage: cleanText(scene.stage || source?.stage || source?.round || source?.title) || fallbackData.stage,
       players: {
         left: normalisePlayer(players.left || players.red || source?.leftPlayer || source?.playerLeft || source?.leftTeam || source?.teamLeft, fallbackData.players.left),
         right: normalisePlayer(players.right || players.blue || source?.rightPlayer || source?.playerRight || source?.rightTeam || source?.teamRight, fallbackData.players.right)
       },
-      winner: normaliseSide(source?.winner || source?.winningSide || source?.winningPlayer),
+      winner: normaliseSide(scene.winner || scene.winningSide || scene.winningPlayer || source?.winner || source?.winningSide || source?.winningPlayer),
       score: {
         left: numberOrZero(score.left),
         right: numberOrZero(score.right)

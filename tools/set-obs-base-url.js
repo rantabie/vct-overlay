@@ -10,9 +10,7 @@ if (!baseUrl) {
 const sceneFiles = [
   "data/obs_scenes/VCT__SHOWCASE.json",
   "data/obs_scenes/VCT__MATCH.json",
-  "data/obs_scenes/VCT__MATCH_MAPPOOL.json",
-  "data/obs_scenes/VCT__MATCH_WINNER.json",
-  "data/obs_scenes/VCT__MATCH_SCHEDULE.json"
+  "data/obs_scenes/VCT__MATCH_MAPPOOL.json"
 ].filter((file) => fs.existsSync(file));
 
 const showcaseStages = {

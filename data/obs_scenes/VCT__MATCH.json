@@ -4,6 +4,12 @@
   "scene_order": [
     {
       "name": "MATCH"
+    },
+    {
+      "name": "MATCH WINNER"
+    },
+    {
+      "name": "MATCH SCHEDULE"
     }
   ],
   "name": "VCT - MATCH",
@@ -350,6 +356,205 @@
             "bounds_type": 0,
             "bounds_crop": false,
             "id": 4,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          }
+        ]
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "OBSBasic.SelectScene": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH WINNER OVERLAY",
+      "uuid": "2567d421-f917-47ad-b166-a1c0f17d0f03",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/match-winner/?fresh=1",
+        "width": 1920,
+        "height": 1080,
+        "reroute_audio": false,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "ObsBrowser.Refresh": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH WINNER",
+      "uuid": "c4c40ac9-ae2b-4d8b-8baf-2df1259033c6",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "custom_size": false,
+        "id_counter": 1,
+        "items": [
+          {
+            "name": "MATCH WINNER OVERLAY",
+            "source_uuid": "2567d421-f917-47ad-b166-a1c0f17d0f03",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 1,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          }
+        ]
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "OBSBasic.SelectScene": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH SCHEDULE BACKGROUND",
+      "uuid": "5cf34593-4463-4d68-9a77-dd1a19c56e1f",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/match-schedule/?layer=background&fresh=1",
+        "width": 1920,
+        "height": 1080,
+        "reroute_audio": false,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "ObsBrowser.Refresh": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH SCHEDULE HUD",
+      "uuid": "2c3e2184-7ceb-4845-a4b8-ac6a24174d70",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/match-schedule/?layer=hud&fresh=1",
+        "width": 1920,
+        "height": 1080,
+        "reroute_audio": false,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "ObsBrowser.Refresh": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "MATCH SCHEDULE",
+      "uuid": "58d54c5f-119e-4cb2-a3d0-6d7ad78e3aa5",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "custom_size": false,
+        "id_counter": 2,
+        "items": [
+          {
+            "name": "MATCH SCHEDULE BACKGROUND",
+            "source_uuid": "5cf34593-4463-4d68-9a77-dd1a19c56e1f",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 1,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          },
+          {
+            "name": "MATCH SCHEDULE HUD",
+            "source_uuid": "2c3e2184-7ceb-4845-a4b8-ac6a24174d70",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 2,
             "pos": {
               "x": 0,
               "y": 0

@@ -1,8 +1,8 @@
 (function () {
   "use strict";
 
-  const DATA_URL = "../../data/schedule.json";
-  const STORAGE_KEY = "vct.match-schedule.data";
+  const DATA_URL = "../../data/match.json";
+  const STORAGE_KEY = "vct.match.data";
   const MAX_LIST_ITEMS = 5;
 
   const fallbackData = {
@@ -64,7 +64,7 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(json));
         scheduleData = normaliseSchedule(json);
         render();
-        setControlStatus(`Loaded ${file.name}. This schedule is saved in this browser until cleared.`);
+        setControlStatus(`Loaded ${file.name}. This match JSON is saved in this browser until cleared.`);
       } catch (error) {
         setControlStatus(`Could not load ${file.name}: ${error.message}`);
       } finally {
@@ -74,7 +74,7 @@
 
     dom.clearStorageButton.addEventListener("click", () => {
       localStorage.removeItem(STORAGE_KEY);
-      setControlStatus("Saved browser schedule cleared. Use Reload JSON to read the repo data again.");
+      setControlStatus("Saved browser match JSON cleared. Use Reload JSON to read the repo data again.");
     });
   }
 
@@ -82,7 +82,7 @@
     const saved = freshData ? null : localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
-        setControlStatus("Loaded saved browser schedule. Clear it to use the repo data file again.");
+        setControlStatus("Loaded saved browser match JSON. Clear it to use the repo data file again.");
         setDiagnostics({ json: "loaded browser storage" });
         return normaliseSchedule(JSON.parse(saved));
       } catch (error) {
@@ -273,8 +273,9 @@
   }
 
   function normaliseSchedule(source) {
-    const timezone = cleanText(source?.timezone) || fallbackData.timezone;
-    const values = Array.isArray(source) ? source : source?.matches || source?.schedule || [];
+    const scene = source?.scenes?.schedule || source?.scheduleScene || source;
+    const timezone = cleanText(scene?.timezone || source?.timezone) || fallbackData.timezone;
+    const values = Array.isArray(scene) ? scene : scene?.matches || scene?.schedule || [];
     return {
       timezone,
       matches: values.map((match, index) => normaliseMatch(match, index)).filter(Boolean)

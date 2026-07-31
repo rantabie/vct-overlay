@@ -346,8 +346,8 @@
     fitPlayerName(dom.rightName, state.rightName);
 
     dom.matchScore.hidden = !(liveState.visibility.stars || displayStars.overridden);
-    renderPointTrack(dom.leftStars, state.leftStars, pointCount, previous.leftStars);
-    renderPointTrack(dom.rightStars, state.rightStars, pointCount, previous.rightStars);
+    renderPointTrack(dom.leftStars, state.leftStars, pointCount, previous.leftStars, "left");
+    renderPointTrack(dom.rightStars, state.rightStars, pointCount, previous.rightStars, "right");
     setAnimatedText(dom.stageLabel, state.stage, previous.stage);
     renderActionBadges(state.pickingSide);
     renderPool(state.activeMap);
@@ -375,17 +375,19 @@
     return normaliseBestOf(liveState.bestOf || matchData.bestOf);
   }
 
-  function renderPointTrack(container, value, count, previousValue) {
+  function renderPointTrack(container, value, count, previousValue, side) {
     container.innerHTML = "";
     setPointSizing(container, count);
+    const filled = clamp(value, 0, count);
 
     for (let index = 0; index < count; index += 1) {
+      const score = side === "right" ? count - index : index + 1;
       const point = document.createElement("img");
-      point.src = index < value ? FULL_POINT : EMPTY_POINT;
+      point.src = score <= filled ? FULL_POINT : EMPTY_POINT;
       point.alt = "";
-      point.dataset.score = String(index + 1);
+      point.dataset.score = String(score);
       point.draggable = false;
-      if (index + 1 === value && value > previousValue) point.classList.add("is-data-fresh");
+      if (score === filled && filled > previousValue) point.classList.add("is-data-fresh");
       container.appendChild(point);
     }
   }
@@ -597,7 +599,10 @@
     const bounds = event.currentTarget.getBoundingClientRect();
     const step = bounds.width / points.length;
     const index = Math.max(0, Math.min(points.length - 1, Math.floor((event.clientX - bounds.left) / step)));
-    return index + 1 + offset;
+    const score = event.currentTarget.classList.contains("point-track-right")
+      ? points.length - index
+      : index + 1;
+    return score + offset;
   }
 
   function setManualScore(side, value) {

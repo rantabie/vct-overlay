@@ -11,6 +11,8 @@ This guide is for the VCT 1v1 match overlay.
 
 The Match Scene contains both mappool and gameplay. Do not switch to a separate mappool scene during a match unless you are only testing.
 
+Import `data/obs_scenes/VCT__MATCH.json` for the match package. It contains the Match, Winner, and Match Schedule scenes together.
+
 ## Tosu Setup
 
 Before streaming, open:
@@ -48,9 +50,10 @@ ClientNameSize = 0
 2. Make sure the lobby has valid 1v1 player names.
 3. Set the Best Of correctly in the tournament client.
 4. In OBS, open `Interact` on `MATCH MAPPOOL OVERLAY`.
-5. The overlay reads `data/mappool.json` for the repo mappool. Click `Load Mappool JSON` only when staff gives you a one-off replacement file.
-6. Click `Current Stage` until it matches the round being streamed.
-7. Check who won roll and set the `Player Ban/Pick` button to the correct first action.
+5. The match, winner, and schedule overlays read `data/match.json`; schedule entries live under `scenes.schedule`, and winner fallback data lives under `scenes.winner`.
+6. The overlay reads `data/mappool.json` for the repo mappool. Click `Load Mappool JSON` only when staff gives you a one-off replacement file.
+7. Click `Current Stage` until it matches the round being streamed.
+8. Check who won roll and set the `Player Ban/Pick` button to the correct first action.
 
 ## Ban Rules
 

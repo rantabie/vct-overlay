@@ -4,6 +4,8 @@
   const DATA_URL = "../../data/match.json";
   const STORAGE_KEY = "vct.match.data";
   const SCORE_OVERRIDE_KEY = "vct.match.score-override";
+  const SOURCE_MAPPOOL_URL = "../../data/mappool.json";
+  const CACHE_MAPPOOL_URL = "../../data/mappool.cache.json";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
   const ASSET_VERSION = "20260730c";
   const EMPTY_POINT = `../../assets/vct/match/point_empty.png?v=${ASSET_VERSION}`;
@@ -71,6 +73,7 @@
   };
 
   let matchData = structuredClone(fallbackData);
+  let maps = [];
   let liveState = createEmptyLiveState();
   let previousRenderState = null;
   let socket = null;
@@ -86,6 +89,7 @@
     wireControls();
     matchData = await loadMatchData();
     normaliseMatchData();
+    maps = await loadMappoolData();
     queueRender();
     if (!staticMode && layer !== "background") connectTosu();
   }
@@ -100,6 +104,7 @@
       localStorage.removeItem(STORAGE_KEY);
       matchData = await loadMatchData();
       normaliseMatchData();
+      maps = await loadMappoolData();
       queueRender();
     });
 
@@ -177,6 +182,27 @@
     }
   }
 
+  async function loadMappoolData() {
+    try {
+      const cache = await fetchJson(CACHE_MAPPOOL_URL).catch(() => null);
+      const source = await fetchJson(SOURCE_MAPPOOL_URL);
+      const json = cache ? mergeMappoolSource(cache, source) : source;
+      return normaliseMaps(json);
+    } catch (error) {
+      try {
+        return normaliseMaps(await fetchJson(CACHE_MAPPOOL_URL));
+      } catch (cacheError) {
+        return [];
+      }
+    }
+  }
+
+  async function fetchJson(url) {
+    const response = await fetch(`${url}?v=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+    return response.json();
+  }
+
   function normaliseMatchData() {
     const source = matchData || {};
     const players = source.players || source.teams || {};
@@ -190,6 +216,112 @@
       },
       commentators: normaliseCommentators(source.commentators || source.casters || source.hosts)
     };
+  }
+
+  function mergeMappoolSource(cacheData, sourceData) {
+    const cache = Array.isArray(cacheData) ? { maps: cacheData } : cacheData || {};
+    const source = Array.isArray(sourceData) ? { maps: sourceData } : sourceData || {};
+    const cacheMaps = Array.isArray(cache.maps) ? cache.maps : [];
+    const sourceMaps = Array.isArray(source.maps) ? source.maps : [];
+
+    if (!sourceMaps.length) return sourceData;
+
+    const byPick = new Map(cacheMaps.map((map) => [cleanText(map.pick).toUpperCase(), map]));
+    const byId = new Map(cacheMaps
+      .map((map) => [cleanText(map.beatmapId || map.beatmap_id || map.id), map])
+      .filter(([id]) => id));
+    const maps = sourceMaps.map((map) => {
+      const sourceId = cleanText(map.beatmapId || map.beatmap_id || map.id);
+      const cached = byId.get(sourceId)
+        || (sourceId ? {} : byPick.get(cleanText(map.pick).toUpperCase()))
+        || {};
+      return mergeMapData(cached, map);
+    });
+
+    return Array.isArray(sourceData)
+      ? maps
+      : {
+        ...cache,
+        ...source,
+        maps
+      };
+  }
+
+  function mergeMapData(cached, source) {
+    const merged = { ...cached };
+
+    Object.entries(source || {}).forEach(([key, value]) => {
+      if (shouldUseSourceValue(value)) {
+        merged[key] = value;
+      }
+    });
+
+    const aliases = [
+      ...(Array.isArray(cached?.aliases) ? cached.aliases : []),
+      ...(Array.isArray(source?.aliases) ? source.aliases : [])
+    ].map(cleanText).filter(Boolean);
+
+    if (aliases.length) merged.aliases = [...new Set(aliases)];
+    return merged;
+  }
+
+  function shouldUseSourceValue(value) {
+    if (value === undefined || value === null) return false;
+    if (typeof value === "string") return value.trim() !== "";
+    if (Array.isArray(value)) return value.length > 0;
+    return true;
+  }
+
+  function normaliseMaps(source) {
+    const list = Array.isArray(source)
+      ? source
+      : source?.maps || source?.mappool || source?.beatmaps || [];
+
+    return list.map((map, index) => {
+      const beatmapId = cleanText(map.beatmapId || map.beatmap_id || map.id || "");
+      return {
+        pick: cleanText(map.pick || map.code || `MAP${index + 1}`).toUpperCase(),
+        beatmapId,
+        aliases: Array.isArray(map.aliases) ? map.aliases.map(cleanText).filter(Boolean) : [],
+        title: cleanText(map.title || map.name || fallbackMapTitle(beatmapId)),
+        artist: cleanText(map.artist || ""),
+        difficulty: cleanText(map.difficulty || map.version || ""),
+        mapper: cleanText(map.mapper || map.mappers || map.creator || ""),
+        sr: numberOrNull(map.sr || map.starRating),
+        length: cleanText(map.length || map.drainLength || map.totalLength || "")
+      };
+    }).filter((map) => map.pick);
+  }
+
+  function findPoolMap(id, file, title, difficulty) {
+    const exactId = cleanText(id);
+    if (exactId) {
+      const exact = maps.find((map) => cleanText(map.beatmapId) === exactId || map.aliases.some((alias) => cleanText(alias) === exactId));
+      if (exact) return exact;
+    }
+
+    const needle = [exactId, file, title, difficulty]
+      .map(cleanText)
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+    if (!needle) return null;
+
+    return maps.find((map) => {
+      const values = [map.beatmapId, map.title, map.difficulty, ...map.aliases]
+        .map(cleanText)
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      return values && (needle.includes(values) || values.includes(needle));
+    }) || null;
+  }
+
+  function fallbackMapTitle(beatmapId) {
+    const text = cleanText(beatmapId);
+    if (!text) return "";
+    if (/^\d+$/.test(text)) return `Beatmap ${text}`;
+    return text.replace(/\.osu$/i, "");
   }
 
   function queueRender() {
@@ -221,8 +353,8 @@
     dom.matchScore.hidden = !(liveState.visibility.stars || displayStars.overridden);
     dom.leftStars.hidden = !(liveState.visibility.stars || displayStars.overridden);
     dom.rightStars.hidden = !(liveState.visibility.stars || displayStars.overridden);
-    renderStars(dom.leftStars, displayStars.left, pointCount, previous.leftStars);
-    renderStars(dom.rightStars, displayStars.right, pointCount, previous.rightStars);
+    renderStars(dom.leftStars, displayStars.left, pointCount, previous.leftStars, "left");
+    renderStars(dom.rightStars, displayStars.right, pointCount, previous.rightStars, "right");
     setAnimatedText(dom.leftLiveScore, formatScore(displayStars.left), formatScore(previous.leftStars));
     setAnimatedText(dom.rightLiveScore, formatScore(displayStars.right), formatScore(previous.rightStars));
     setAnimatedText(dom.stageLabel, nextState.stage, previous.stage);
@@ -357,7 +489,10 @@
     const bounds = event.currentTarget.getBoundingClientRect();
     const step = bounds.width / points.length;
     const index = Math.max(0, Math.min(points.length - 1, Math.floor((event.clientX - bounds.left) / step)));
-    return index + 1 + offset;
+    const score = event.currentTarget.classList.contains("point-track-right")
+      ? points.length - index
+      : index + 1;
+    return score + offset;
   }
 
   function setManualScore(side, value) {
@@ -387,18 +522,19 @@
     setControlStatus("Using tosu score again.");
   }
 
-  function renderStars(container, value, count, previousValue) {
+  function renderStars(container, value, count, previousValue, side) {
     container.innerHTML = "";
     setPointSizing(container, count);
     const filled = clampNumber(value, 0, count);
 
     for (let index = 0; index < count; index += 1) {
+      const score = side === "right" ? count - index : index + 1;
       const point = document.createElement("img");
-      point.src = index < filled ? FULL_POINT : EMPTY_POINT;
+      point.src = score <= filled ? FULL_POINT : EMPTY_POINT;
       point.alt = "";
-      point.dataset.score = String(index + 1);
+      point.dataset.score = String(score);
       point.draggable = false;
-      if (index + 1 === filled && filled > previousValue) {
+      if (score === filled && filled > previousValue) {
         point.classList.add("is-new-point");
       }
       container.appendChild(point);
@@ -513,23 +649,28 @@
     const bpm = stats.BPM || stats.bpm || {};
     const time = bm.time || {};
     const mods = formatMods(data?.menu?.mods);
+    const id = cleanText(bm.id || bm.beatmapId);
+    const file = cleanText(bm.path?.file || bm.file);
+    const title = cleanText(metadata.title || bm.title);
+    const difficulty = cleanText(metadata.difficulty || metadata.version || bm.difficulty);
+    const poolMap = findPoolMap(id, file, title, difficulty);
     const rawAr = numberOrNull(stats.AR ?? stats.ar ?? stats.approachRate);
     const rawCs = numberOrNull(stats.CS ?? stats.cs ?? stats.circleSize);
 
     return {
-      pick: mods || "NM",
-      title: cleanText(metadata.title || bm.title) || "Waiting for current beatmap",
-      artist: cleanText(metadata.artist || bm.artist),
-      difficulty: cleanText(metadata.difficulty || metadata.version || bm.difficulty),
-      mapper: cleanText(metadata.mapper || metadata.creator || bm.mapper),
+      pick: poolMap?.pick || (title || id || file ? "MAP" : "NM"),
+      title: title || poolMap?.title || "Waiting for current beatmap",
+      artist: cleanText(metadata.artist || bm.artist) || poolMap?.artist || "",
+      difficulty: difficulty || poolMap?.difficulty || "",
+      mapper: cleanText(metadata.mapper || metadata.creator || bm.mapper) || poolMap?.mapper || "",
       mods,
       bpmMin: moddedBpm(numberOrNull(bpm.min ?? stats.bpmMin ?? stats.minBPM ?? stats.bpmMin), mods),
       bpmMax: moddedBpm(numberOrNull(bpm.max ?? stats.bpmMax ?? stats.maxBPM ?? stats.bpmMax), mods),
-      sr: numberOrNull(stats.fullSR ?? stats.SR ?? stats.starRating),
+      sr: numberOrNull(stats.fullSR ?? stats.SR ?? stats.starRating ?? poolMap?.sr),
       ar: rawAr == null ? numberOrNull(stats.memoryAR) : moddedAr(rawAr, mods),
       cs: rawCs == null ? numberOrNull(stats.memoryCS) : moddedCs(rawCs, mods),
       od: numberOrNull(stats.memoryOD ?? stats.OD),
-      length: formatLength(moddedLength(time.full ?? time.mp3 ?? bm.length, mods))
+      length: formatLength(moddedLength(time.full ?? time.mp3 ?? bm.length, mods)) || poolMap?.length || ""
     };
   }
 
@@ -663,8 +804,7 @@
       formatStat("CS", beatmap.cs, 1),
       formatStat("OD", beatmap.od, 1),
       beatmap.length ? `LEN ${beatmap.length}` : "",
-      beatmap.mapper ? `mapped by ${beatmap.mapper}` : "",
-      beatmap.mods
+      beatmap.mapper ? `mapped by ${beatmap.mapper}` : ""
     ].filter(Boolean).join(" / ");
   }
 
