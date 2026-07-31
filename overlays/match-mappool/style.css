@@ -311,15 +311,7 @@ body.is-gameplay .diagnostics-panel {
 }
 
 .card-highlight {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  object-fit: fill;
-  pointer-events: none;
-  transition: opacity 180ms ease;
-  z-index: 3;
+  display: none;
 }
 
 .map-card.is-current .card-highlight {
