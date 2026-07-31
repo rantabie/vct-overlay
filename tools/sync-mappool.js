@@ -8,13 +8,8 @@ const clientId = process.env.OSU_CLIENT_ID;
 const clientSecret = process.env.OSU_CLIENT_SECRET;
 const MODE = "fruits";
 const API_BASE = "https://osu.ppy.sh/api/v2";
-
-if (!clientId || !clientSecret) {
-  console.error("Missing OSU_CLIENT_ID or OSU_CLIENT_SECRET.");
-  console.error("PowerShell example:");
-  console.error("$env:OSU_CLIENT_ID='12345'; $env:OSU_CLIENT_SECRET='your_secret'; node tools/sync-mappool.js");
-  process.exit(1);
-}
+const PUBLIC_API_BASE = "https://mirror.hinamizawa.ai/v3/osu/beatmaps";
+const USER_AGENT = "vct-overlay-mappool-sync/1.0 (+https://github.com/rantabie/vct-overlay)";
 
 main().catch((error) => {
   console.error(error.message);
@@ -24,12 +19,19 @@ main().catch((error) => {
 async function main() {
   const source = JSON.parse(fs.readFileSync(sourceFile, "utf8"));
   const maps = getMapList(source);
-  const token = await getAccessToken();
+  const hasOfficialCredentials = Boolean(clientId && clientSecret);
+  const token = hasOfficialCredentials ? await getAccessToken() : "";
   const ids = maps.map((map) => clean(map.beatmapId || map.id)).filter(Boolean);
-  const beatmaps = await getBeatmaps(token, ids);
+  const beatmaps = hasOfficialCredentials
+    ? await getBeatmaps(token, ids)
+    : await getPublicBeatmaps(ids);
   const beatmapsById = new Map(beatmaps.map((beatmap) => [String(beatmap.id), beatmap]));
   const outputMaps = [];
   const failed = [];
+
+  if (!hasOfficialCredentials) {
+    console.log("OSU_CLIENT_ID/OSU_CLIENT_SECRET not set; using public beatmap metadata fallback.");
+  }
 
   for (const map of maps) {
     const id = clean(map.beatmapId || map.id);
@@ -51,7 +53,7 @@ async function main() {
     outputMap.beatmapId = String(beatmap.id);
     const mods = inferMods(outputMap);
 
-    if (mods.length) {
+    if (mods.length && hasOfficialCredentials) {
       try {
         const attributes = await getBeatmapAttributes(token, id, mods);
         const starRating = numberOrNull(attributes.star_rating);
@@ -65,6 +67,8 @@ async function main() {
       } catch (error) {
         failed.push(`${outputMap.pick || id}: modded attributes failed (${mods.join("")}): ${error.message}`);
       }
+    } else if (mods.length) {
+      failed.push(`${outputMap.pick || id}: skipped modded attributes (${mods.join("")}); set OSU_CLIENT_ID/OSU_CLIENT_SECRET to sync official modded SR`);
     }
 
     outputMaps.push(outputMap);
@@ -87,6 +91,19 @@ async function main() {
     console.log("Failed lookups:");
     failed.forEach((item) => console.log(`- ${item}`));
   }
+}
+
+async function getPublicBeatmaps(ids) {
+  const results = [];
+  for (const id of [...new Set(ids)]) {
+    try {
+      results.push(await publicFetch(`${PUBLIC_API_BASE}/b/${encodeURIComponent(id)}`));
+      await wait(180);
+    } catch (error) {
+      console.warn(`Public lookup failed for ${id}: ${error.message}`);
+    }
+  }
+  return results;
 }
 
 async function getAccessToken() {
@@ -138,15 +155,31 @@ async function getBeatmapAttributes(token, id, mods) {
   return response.attributes || {};
 }
 
+async function publicFetch(url) {
+  const response = await fetch(url, {
+    headers: {
+      "Accept": "application/json",
+      "User-Agent": USER_AGENT
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`${response.status} ${await response.text()}`);
+  }
+
+  return response.json();
+}
+
 async function apiFetch(token, url, options) {
   const response = await fetch(url, {
     ...options,
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
+      "User-Agent": USER_AGENT,
       "Authorization": `Bearer ${token}`,
       ...(options.headers || {})
-    }
+    },
   });
 
   if (!response.ok) {

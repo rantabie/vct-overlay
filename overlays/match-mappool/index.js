@@ -165,7 +165,7 @@
       try {
         const json = JSON.parse(await file.text());
         localStorage.setItem(STORAGE_KEY, JSON.stringify(json));
-        maps = normaliseMaps(json);
+        maps = normaliseMaps(await enrichMappoolData(json));
         queueRender(true);
         setControlStatus(`Loaded ${file.name}. This mappool is saved in this browser until cleared.`);
       } catch (error) {
@@ -272,8 +272,8 @@
 
     if (saved) {
       try {
-        maps = normaliseMaps(JSON.parse(saved));
-        setDiagnostics({ mappool: "loaded browser storage" });
+        maps = normaliseMaps(await enrichMappoolData(JSON.parse(saved)));
+        setDiagnostics({ mappool: `loaded browser storage + ${CACHE_MAPPOOL_URL}` });
         setControlStatus("Loaded saved browser mappool. Clear it to use the repo data file again.");
         return;
       } catch (error) {
@@ -282,8 +282,8 @@
     }
 
     try {
-      const cache = await fetchJson(CACHE_MAPPOOL_URL).catch(() => null);
       const source = await fetchJson(SOURCE_MAPPOOL_URL);
+      const cache = await fetchJson(CACHE_MAPPOOL_URL).catch(() => null);
       const json = cache ? mergeMappoolSource(cache, source) : source;
       maps = normaliseMaps(json);
       setDiagnostics({ mappool: `loaded ${SOURCE_MAPPOOL_URL}${cache ? ` + ${CACHE_MAPPOOL_URL}` : ""}` });
@@ -305,6 +305,11 @@
     const response = await fetch(`${url}?v=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
     return response.json();
+  }
+
+  async function enrichMappoolData(source) {
+    const cache = await fetchJson(CACHE_MAPPOOL_URL).catch(() => null);
+    return cache ? mergeMappoolSource(cache, source) : source;
   }
 
   function queueRender(rebuildPool) {

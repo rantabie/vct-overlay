@@ -25,6 +25,7 @@ const showcaseStages = {
 
 const overlaySources = {
   COUNTDOWN: { path: "/overlays/countdown/", width: 2240, height: 1080 },
+  "COUNTDOWN OVERLAY": { path: "/overlays/countdown/", width: 2240, height: 1080, reroute_audio: true },
   "ENDING VIDEO": { path: "/overlays/ending/", reroute_audio: true },
   "CUSTOM MAP ALERT VIDEO": {
     path: "/overlays/custom-map-alert/",

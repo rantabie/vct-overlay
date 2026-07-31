@@ -3,6 +3,9 @@
   "current_program_scene": "MATCH",
   "scene_order": [
     {
+      "name": "COUNTDOWN"
+    },
+    {
       "name": "MATCH"
     },
     {
@@ -555,6 +558,80 @@
             "bounds_type": 0,
             "bounds_crop": false,
             "id": 2,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          }
+        ]
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "OBSBasic.SelectScene": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "COUNTDOWN OVERLAY",
+      "uuid": "c3150c08-16c7-4d3e-bb49-0704983c2d1c",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/countdown/",
+        "width": 2240,
+        "height": 1080,
+        "reroute_audio": true,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 255,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "ObsBrowser.Refresh": []
+      },
+      "private_settings": {}
+    },
+    {
+      "name": "COUNTDOWN",
+      "uuid": "9288ce36-2cda-4e93-865d-faf0cf5b0ebd",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "custom_size": false,
+        "id_counter": 1,
+        "items": [
+          {
+            "name": "COUNTDOWN OVERLAY",
+            "source_uuid": "c3150c08-16c7-4d3e-bb49-0704983c2d1c",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 1,
             "pos": {
               "x": 0,
               "y": 0

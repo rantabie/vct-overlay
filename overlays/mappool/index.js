@@ -155,7 +155,7 @@
       try {
         const json = JSON.parse(await file.text());
         localStorage.setItem(STORAGE_KEY, JSON.stringify(json));
-        pool = json;
+        pool = await enrichPoolData(json);
         normalisePool();
         renderQueue();
         setStage(resolveInitialStage());
@@ -182,7 +182,7 @@
       try {
         const parsed = JSON.parse(saved);
         setControlStatus("Loaded saved browser JSON. Clear it to use the repo data file again.");
-        return parsed;
+        return enrichPoolData(parsed);
       } catch (error) {
         localStorage.removeItem(STORAGE_KEY);
       }
@@ -206,6 +206,11 @@
     const response = await fetch(`${url}?v=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
     return response.json();
+  }
+
+  async function enrichPoolData(source) {
+    const cache = await fetchJson(DATA_URL).catch(() => null);
+    return cache ? mergeMappoolSource(cache, source) : source;
   }
 
   function mergeMappoolSource(cacheData, sourceData) {
