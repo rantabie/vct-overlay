@@ -13,6 +13,9 @@
     },
     {
       "name": "MATCH SCHEDULE"
+    },
+    {
+      "name": "ENDING"
     }
   ],
   "name": "VCT - MATCH",
@@ -978,6 +981,103 @@
       "deinterlace_field_order": 0,
       "monitoring_type": 0,
       "private_settings": {}
+    },
+    {
+      "prev_ver": 520093700,
+      "name": "ENDING VIDEO",
+      "uuid": "3d402d02-8902-46b9-a147-f82920216770",
+      "id": "browser_source",
+      "versioned_id": "browser_source",
+      "settings": {
+        "url": "https://rantabie.github.io/vct-overlay/overlays/ending/",
+        "width": 1920,
+        "height": 1080,
+        "reroute_audio": true,
+        "restart_when_active": false,
+        "shutdown": false
+      },
+      "mixers": 255,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "hotkeys": {
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": [],
+        "ObsBrowser.Refresh": []
+      },
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0,
+      "private_settings": {}
+    },
+    {
+      "name": "ENDING",
+      "uuid": "63215410-a081-4fd8-82da-7da88c8ef031",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "custom_size": false,
+        "id_counter": 1,
+        "items": [
+          {
+            "name": "ENDING VIDEO",
+            "source_uuid": "3d402d02-8902-46b9-a147-f82920216770",
+            "visible": true,
+            "locked": true,
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_crop": false,
+            "id": 1,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal"
+          }
+        ]
+      },
+      "mixers": 0,
+      "sync": 0,
+      "flags": 0,
+      "volume": 1,
+      "balance": 0.5,
+      "enabled": true,
+      "muted": false,
+      "hotkeys": {
+        "OBSBasic.SelectScene": [],
+        "libobs.mute": [],
+        "libobs.unmute": [],
+        "libobs.push-to-mute": [],
+        "libobs.push-to-talk": []
+      },
+      "private_settings": {},
+      "push-to-mute": false,
+      "push-to-mute-delay": 0,
+      "push-to-talk": false,
+      "push-to-talk-delay": 0,
+      "deinterlace_mode": 0,
+      "deinterlace_field_order": 0,
+      "monitoring_type": 0
     }
   ]
 }
