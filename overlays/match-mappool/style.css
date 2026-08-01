@@ -61,19 +61,6 @@ body::-webkit-scrollbar {
   user-select: none;
 }
 
-.gameplay-preview {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  width: 1920px;
-  height: 1080px;
-  border: 0;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 360ms ease, visibility 360ms ease;
-}
-
 .mappool-hud {
   position: absolute;
   inset: 0;
@@ -83,9 +70,7 @@ body::-webkit-scrollbar {
 }
 
 body[data-layer="hud"] .mappool-background,
-body[data-layer="hud"] .gameplay-preview,
 body[data-layer="hud"] .control-panel,
-body[data-layer="background"] .gameplay-preview,
 body[data-layer="background"] .mappool-hud,
 body[data-layer="background"] .connection-chip,
 body[data-layer="background"] .diagnostics-panel,
@@ -109,11 +94,6 @@ body.is-gameplay .connection-chip,
 body.is-gameplay .diagnostics-panel {
   opacity: 0;
   visibility: hidden;
-}
-
-body.is-gameplay[data-layer="full"] .gameplay-preview {
-  opacity: 1;
-  visibility: visible;
 }
 
 .player {

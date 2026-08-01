@@ -669,42 +669,43 @@
 
   function extractLiveState(data) {
     const manager = data?.tourney?.manager || {};
-    const teamName = manager.teamName || {};
-    const stars = manager.stars || {};
-    const score = manager.gameplay?.score || {};
+    const clients = extractIpcClients(data);
+    const teamName = manager.teamName || manager.teamNames || {};
+    const stars = manager.stars || manager.match?.stars || data?.tourney?.stars || {};
+    const score = manager.gameplay?.score || manager.score || data?.gameplay?.score || {};
     const bools = manager.bools || {};
 
     return {
       players: {
-        left: { name: cleanText(teamName.left || manager.team?.left || "") },
-        right: { name: cleanText(teamName.right || manager.team?.right || "") }
+        left: { name: cleanText(sideValue(teamName, "left") || sideValue(manager.team, "left") || clientName(clients[0])) },
+        right: { name: cleanText(sideValue(teamName, "right") || sideValue(manager.team, "right") || clientName(clients[1])) }
       },
-      bestOf: normaliseBestOf(manager.bestOF || manager.bestOf || manager.best_of || matchData.bestOf),
+      bestOf: normaliseBestOf(firstDefined(manager.bestOF, manager.bestOf, manager.best_of, data?.tourney?.bestOf, matchData.bestOf)),
       stars: {
-        left: numberOrZero(stars.left),
-        right: numberOrZero(stars.right)
+        left: numberOrZero(sideValue(stars, "left")),
+        right: numberOrZero(sideValue(stars, "right"))
       },
       gameplayScore: {
-        left: numberOrZero(score.left),
-        right: numberOrZero(score.right)
+        left: numberOrZero(firstDefined(sideValue(score, "left"), clientScore(clients[0]))),
+        right: numberOrZero(firstDefined(sideValue(score, "right"), clientScore(clients[1])))
       },
-      ipcState: numberOrZero(manager.ipcState),
+      ipcState: normaliseIpcState(firstDefined(manager.ipcState, data?.menu?.state, clients[0]?.ipcState, clients[0]?.state)),
       visibility: {
         score: bools.scoreVisible !== false,
         stars: bools.starsVisible !== false
       },
-      beatmap: extractBeatmap(data)
+      beatmap: extractBeatmap(data, clients)
     };
   }
 
-  function extractBeatmap(data) {
-    const bm = data?.menu?.bm || {};
+  function extractBeatmap(data, clients = []) {
+    const bm = firstBeatmap(data, clients);
     const metadata = bm.metadata || {};
     const stats = bm.stats || {};
     const bpm = stats.BPM || stats.bpm || {};
     const time = bm.time || {};
-    const mods = formatMods(data?.menu?.mods);
-    const id = cleanText(bm.id || bm.beatmapId);
+    const mods = formatMods(firstDefined(data?.menu?.mods, bm.mods, clients[0]?.menu?.mods, clients[0]?.mods));
+    const id = cleanText(bm.id || bm.beatmapId || bm.beatmap_id);
     const file = cleanText(bm.path?.file || bm.file);
     const title = cleanText(metadata.title || bm.title);
     const difficulty = cleanText(metadata.difficulty || metadata.version || bm.difficulty);
@@ -727,6 +728,74 @@
       od: numberOrNull(stats.memoryOD ?? stats.OD),
       length: formatLength(moddedLength(time.full ?? time.mp3 ?? bm.length, mods)) || poolMap?.length || ""
     };
+  }
+
+  function extractIpcClients(data) {
+    const clients = data?.tourney?.ipcClients || data?.tourney?.clients || data?.ipcClients || [];
+    if (Array.isArray(clients)) return clients;
+    if (clients && typeof clients === "object") return Object.values(clients);
+    return [];
+  }
+
+  function firstBeatmap(data, clients) {
+    const candidates = [
+      data?.menu?.bm,
+      data?.menu?.beatmap,
+      data?.beatmap,
+      data?.gameplay?.beatmap,
+      clients[0]?.menu?.bm,
+      clients[0]?.menu?.beatmap,
+      clients[0]?.beatmap,
+      clients[0]?.gameplay?.beatmap
+    ];
+
+    return candidates.find((candidate) => {
+      if (!candidate || typeof candidate !== "object") return false;
+      return cleanText(candidate.id || candidate.beatmapId || candidate.beatmap_id || candidate.title || candidate.metadata?.title);
+    }) || {};
+  }
+
+  function clientName(client) {
+    return cleanText(client?.user?.name || client?.user?.username || client?.profile?.name || client?.name || client?.player?.name || client?.spectating?.name);
+  }
+
+  function clientScore(client) {
+    return firstDefined(
+      scoreValue(client?.gameplay?.score),
+      scoreValue(client?.score),
+      scoreValue(client?.play?.score),
+      scoreValue(client?.gameplay)
+    );
+  }
+
+  function scoreValue(value) {
+    if (typeof value === "number" || typeof value === "string") return value;
+    return firstDefined(value?.score, value?.current, value?.total, value?.value);
+  }
+
+  function sideValue(source, side) {
+    if (!source || typeof source !== "object") return undefined;
+    const keys = side === "left"
+      ? ["left", "Left", "blue", "Blue", "team1", "teamOne", "player1", "playerOne", "p1", 0]
+      : ["right", "Right", "red", "Red", "team2", "teamTwo", "player2", "playerTwo", "p2", 1];
+    for (const key of keys) {
+      if (source[key] !== undefined && source[key] !== null) return source[key];
+    }
+    return undefined;
+  }
+
+  function firstDefined(...values) {
+    return values.find((value) => value !== undefined && value !== null && value !== "");
+  }
+
+  function normaliseIpcState(value) {
+    const number = Number(value?.number ?? value?.id ?? value);
+    if (Number.isFinite(number)) return number;
+
+    const text = cleanText(value?.name || value).toLowerCase();
+    if (text.includes("play")) return 3;
+    if (text.includes("result") || text.includes("ranking")) return 4;
+    return 0;
   }
 
   function prepareBeatmapMarquee() {
