@@ -86,6 +86,7 @@
   const staticMode = params.get("static") === "1";
   const layer = normaliseLayer(params.get("layer"));
   const stageParam = cleanText(params.get("stage") || params.get("round"));
+  const initialView = normaliseView(params.get("view"));
   const initialActivePick = cleanText(params.get("pick") || params.get("current"));
   const initialPickingSide = normaliseSide(params.get("turn") || params.get("picking"));
   const initialAutoPick = params.get("autoPick") !== "0";
@@ -1227,7 +1228,7 @@
 
     try {
       const saved = JSON.parse(localStorage.getItem(STATE_STORAGE_KEY) || "{}");
-      state.view = saved.view === "gameplay" ? "gameplay" : "mappool";
+      state.view = initialView || "mappool";
       state.stageOverride = normaliseStage(saved.stageOverride);
       state.currentTurn = normaliseSide(saved.currentTurn) || state.currentTurn;
       state.lastPickSide = normaliseSide(saved.lastPickSide);
@@ -1510,6 +1511,10 @@
 
   function normaliseLayer(value) {
     return ["background", "hud", "full"].includes(value) ? value : "full";
+  }
+
+  function normaliseView(value) {
+    return value === "gameplay" ? "gameplay" : value === "mappool" ? "mappool" : "";
   }
 
   class ReconnectingSocket {

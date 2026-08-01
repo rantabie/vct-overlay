@@ -7,7 +7,7 @@
   const SOURCE_MAPPOOL_URL = "../../data/mappool.json";
   const CACHE_MAPPOOL_URL = "../../data/mappool.cache.json";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
-  const ASSET_VERSION = "20260731a";
+  const ASSET_VERSION = "20260801a";
   const EMPTY_POINT = `../../assets/vct/match/point_empty.png?v=${ASSET_VERSION}`;
   const FULL_POINT = `../../assets/vct/match/point_full.png?v=${ASSET_VERSION}`;
   const DEFAULT_BACKGROUND = "../../assets/vct/match/match.png";
