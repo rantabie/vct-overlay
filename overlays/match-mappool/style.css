@@ -497,7 +497,8 @@ body.is-gameplay .diagnostics-panel {
 .map-card.is-banned::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 2px;
+  border-radius: 30px;
   background: rgba(25, 17, 12, 0.52);
   z-index: 3;
 }
