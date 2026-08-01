@@ -305,7 +305,7 @@ body.is-gameplay[data-layer="full"] .gameplay-preview {
 
 .map-card {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   width: 418px;
   height: 58px;
   border: 2px solid rgba(255, 224, 202, 0.86);
@@ -333,13 +333,32 @@ body.is-gameplay[data-layer="full"] .gameplay-preview {
 .card-highlight {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
   opacity: 0;
-  object-fit: fill;
   pointer-events: none;
   transition: opacity 180ms ease;
   z-index: 3;
+}
+
+.card-highlight::before,
+.card-highlight::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  width: 80px;
+  height: 70px;
+  background-image: url("../../assets/vct/match/highlight.png");
+  background-repeat: no-repeat;
+  background-size: 454px 70px;
+}
+
+.card-highlight::before {
+  left: -27px;
+  background-position: left top;
+}
+
+.card-highlight::after {
+  right: -22px;
+  background-position: right top;
 }
 
 .map-card.is-current .card-highlight {

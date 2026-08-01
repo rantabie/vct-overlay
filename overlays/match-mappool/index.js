@@ -115,6 +115,7 @@
   let socket = null;
   let reconnectTimer = null;
   let renderQueued = false;
+  let marqueeTimer = null;
 
   dom.body.dataset.layer = layer;
   if (debugMode) dom.body.classList.add("debug");
@@ -127,7 +128,7 @@
     interactionState = loadInteractionState();
     setSceneView(interactionState.view, false);
     queueRender(true);
-    document.fonts?.ready?.then(setupMapCardMarquees);
+    document.fonts?.ready?.then(refreshMapCardMarquees);
     if (!staticMode && layer !== "background") connectTosu();
   }
 
@@ -454,7 +455,7 @@
       dom.poolBoard.appendChild(rowElement);
     }
 
-    setupMapCardMarquees();
+    refreshMapCardMarquees();
   }
 
   function createCard(map, activeMap) {
@@ -473,10 +474,8 @@
     card.dataset.pick = displayMap.pick;
     card.title = `${displayMap.pick}: left click for current player, Shift+click to ban, Ctrl+click to clear.`;
 
-    const highlight = document.createElement("img");
+    const highlight = document.createElement("div");
     highlight.className = "card-highlight";
-    highlight.src = "../../assets/vct/match/highlight.png";
-    highlight.alt = "";
     card.appendChild(highlight);
 
     const copy = document.createElement("div");
@@ -528,6 +527,12 @@
     return "ro32";
   }
 
+  function refreshMapCardMarquees() {
+    clearTimeout(marqueeTimer);
+    setupMapCardMarquees();
+    marqueeTimer = setTimeout(setupMapCardMarquees, 120);
+  }
+
   function setupMapCardMarquees() {
     const lines = [...dom.poolBoard.querySelectorAll(".map-title, .map-meta")];
 
@@ -549,9 +554,16 @@
         if (overflow) {
           line.style.setProperty("--marquee-distance", `${Math.ceil(distance)}px`);
           line.style.setProperty("--marquee-duration", `${Math.max(8, Math.min(18, 8 + distance / 42))}s`);
+          restartMarqueeAnimation(text);
         }
       });
     });
+  }
+
+  function restartMarqueeAnimation(text) {
+    text.style.animation = "none";
+    text.offsetWidth;
+    text.style.removeProperty("animation");
   }
 
   function withInteraction(map) {
