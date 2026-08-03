@@ -236,6 +236,30 @@ body[data-stage="grandfinals"] {
   transform: translateX(0);
 }
 
+.stat-custom-tag {
+  display: block;
+  width: 78px;
+  margin: 18px auto 0;
+  padding: 3px 9px 2px;
+  border: 1px solid rgba(249, 228, 211, 0.72);
+  border-radius: 999px;
+  background: rgba(89, 72, 60, 0.48);
+  color: rgba(249, 228, 211, 0.95);
+  font-family: Cambria, Georgia, serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+
+.stat-custom-tag.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .detail-block {
   position: relative;
   min-width: 0;
