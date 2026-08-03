@@ -12,10 +12,11 @@
   const currentTrack = document.getElementById("currentTrack");
   const currentTrackText = document.getElementById("currentTrackText");
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
-  const tosuHost = new URLSearchParams(window.location.search).get("tosu") || DEFAULT_TOSU_HOST;
+  const params = new URLSearchParams(window.location.search);
+  const tosuHost = params.get("tosu") || DEFAULT_TOSU_HOST;
   const socketUrl = `ws://${tosuHost}/ws`;
   const WAITING_TRACK_TEXT = "Waiting for osu client";
-  const showControls = new URLSearchParams(window.location.search).has("controls");
+  const showControls = !params.has("stream");
   let socket = null;
   let reconnectTimer = null;
   let currentTrackValue = WAITING_TRACK_TEXT;
@@ -24,6 +25,8 @@
 
   if (showControls) {
     document.documentElement.classList.add("show-controls");
+  } else {
+    document.documentElement.classList.add("stream-mode");
   }
 
   playButton.addEventListener("click", play);

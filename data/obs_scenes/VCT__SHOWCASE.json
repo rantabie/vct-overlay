@@ -369,7 +369,7 @@
             "versioned_id": "browser_source",
             "settings": {
                 "url": "https://rantabie.github.io/vct-overlay/overlays/countdown/",
-                "width": 1920,
+                "width": 2240,
                 "height": 1080,
                 "reroute_audio": true,
                 "restart_when_active": false,
