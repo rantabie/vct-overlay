@@ -16,7 +16,10 @@
   const tosuHost = params.get("tosu") || DEFAULT_TOSU_HOST;
   const socketUrl = `ws://${tosuHost}/ws`;
   const WAITING_TRACK_TEXT = "Waiting for osu client";
+  const WEB_VIDEO = "../../assets/vct/overlay/countdown.web.mp4";
+  const OBS_VIDEO = "../../assets/vct/overlay/countdown.obs.mp4";
   const showControls = !params.has("stream");
+  const useObsVideo = params.has("obs") || /\bOBS\b/i.test(navigator.userAgent);
   let socket = null;
   let reconnectTimer = null;
   let currentTrackValue = WAITING_TRACK_TEXT;
@@ -28,6 +31,9 @@
   } else {
     document.documentElement.classList.add("stream-mode");
   }
+
+  video.src = params.get("video") || (useObsVideo ? OBS_VIDEO : WEB_VIDEO);
+  video.load();
 
   playButton.addEventListener("click", play);
   pauseButton.addEventListener("click", () => video.pause());
