@@ -13,7 +13,7 @@
 html,
 body {
   margin: 0;
-  min-width: 2240px;
+  min-width: 1920px;
   min-height: 1080px;
   overflow: hidden;
   background: #000;
@@ -23,8 +23,17 @@ body {
 
 .workspace {
   display: flex;
-  width: 2240px;
+  width: 1920px;
   height: 1080px;
+}
+
+html.show-controls,
+html.show-controls body {
+  min-width: 2240px;
+}
+
+html.show-controls .workspace {
+  width: 2240px;
 }
 
 .countdown-stage {
@@ -91,6 +100,7 @@ body {
 }
 
 .control-panel {
+  display: none;
   width: 320px;
   height: 1080px;
   padding: 28px 22px;
@@ -98,12 +108,8 @@ body {
 }
 
 .show-controls .control-panel {
-  position: fixed;
-  top: 24px;
-  right: 24px;
+  display: block;
   z-index: 5;
-  height: auto;
-  max-height: calc(100vh - 48px);
   border: 1px solid rgba(249, 228, 211, 0.28);
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
 }

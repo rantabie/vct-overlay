@@ -15,11 +15,14 @@
   const tosuHost = new URLSearchParams(window.location.search).get("tosu") || DEFAULT_TOSU_HOST;
   const socketUrl = `ws://${tosuHost}/ws`;
   const WAITING_TRACK_TEXT = "Waiting for osu client";
+  const showControls = new URLSearchParams(window.location.search).has("controls");
   let socket = null;
   let reconnectTimer = null;
   let currentTrackValue = WAITING_TRACK_TEXT;
+  let lastPlaybackTime = 0;
+  let lastPlaybackCheck = performance.now();
 
-  if (new URLSearchParams(window.location.search).has("controls")) {
+  if (showControls) {
     document.documentElement.classList.add("show-controls");
   }
 
@@ -35,15 +38,22 @@
   video.addEventListener("pause", render);
   video.addEventListener("ended", render);
   video.addEventListener("volumechange", render);
-  video.addEventListener("timeupdate", render);
+  if (showControls) {
+    video.addEventListener("timeupdate", render);
+  }
 
   play();
   connectTosu();
-  window.setInterval(render, 500);
+  window.setInterval(keepVideoMoving, 1000);
+  if (showControls) {
+    window.setInterval(render, 500);
+  }
 
   function play() {
     video.play().catch(() => {
-      status.textContent = "Autoplay was blocked. Press Play in the control panel.";
+      if (showControls) {
+        status.textContent = "Autoplay was blocked. Press Play in the control panel.";
+      }
     });
   }
 
@@ -64,6 +74,8 @@
   }
 
   function render() {
+    if (!showControls) return;
+
     const duration = Number.isFinite(video.duration) ? video.duration : 0;
     const remaining = Math.max(0, duration - video.currentTime);
     const state = video.ended ? "Finished" : video.paused ? "Paused" : "Playing";
@@ -76,6 +88,27 @@
     const minutes = Math.floor(seconds / 60);
     const remainder = String(seconds % 60).padStart(2, "0");
     return `${String(minutes).padStart(2, "0")}:${remainder}`;
+  }
+
+  function keepVideoMoving() {
+    if (video.paused || video.ended || video.readyState < 2) return;
+
+    const now = performance.now();
+    const currentTime = video.currentTime;
+    const moved = Math.abs(currentTime - lastPlaybackTime) >= 0.01;
+
+    if (moved) {
+      lastPlaybackTime = currentTime;
+      lastPlaybackCheck = now;
+      return;
+    }
+
+    if (now - lastPlaybackCheck > 2200) {
+      video.currentTime = Math.min(currentTime + 0.04, video.duration || currentTime + 0.04);
+      play();
+      lastPlaybackTime = video.currentTime;
+      lastPlaybackCheck = now;
+    }
   }
 
   function connectTosu() {
