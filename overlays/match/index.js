@@ -262,6 +262,8 @@
 
   function mergeMapData(cached, source) {
     const merged = { ...cached };
+    const cachedId = cleanText(cached?.beatmapId || cached?.beatmap_id || cached?.id);
+    const sourceId = cleanText(source?.beatmapId || source?.beatmap_id || source?.id);
 
     Object.entries(source || {}).forEach(([key, value]) => {
       if (shouldUseSourceValue(value)) {
@@ -271,7 +273,8 @@
 
     const aliases = [
       ...(Array.isArray(cached?.aliases) ? cached.aliases : []),
-      ...(Array.isArray(source?.aliases) ? source.aliases : [])
+      ...(Array.isArray(source?.aliases) ? source.aliases : []),
+      cachedId && sourceId && cachedId !== sourceId ? cachedId : ""
     ].map(cleanText).filter(Boolean);
 
     if (aliases.length) merged.aliases = [...new Set(aliases)];
@@ -301,7 +304,11 @@
         difficulty: cleanText(map.difficulty || map.version || ""),
         mapper: cleanText(map.mapper || map.mappers || map.creator || ""),
         sr: numberOrNull(map.sr || map.starRating),
-        length: cleanText(map.length || map.drainLength || map.totalLength || "")
+        ar: numberOrNull(map.ar ?? map.AR ?? map.approachRate),
+        cs: numberOrNull(map.cs ?? map.CS ?? map.circleSize),
+        bpm: numberOrNull(map.bpm),
+        length: cleanText(map.length || map.drainLength || map.totalLength || ""),
+        lengthMs: normaliseDurationMs(map.lengthMs ?? map.drainLengthMs ?? map.durationMs ?? map.drainLengthSeconds ?? map.totalLengthSeconds)
       };
     }).filter((map) => map.pick);
   }
@@ -710,8 +717,12 @@
     const title = cleanText(metadata.title || bm.title);
     const difficulty = cleanText(metadata.difficulty || metadata.version || bm.difficulty);
     const poolMap = findPoolMap(id, file, title, difficulty);
-    const rawAr = numberOrNull(stats.AR ?? stats.ar ?? stats.approachRate);
-    const rawCs = numberOrNull(stats.CS ?? stats.cs ?? stats.circleSize);
+    const displayMods = inferDisplayMods(poolMap?.pick, mods);
+    const rawAr = poolMap ? poolMap.ar : numberOrNull(stats.AR ?? stats.ar ?? stats.approachRate);
+    const rawCs = poolMap ? poolMap.cs : numberOrNull(stats.CS ?? stats.cs ?? stats.circleSize);
+    const rawBpm = poolMap ? poolMap.bpm : null;
+    const rawLengthMs = poolMap ? (poolMap.lengthMs || parseDurationMs(poolMap.length)) : null;
+    const liveLengthMs = firstDefined(time.full, time.mp3, bm.length);
 
     return {
       pick: poolMap?.pick || (title || id || file ? "MAP" : "NM"),
@@ -719,14 +730,14 @@
       artist: cleanText(metadata.artist || bm.artist) || poolMap?.artist || "",
       difficulty: difficulty || poolMap?.difficulty || "",
       mapper: cleanText(metadata.mapper || metadata.creator || bm.mapper) || poolMap?.mapper || "",
-      mods,
-      bpmMin: moddedBpm(numberOrNull(bpm.min ?? stats.bpmMin ?? stats.minBPM ?? stats.bpmMin), mods),
-      bpmMax: moddedBpm(numberOrNull(bpm.max ?? stats.bpmMax ?? stats.maxBPM ?? stats.bpmMax), mods),
+      mods: displayMods,
+      bpmMin: moddedBpm(rawBpm ?? numberOrNull(bpm.min ?? stats.bpmMin ?? stats.minBPM ?? stats.bpmMin), displayMods),
+      bpmMax: moddedBpm(rawBpm ?? numberOrNull(bpm.max ?? stats.bpmMax ?? stats.maxBPM ?? stats.bpmMax), displayMods),
       sr: numberOrNull(stats.fullSR ?? stats.SR ?? stats.starRating ?? poolMap?.sr),
-      ar: rawAr == null ? numberOrNull(stats.memoryAR) : moddedAr(rawAr, mods),
-      cs: rawCs == null ? numberOrNull(stats.memoryCS) : moddedCs(rawCs, mods),
+      ar: rawAr == null ? numberOrNull(stats.memoryAR) : moddedAr(rawAr, displayMods),
+      cs: rawCs == null ? numberOrNull(stats.memoryCS) : moddedCs(rawCs, displayMods),
       od: numberOrNull(stats.memoryOD ?? stats.OD),
-      length: formatLength(moddedLength(time.full ?? time.mp3 ?? bm.length, mods)) || poolMap?.length || ""
+      length: formatLength(moddedLength(rawLengthMs || liveLengthMs, displayMods)) || poolMap?.length || ""
     };
   }
 
@@ -1011,6 +1022,27 @@
     return `${minutes}:${String(seconds).padStart(2, "0")}`;
   }
 
+  function normaliseDurationMs(value) {
+    const parsed = parseDurationMs(value);
+    if (parsed) return parsed;
+
+    const number = Number(value);
+    if (!Number.isFinite(number) || number <= 0) return 0;
+    return number > 10000 ? number : number * 1000;
+  }
+
+  function parseDurationMs(value) {
+    const text = cleanText(value);
+    const match = text.match(/^(\d+):(\d{1,2})(?::(\d{1,2}))?$/);
+    if (!match) return 0;
+
+    const parts = match.slice(1).filter((part) => part !== undefined).map(Number);
+    const seconds = parts.length === 3
+      ? (parts[0] * 3600) + (parts[1] * 60) + parts[2]
+      : (parts[0] * 60) + parts[1];
+    return seconds * 1000;
+  }
+
   function moddedBpm(value, mods) {
     if (value == null) return null;
     return hasSpeedUp(mods) ? value * 1.5 : value;
@@ -1049,6 +1081,14 @@
 
   function hasMod(mods, mod) {
     return cleanText(mods).toUpperCase().includes(mod);
+  }
+
+  function inferDisplayMods(pick, mods) {
+    let text = cleanText(mods).toUpperCase();
+    const code = cleanText(pick).toUpperCase();
+    if (/^HR/.test(code) && !text.includes("HR")) text += "HR";
+    if (/^DT/.test(code) && !text.includes("DT") && !text.includes("NC")) text += "DT";
+    return text;
   }
 
   function formatScore(value) {

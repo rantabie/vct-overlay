@@ -237,6 +237,8 @@
 
   function mergeMap(cached, source) {
     const merged = { ...cached };
+    const cachedId = stringifyId(cached?.beatmapId || cached?.id || "");
+    const sourceId = stringifyId(source?.beatmapId || source?.id || "");
 
     Object.entries(source).forEach(([key, value]) => {
       if (shouldUseSourceValue(value)) {
@@ -246,7 +248,8 @@
 
     const aliases = [
       ...(Array.isArray(cached.aliases) ? cached.aliases : []),
-      ...(Array.isArray(source.aliases) ? source.aliases : [])
+      ...(Array.isArray(source.aliases) ? source.aliases : []),
+      cachedId && sourceId && cachedId !== sourceId ? cachedId : ""
     ].map(stringifyId).filter(Boolean);
 
     if (aliases.length) {
@@ -365,18 +368,20 @@
 
   function updateDetails(source, live, instant) {
     const mods = inferDisplayMods(source.pick, [...normaliseMods(source.mods), ...normaliseMods(live?.mods)]);
-    const lengthSource = source.length || live?.length || "--:--";
-    const lengthMs = source.lengthMs || live?.lengthMs || parseDurationMs(lengthSource);
+    const matchedPoolMap = Boolean(source && source.pick && source.pick !== "LIVE");
+    const statSource = matchedPoolMap ? source : (live || source);
+    const lengthSource = statSource.length || "--:--";
+    const lengthMs = statSource.lengthMs || parseDurationMs(lengthSource);
     const item = {
       pick: source.pick || (live ? "LIVE" : "VCT"),
       title: live?.title || source.title || "Waiting for current beatmap",
       artist: live?.artist || source.artist || pool.tournament,
       difficulty: live?.difficulty || source.difficulty || inferCatchPool(source.pick),
       mapper: source.mapper || live?.mapper || "Unknown mapper",
-      sr: formatStat(live?.sr || source.moddedSr || source.sr, "-.--"),
-      ar: formatModdedAr(source.ar || live?.ar, mods),
-      cs: formatModdedCs(source.cs || live?.cs, mods),
-      bpm: formatModdedBpm(source.bpm || live?.bpm, mods),
+      sr: formatStat(matchedPoolMap ? (source.moddedSr || source.sr) : live?.sr, "-.--"),
+      ar: formatModdedAr(statSource.ar, mods),
+      cs: formatModdedCs(statSource.cs, mods),
+      bpm: formatModdedBpm(statSource.bpm, mods),
       length: formatModdedLength(lengthSource, lengthMs, mods),
       background: live?.background || source.background || "",
       original: Boolean(source.original),

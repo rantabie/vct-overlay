@@ -1182,6 +1182,8 @@
 
   function mergeMapData(cached, source) {
     const merged = { ...cached };
+    const cachedId = cleanText(cached?.beatmapId || cached?.beatmap_id || cached?.id);
+    const sourceId = cleanText(source?.beatmapId || source?.beatmap_id || source?.id);
 
     Object.entries(source || {}).forEach(([key, value]) => {
       if (shouldUseSourceValue(value)) {
@@ -1191,7 +1193,8 @@
 
     const aliases = [
       ...(Array.isArray(cached?.aliases) ? cached.aliases : []),
-      ...(Array.isArray(source?.aliases) ? source.aliases : [])
+      ...(Array.isArray(source?.aliases) ? source.aliases : []),
+      cachedId && sourceId && cachedId !== sourceId ? cachedId : ""
     ].map(cleanText).filter(Boolean);
 
     if (aliases.length) merged.aliases = [...new Set(aliases)];
