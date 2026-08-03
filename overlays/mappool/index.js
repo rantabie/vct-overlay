@@ -224,7 +224,10 @@
     const byPick = new Map(cacheMaps.map((map) => [stringifyId(map.pick).toUpperCase(), map]));
     const byId = new Map(cacheMaps.map((map) => [stringifyId(map.beatmapId || map.id), map]).filter(([id]) => id));
     const maps = sourceMaps.map((map) => {
-      const cached = byId.get(stringifyId(map.beatmapId || map.id)) || byPick.get(stringifyId(map.pick).toUpperCase()) || {};
+      const sourceId = stringifyId(map.beatmapId || map.id);
+      const cached = byId.get(sourceId)
+        || (sourceId ? {} : byPick.get(stringifyId(map.pick).toUpperCase()))
+        || {};
       return mergeMap(cached, map);
     });
 
@@ -378,7 +381,7 @@
       artist: live?.artist || source.artist || pool.tournament,
       difficulty: live?.difficulty || source.difficulty || inferCatchPool(source.pick),
       mapper: source.mapper || live?.mapper || "Unknown mapper",
-      sr: formatStat(matchedPoolMap ? (source.moddedSr || source.sr) : live?.sr, "-.--"),
+      sr: formatDisplaySr(source, live, matchedPoolMap),
       ar: formatModdedAr(statSource.ar, mods),
       cs: formatModdedCs(statSource.cs, mods),
       bpm: formatModdedBpm(statSource.bpm, mods),
@@ -673,7 +676,15 @@
     if (!Number.isFinite(number)) return formatStat(value, "-.-");
 
     const cs = mods.hr ? Math.min(10, number * 1.3) : number;
-    return `${formatStat(cs, "-.-")}${mods.hr ? "*" : ""}`;
+    return `${formatStat(cs, mods.hr ? "-.--" : "-.-")}${mods.hr ? "*" : ""}`;
+  }
+
+  function formatDisplaySr(source, live, matchedPoolMap) {
+    if (!matchedPoolMap) return formatStat(live?.sr, "-.--");
+
+    const moddedSr = source.moddedSr || source.modded?.sr;
+    if (moddedSr) return `${formatStat(moddedSr, "-.--")}*`;
+    return formatStat(source.sr, "-.--");
   }
 
   function formatModdedBpm(value, mods) {

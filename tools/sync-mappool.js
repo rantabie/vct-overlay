@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 
 const args = process.argv.slice(2);
 const sourceFile = args.find((arg) => !arg.startsWith("--")) || "data/mappool.json";
@@ -21,7 +22,9 @@ async function main() {
   const maps = getMapList(source);
   const hasOfficialCredentials = Boolean(clientId && clientSecret);
   const token = hasOfficialCredentials ? await getAccessToken() : "";
-  const ids = maps.map((map) => clean(map.beatmapId || map.id)).filter(Boolean);
+  const ids = maps
+    .map((map) => clean(map.beatmapId || map.id))
+    .filter((id) => id && isOnlineBeatmapId(id));
   const beatmaps = hasOfficialCredentials
     ? await getBeatmaps(token, ids)
     : await getPublicBeatmaps(ids);
@@ -40,6 +43,18 @@ async function main() {
       continue;
     }
 
+    if (!isOnlineBeatmapId(id)) {
+      const localMap = buildLocalBeatmapData(map, id);
+      if (localMap) {
+        outputMaps.push(localMap);
+        console.log(`${localMap.pick || id}: ${localMap.artist} - ${localMap.title} [${localMap.difficulty}]`);
+      } else {
+        failed.push(`${map.pick || id}: local .osu file was not found`);
+        outputMaps.push({ ...map });
+      }
+      continue;
+    }
+
     const beatmap = beatmapsById.get(id);
     if (!beatmap) {
       failed.push(`${map.pick || id}: beatmap id ${id} was not returned by /beatmaps`);
@@ -52,6 +67,7 @@ async function main() {
     outputMap.pick = map.pick || apiMap.pick || "";
     outputMap.beatmapId = String(beatmap.id);
     const mods = inferMods(outputMap);
+    const sourceModdedSr = numberOrNull(outputMap.moddedSr || outputMap.modded?.sr);
 
     if (mods.length && hasOfficialCredentials) {
       try {
@@ -60,7 +76,7 @@ async function main() {
         outputMap.modded = {
           ...(outputMap.modded || {}),
           mods,
-          sr: starRating === null ? "" : round(starRating, 2),
+          sr: sourceModdedSr ?? (starRating === null ? "" : round(starRating, 2)),
           maxCombo: numberOrNull(attributes.max_combo)
         };
         outputMap.moddedSr = outputMap.modded.sr;
@@ -68,7 +84,22 @@ async function main() {
         failed.push(`${outputMap.pick || id}: modded attributes failed (${mods.join("")}): ${error.message}`);
       }
     } else if (mods.length) {
-      failed.push(`${outputMap.pick || id}: skipped modded attributes (${mods.join("")}); set OSU_CLIENT_ID/OSU_CLIENT_SECRET to sync official modded SR`);
+      try {
+        const attributes = await getPublicBeatmapAttributes(id, mods);
+        const starRating = numberOrNull(attributes.stars);
+        outputMap.modded = {
+          ...(outputMap.modded || {}),
+          mods,
+          sr: sourceModdedSr ?? (starRating === null ? "" : round(starRating, 2)),
+          maxCombo: numberOrNull(attributes.max_combo),
+          ar: numberOrNull(attributes.ar),
+          cs: numberOrNull(attributes.cs),
+          bpm: numberOrNull(attributes.bpm)
+        };
+        outputMap.moddedSr = outputMap.modded.sr;
+      } catch (error) {
+        failed.push(`${outputMap.pick || id}: public modded attributes failed (${mods.join("")}): ${error.message}`);
+      }
     }
 
     outputMaps.push(outputMap);
@@ -155,6 +186,19 @@ async function getBeatmapAttributes(token, id, mods) {
   return response.attributes || {};
 }
 
+async function getPublicBeatmapAttributes(id, mods) {
+  const params = new URLSearchParams({
+    mode: MODE,
+    mods: mods.join(""),
+    accuracy: "100"
+  });
+  const response = await publicFetch(`${PUBLIC_API_BASE.replace("/beatmaps", "")}/pp-calc/${encodeURIComponent(id)}?${params}`);
+  if (!response.success || !response.difficulty) {
+    throw new Error("public pp-calc response did not include difficulty attributes");
+  }
+  return response.difficulty;
+}
+
 async function publicFetch(url) {
   const response = await fetch(url, {
     headers: {
@@ -232,6 +276,128 @@ function buildBeatmapData(beatmap) {
   };
 }
 
+function buildLocalBeatmapData(sourceMap, id) {
+  const filePath = findLocalOsuFile(id);
+  if (!filePath) return null;
+
+  const parsed = parseOsuFile(filePath);
+  if (!parsed) return null;
+
+  return mergeMapData({
+    beatmapId: id,
+    artist: parsed.artist,
+    artistUnicode: parsed.artistUnicode,
+    title: parsed.title,
+    titleUnicode: parsed.titleUnicode,
+    difficulty: parsed.difficulty,
+    mapper: parsed.mapper,
+    ar: parsed.ar,
+    cs: parsed.cs,
+    od: parsed.od,
+    hp: parsed.hp,
+    bpm: parsed.bpm,
+    drainLength: formatSeconds(parsed.drainLengthSeconds),
+    drainLengthSeconds: parsed.drainLengthSeconds,
+    totalLength: formatSeconds(parsed.totalLengthSeconds),
+    totalLengthSeconds: parsed.totalLengthSeconds
+  }, sourceMap);
+}
+
+function parseOsuFile(filePath) {
+  const lines = fs.readFileSync(filePath, "utf8").split(/\r?\n/);
+  const metadata = {};
+  const difficulty = {};
+  const uninheritedBpms = [];
+  let section = "";
+  let lastObjectTime = 0;
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("//")) continue;
+
+    const sectionMatch = line.match(/^\[(.+)]$/);
+    if (sectionMatch) {
+      section = sectionMatch[1];
+      continue;
+    }
+
+    if (section === "Metadata" || section === "Difficulty") {
+      const index = line.indexOf(":");
+      if (index === -1) continue;
+      const target = section === "Metadata" ? metadata : difficulty;
+      target[line.slice(0, index)] = line.slice(index + 1).trim();
+      continue;
+    }
+
+    if (section === "TimingPoints") {
+      const parts = line.split(",");
+      const beatLength = Number(parts[1]);
+      const uninherited = parts[6] === undefined || parts[6] === "1";
+      if (Number.isFinite(beatLength) && beatLength > 0 && uninherited) {
+        uninheritedBpms.push(60000 / beatLength);
+      }
+      continue;
+    }
+
+    if (section === "HitObjects") {
+      const parts = line.split(",");
+      const startTime = Number(parts[2]);
+      const type = Number(parts[3]);
+      const endTime = (type & 8) && parts[5] ? Number(parts[5]) : startTime;
+      if (Number.isFinite(endTime)) lastObjectTime = Math.max(lastObjectTime, endTime);
+    }
+  }
+
+  const lengthSeconds = lastObjectTime > 0 ? Math.round(lastObjectTime / 1000) : null;
+
+  return {
+    artist: clean(metadata.Artist),
+    artistUnicode: clean(metadata.ArtistUnicode),
+    title: clean(metadata.Title),
+    titleUnicode: clean(metadata.TitleUnicode),
+    difficulty: clean(metadata.Version),
+    mapper: clean(metadata.Creator),
+    ar: round(difficulty.ApproachRate, 1),
+    cs: round(difficulty.CircleSize, 1),
+    od: round(difficulty.OverallDifficulty, 1),
+    hp: round(difficulty.HPDrainRate, 1),
+    bpm: uninheritedBpms.length ? round(uninheritedBpms[0], 2) : "",
+    drainLengthSeconds: lengthSeconds,
+    totalLengthSeconds: lengthSeconds
+  };
+}
+
+function findLocalOsuFile(id) {
+  const direct = path.resolve(id);
+  if (fs.existsSync(direct) && direct.toLowerCase().endsWith(".osu")) return direct;
+
+  const baseName = path.basename(id);
+  const songsPath = path.join(process.env.LOCALAPPDATA || "", "osu!", "Songs");
+  if (!baseName || !fs.existsSync(songsPath)) return "";
+
+  const stack = [songsPath];
+  while (stack.length) {
+    const current = stack.pop();
+    let entries = [];
+    try {
+      entries = fs.readdirSync(current, { withFileTypes: true });
+    } catch {
+      continue;
+    }
+
+    for (const entry of entries) {
+      const fullPath = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(fullPath);
+      } else if (entry.isFile() && entry.name === baseName) {
+        return fullPath;
+      }
+    }
+  }
+
+  return "";
+}
+
 function mergeMapData(apiMap, sourceMap) {
   const output = { ...apiMap };
 
@@ -267,6 +433,10 @@ function inferMods(map) {
   if (pick.startsWith("HR")) return ["HR"];
   if (pick.startsWith("DT")) return ["DT"];
   return [];
+}
+
+function isOnlineBeatmapId(value) {
+  return /^\d+$/.test(clean(value));
 }
 
 function normaliseMods(value) {

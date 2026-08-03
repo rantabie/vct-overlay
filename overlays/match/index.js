@@ -304,6 +304,7 @@
         difficulty: cleanText(map.difficulty || map.version || ""),
         mapper: cleanText(map.mapper || map.mappers || map.creator || ""),
         sr: numberOrNull(map.sr || map.starRating),
+        moddedSr: numberOrNull(map.moddedSr || map.modded?.sr),
         ar: numberOrNull(map.ar ?? map.AR ?? map.approachRate),
         cs: numberOrNull(map.cs ?? map.CS ?? map.circleSize),
         bpm: numberOrNull(map.bpm),
@@ -733,7 +734,8 @@
       mods: displayMods,
       bpmMin: moddedBpm(rawBpm ?? numberOrNull(bpm.min ?? stats.bpmMin ?? stats.minBPM ?? stats.bpmMin), displayMods),
       bpmMax: moddedBpm(rawBpm ?? numberOrNull(bpm.max ?? stats.bpmMax ?? stats.maxBPM ?? stats.bpmMax), displayMods),
-      sr: numberOrNull(stats.fullSR ?? stats.SR ?? stats.starRating ?? poolMap?.sr),
+      sr: numberOrNull(poolMap?.moddedSr ?? stats.fullSR ?? stats.SR ?? stats.starRating ?? poolMap?.sr),
+      srModded: Boolean(poolMap?.moddedSr),
       ar: rawAr == null ? numberOrNull(stats.memoryAR) : moddedAr(rawAr, displayMods),
       cs: rawCs == null ? numberOrNull(stats.memoryCS) : moddedCs(rawCs, displayMods),
       od: numberOrNull(stats.memoryOD ?? stats.OD),
@@ -983,7 +985,7 @@
   function beatmapStatEntries(beatmap) {
     return [
       ["BPM", formatBpmValue(beatmap)],
-      ["SR", formatStatNumber(beatmap.sr, 2)],
+      ["SR", formatSrValue(beatmap)],
       ["OD", formatStatNumber(beatmap.od, 1)],
       ["LEN", formatDisplayLength(beatmap.length)],
       ["Mapper", beatmap.mapper]
@@ -998,6 +1000,11 @@
     const minText = formatStatNumber(min, 0);
     const maxText = formatStatNumber(max, 0);
     return minText === maxText ? minText : `${minText}-${maxText}`;
+  }
+
+  function formatSrValue(beatmap) {
+    const text = formatStatNumber(beatmap.sr, 2);
+    return text && beatmap.srModded ? `${text}*` : text;
   }
 
   function formatDisplayLength(value) {
