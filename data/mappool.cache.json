@@ -2,7 +2,21 @@
   {
     "pick": "NM1",
     "beatmapId": "TrySail - Utsuroi (Zileni) [Rain].osu",
+    "artist": "TrySail",
+    "artistUnicode": "TrySail",
+    "title": "Utsuroi",
+    "titleUnicode": "Utsuroi",
+    "difficulty": "Rain",
     "mapper": "Zileni",
+    "ar": 9.2,
+    "cs": 4,
+    "od": 9.2,
+    "hp": 5,
+    "bpm": 208,
+    "drainLength": "3:47",
+    "drainLengthSeconds": 227,
+    "totalLength": "3:47",
+    "totalLengthSeconds": 227,
     "isCustom": true
   },
   {

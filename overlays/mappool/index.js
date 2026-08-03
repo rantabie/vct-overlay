@@ -226,7 +226,7 @@
     const maps = sourceMaps.map((map) => {
       const sourceId = stringifyId(map.beatmapId || map.id);
       const cached = byId.get(sourceId)
-        || (sourceId ? {} : byPick.get(stringifyId(map.pick).toUpperCase()))
+        || (sourceId && isOnlineBeatmapId(sourceId) ? {} : byPick.get(stringifyId(map.pick).toUpperCase()))
         || {};
       return mergeMap(cached, map);
     });
@@ -727,6 +727,10 @@
     const roundedMin = Math.round(minNumber);
     const roundedMax = Math.round(maxNumber);
     return roundedMin === roundedMax ? String(roundedMin) : `${roundedMin}-${roundedMax}`;
+  }
+
+  function isOnlineBeatmapId(value) {
+    return /^\d+$/.test(stringifyId(value));
   }
 
   function formatTime(ms) {

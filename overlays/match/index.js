@@ -246,7 +246,7 @@
     const maps = sourceMaps.map((map) => {
       const sourceId = cleanText(map.beatmapId || map.beatmap_id || map.id);
       const cached = byId.get(sourceId)
-        || (sourceId ? {} : byPick.get(cleanText(map.pick).toUpperCase()))
+        || (sourceId && isOnlineBeatmapId(sourceId) ? {} : byPick.get(cleanText(map.pick).toUpperCase()))
         || {};
       return mergeMapData(cached, map);
     });
@@ -1088,6 +1088,10 @@
 
   function hasMod(mods, mod) {
     return cleanText(mods).toUpperCase().includes(mod);
+  }
+
+  function isOnlineBeatmapId(value) {
+    return /^\d+$/.test(cleanText(value));
   }
 
   function inferDisplayMods(pick, mods) {
