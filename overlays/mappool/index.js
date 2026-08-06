@@ -226,7 +226,7 @@
     const maps = sourceMaps.map((map) => {
       const sourceId = stringifyId(map.beatmapId || map.id);
       const cached = byId.get(sourceId)
-        || (sourceId && isOnlineBeatmapId(sourceId) ? {} : byPick.get(stringifyId(map.pick).toUpperCase()))
+        || byPick.get(stringifyId(map.pick).toUpperCase())
         || {};
       return mergeMap(cached, map);
     });
@@ -244,6 +244,7 @@
     const sourceId = stringifyId(source?.beatmapId || source?.id || "");
 
     Object.entries(source).forEach(([key, value]) => {
+      if (key === "title" && isFallbackMapTitle(value, sourceId) && stringifyId(merged.title)) return;
       if (shouldUseSourceValue(value)) {
         merged[key] = value;
       }
@@ -267,6 +268,12 @@
     if (typeof value === "string") return value.trim() !== "";
     if (Array.isArray(value)) return value.length > 0;
     return true;
+  }
+
+  function isFallbackMapTitle(value, beatmapId) {
+    const title = stringifyId(value).toLowerCase();
+    const id = stringifyId(beatmapId);
+    return Boolean(id && /^\d+$/.test(id) && title === `beatmap ${id}`);
   }
 
   function normalisePool() {

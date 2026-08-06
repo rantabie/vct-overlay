@@ -1166,7 +1166,7 @@
     const maps = sourceMaps.map((map) => {
       const sourceId = cleanText(map.beatmapId || map.beatmap_id || map.id);
       const cached = byId.get(sourceId)
-        || (sourceId ? {} : byPick.get(cleanText(map.pick).toUpperCase()))
+        || byPick.get(cleanText(map.pick).toUpperCase())
         || {};
       return mergeMapData(cached, map);
     });
@@ -1186,6 +1186,7 @@
     const sourceId = cleanText(source?.beatmapId || source?.beatmap_id || source?.id);
 
     Object.entries(source || {}).forEach(([key, value]) => {
+      if (key === "title" && isFallbackMapTitle(value, sourceId) && cleanText(merged.title)) return;
       if (shouldUseSourceValue(value)) {
         merged[key] = value;
       }
@@ -1208,6 +1209,12 @@
     return true;
   }
 
+  function isFallbackMapTitle(value, beatmapId) {
+    const title = cleanText(value).toLowerCase();
+    const id = cleanText(beatmapId);
+    return Boolean(id && /^\d+$/.test(id) && title === `beatmap ${id}`);
+  }
+
   function normaliseMaps(source) {
     const list = Array.isArray(source)
       ? source
@@ -1227,8 +1234,12 @@
         difficulty: cleanText(map.difficulty || map.version || ""),
         mapper: cleanText(map.mapper || map.mappers || map.creator || ""),
         sr: numberOrNull(map.sr || map.starRating),
+        moddedSr: numberOrNull(map.moddedSr || map.modded?.sr),
         bpm: cleanText(map.bpm || ""),
+        moddedBpm: numberOrNull(map.moddedBpm || map.modded?.bpm),
         length: cleanText(map.length || map.drainLength || map.totalLength || ""),
+        lengthSeconds: numberOrNull(map.lengthSeconds || map.drainLengthSeconds || map.totalLengthSeconds),
+        moddedLengthSeconds: numberOrNull(map.moddedLengthSeconds || map.modded?.lengthSeconds),
         status: cleanText(map.status || map.state || urlStatus.status),
         pickedBy: normaliseSide(map.pickedBy || map.pickBy || urlStatus.pickedBy),
         bannedBy: normaliseSide(map.bannedBy || map.banBy || urlStatus.bannedBy),
@@ -1408,15 +1419,36 @@
 
   function formatMapMeta(map) {
     const mapper = firstMapper(map.mapper);
+    const sr = map.moddedSr ?? map.sr;
 
     return [
       map.artist,
       map.difficulty ? `[${map.difficulty}]` : "",
-      map.sr ? `SR ${formatNumber(map.sr, 2)}` : "",
-      map.bpm ? `BPM ${map.bpm}` : "",
-      map.length ? `LEN ${map.length}` : "",
+      sr ? `SR ${formatNumber(sr, 2)}${map.moddedSr ? "*" : ""}` : "",
+      formatMapBpm(map),
+      formatMapLength(map),
       mapper ? `Mapper ${mapper}` : ""
     ].filter(Boolean).join(" / ");
+  }
+
+  function formatMapBpm(map) {
+    const bpm = map.moddedBpm ?? (isDtPick(map.pick) ? numberOrNull(map.bpm) * 1.5 : numberOrNull(map.bpm));
+    return bpm ? `BPM ${formatNumber(bpm, bpm % 1 ? 2 : 0)}` : map.bpm ? `BPM ${map.bpm}` : "";
+  }
+
+  function formatMapLength(map) {
+    const seconds = map.moddedLengthSeconds ?? (isDtPick(map.pick) ? map.lengthSeconds / 1.5 : map.lengthSeconds);
+    return seconds ? `LEN ${formatSeconds(seconds)}` : map.length ? `LEN ${map.length}` : "";
+  }
+
+  function formatSeconds(value) {
+    const seconds = Math.max(0, Math.round(Number(value)));
+    const minutes = Math.floor(seconds / 60);
+    return `${minutes}:${String(seconds % 60).padStart(2, "0")}`;
+  }
+
+  function isDtPick(pick) {
+    return /^DT\d+$/i.test(cleanText(pick));
   }
 
   function firstMapper(value) {
@@ -1581,6 +1613,7 @@
   }
 
   function numberOrNull(value) {
+    if (value === undefined || value === null || value === "") return null;
     const number = Number(value);
     return Number.isFinite(number) ? number : null;
   }
