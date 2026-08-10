@@ -3,6 +3,7 @@
 
   const DATA_URL = "../../data/mappool.cache.json";
   const SOURCE_DATA_URL = "../../data/mappool.json";
+  const REMOTE_DATA_URL = "https://rantabie.github.io/vct-overlay/data/mappool.cache.json";
   const STORAGE_KEY = "vct.mappool.data";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
   const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
@@ -189,7 +190,7 @@
     }
 
     try {
-      const cache = await fetchJson(DATA_URL);
+      const cache = await fetchCacheData();
       const source = await fetchJson(SOURCE_DATA_URL).catch(() => null);
       const json = source ? mergeMappoolSource(cache, source) : cache;
       setDiagnostics({ json: `loaded ${source ? SOURCE_DATA_URL : DATA_URL}` });
@@ -209,8 +210,25 @@
   }
 
   async function enrichPoolData(source) {
-    const cache = await fetchJson(DATA_URL).catch(() => null);
+    const cache = await fetchCacheData().catch(() => null);
     return cache ? mergeMappoolSource(cache, source) : source;
+  }
+
+  async function fetchCacheData() {
+    try {
+      return await fetchJson(DATA_URL);
+    } catch (localError) {
+      if (location.protocol === "http:" || location.protocol === "https:") {
+        try {
+          const current = new URL(DATA_URL, location.href).href;
+          if (current === REMOTE_DATA_URL) throw localError;
+          return await fetchJson(REMOTE_DATA_URL);
+        } catch {
+          throw localError;
+        }
+      }
+      throw localError;
+    }
   }
 
   function mergeMappoolSource(cacheData, sourceData) {
@@ -407,6 +425,7 @@
       dom.mapAr.textContent = item.ar;
       dom.mapCs.textContent = item.cs;
       dom.mapBpm.textContent = item.bpm;
+      dom.mapBpm.classList.toggle("is-range-bpm", item.bpm.includes("("));
       dom.mapLength.textContent = item.length;
       dom.originalTag.classList.toggle("is-visible", item.original);
       dom.customTag.classList.toggle("is-visible", item.custom);

@@ -387,6 +387,10 @@ body[data-stage="grandfinals"] {
   text-shadow: 0 2px 0 rgba(89, 72, 60, 0.54), 0 5px 10px rgba(0, 0, 0, 0.28);
 }
 
+#mapBpm.is-range-bpm {
+  font-size: 13px;
+}
+
 .showcase-ribbon {
   position: absolute;
   left: var(--ribbon-left);
