@@ -380,19 +380,24 @@
     const mods = inferDisplayMods(source.pick, [...normaliseMods(source.mods), ...normaliseMods(live?.mods)]);
     const matchedPoolMap = Boolean(source && source.pick && source.pick !== "LIVE");
     const customPoolMap = matchedPoolMap && isCustomPoolMap(source);
-    const statSource = matchedPoolMap && live && !customPoolMap ? live : (matchedPoolMap ? source : (live || source));
-    const lengthSource = statSource.length || "--:--";
-    const lengthMs = statSource.lengthMs || parseDurationMs(lengthSource);
+    const primaryStats = matchedPoolMap && customPoolMap ? source : (live || source);
+    const fallbackStats = primaryStats === source ? live : source;
+    const srSource = pickDisplayValue(primaryStats?.sr, fallbackStats?.sr);
+    const arSource = pickDisplayValue(primaryStats?.ar, fallbackStats?.ar);
+    const csSource = pickDisplayValue(primaryStats?.cs, fallbackStats?.cs);
+    const bpmSource = pickDisplayValue(primaryStats?.bpm, fallbackStats?.bpm);
+    const lengthSource = pickDisplayValue(primaryStats?.length, fallbackStats?.length) || "--:--";
+    const lengthMs = pickDisplayValue(primaryStats?.lengthMs, fallbackStats?.lengthMs) || parseDurationMs(lengthSource);
     const item = {
       pick: source.pick || (live ? "LIVE" : "VCT"),
       title: live?.title || source.title || "Waiting for current beatmap",
       artist: live?.artist || source.artist || pool.tournament,
       difficulty: live?.difficulty || source.difficulty || inferCatchPool(source.pick),
       mapper: source.mapper || live?.mapper || "Unknown mapper",
-      sr: formatDisplaySr(source, live, matchedPoolMap, customPoolMap),
-      ar: formatModdedAr(statSource.ar, mods),
-      cs: formatModdedCs(statSource.cs, mods),
-      bpm: formatModdedBpm(statSource.bpm, mods),
+      sr: formatDisplaySr(source, srSource, matchedPoolMap, customPoolMap),
+      ar: formatModdedAr(arSource, mods),
+      cs: formatModdedCs(csSource, mods),
+      bpm: formatModdedBpm(bpmSource, mods),
       length: formatModdedLength(lengthSource, lengthMs, mods),
       background: live?.background || source.background || "",
       original: Boolean(source.original),
@@ -688,12 +693,12 @@
     return `${formatStat(cs, mods.hr ? "-.--" : "-.-")}${mods.hr ? "*" : ""}`;
   }
 
-  function formatDisplaySr(source, live, matchedPoolMap, customPoolMap) {
-    if (!matchedPoolMap) return formatStat(live?.sr, "-.--");
+  function formatDisplaySr(source, liveSr, matchedPoolMap, customPoolMap) {
+    if (!matchedPoolMap) return formatStat(liveSr, "-.--");
 
     const moddedSr = source.moddedSr || source.modded?.sr;
     if (moddedSr) return `${formatStat(moddedSr, "-.--")}*`;
-    if (!customPoolMap && live?.sr) return formatStat(live.sr, "-.--");
+    if (!customPoolMap && liveSr) return formatStat(liveSr, "-.--");
     return formatStat(source.sr, "-.--");
   }
 
@@ -720,6 +725,18 @@
     const number = Number(value);
     if (!Number.isFinite(number)) return String(value);
     return number.toFixed(fallback === "-.--" ? 2 : 1);
+  }
+
+  function hasDisplayValue(value) {
+    if (value === undefined || value === null) return false;
+    const text = stringifyId(value);
+    if (!text || text === "---" || text === "--:--") return false;
+    const number = Number(text);
+    return Number.isFinite(number) ? number > 0 : true;
+  }
+
+  function pickDisplayValue(...values) {
+    return values.find(hasDisplayValue);
   }
 
   function formatBpm(value) {
