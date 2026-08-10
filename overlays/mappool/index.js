@@ -636,15 +636,39 @@
       text.style.removeProperty("--wrap-width");
 
       requestAnimationFrame(() => {
-        const overflow = text.scrollWidth > wrap.clientWidth + 4;
+        const naturalWidth = measureMarqueeText(text);
+        const overflow = naturalWidth > wrap.clientWidth + 4;
         wrap.classList.toggle("is-long", overflow);
         if (overflow) {
-          const duration = Math.max(10, Math.min(24, text.scrollWidth / 28));
+          const duration = Math.max(10, Math.min(24, naturalWidth / 28));
           text.style.setProperty("--duration", `${duration}s`);
           text.style.setProperty("--wrap-width", `${wrap.clientWidth}px`);
         }
       });
     });
+  }
+
+  function measureMarqueeText(text) {
+    const previous = {
+      maxWidth: text.style.maxWidth,
+      overflow: text.style.overflow,
+      textOverflow: text.style.textOverflow,
+      webkitLineClamp: text.style.webkitLineClamp
+    };
+
+    text.style.maxWidth = "none";
+    text.style.overflow = "visible";
+    text.style.textOverflow = "clip";
+    text.style.webkitLineClamp = "unset";
+
+    const width = text.scrollWidth;
+
+    text.style.maxWidth = previous.maxWidth;
+    text.style.overflow = previous.overflow;
+    text.style.textOverflow = previous.textOverflow;
+    text.style.webkitLineClamp = previous.webkitLineClamp;
+
+    return width;
   }
 
   function inferDisplayMods(pick, liveMods) {
