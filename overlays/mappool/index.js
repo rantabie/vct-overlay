@@ -297,6 +297,9 @@
       mapper: map.mapper || map.mappers || "",
       sr: map.sr || map.starRating || "",
       moddedSr: map.moddedSr || map.modded?.sr || "",
+      moddedAr: map.moddedAr || map.modded?.ar || "",
+      moddedCs: map.moddedCs || map.modded?.cs || "",
+      moddedBpm: map.moddedBpm || map.modded?.bpm || "",
       ar: map.ar || map.approachRate || map.od || "",
       cs: map.cs || map.circleSize || map.CS || "",
       bpm: map.bpm || "",
@@ -395,9 +398,9 @@
       difficulty: live?.difficulty || source.difficulty || inferCatchPool(source.pick),
       mapper: source.mapper || live?.mapper || "Unknown mapper",
       sr: formatDisplaySr(source, srSource, matchedPoolMap, customPoolMap),
-      ar: formatModdedAr(arSource, mods),
-      cs: formatModdedCs(csSource, mods),
-      bpm: formatModdedBpm(bpmSource, mods),
+      ar: formatDisplayAr(source, arSource, mods),
+      cs: formatDisplayCs(source, csSource, mods),
+      bpm: formatDisplayBpm(source, bpmSource, mods),
       length: formatModdedLength(lengthSource, lengthMs, mods),
       background: live?.background || source.background || "",
       original: Boolean(source.original),
@@ -657,6 +660,13 @@
     };
   }
 
+  function formatDisplayAr(source, value, mods) {
+    if (hasDisplayValue(source.moddedAr)) {
+      return `${formatStat(source.moddedAr, "-.-")}${(mods.hr || mods.dt) ? "*" : ""}`;
+    }
+    return formatModdedAr(value, mods);
+  }
+
   function formatModdedAr(value, mods) {
     const number = Number(value);
     if (!Number.isFinite(number)) return formatStat(value, "-.-");
@@ -685,6 +695,13 @@
     return `${formatTime(number / 1.5)}*`;
   }
 
+  function formatDisplayCs(source, value, mods) {
+    if (hasDisplayValue(source.moddedCs)) {
+      return `${formatStat(source.moddedCs, mods.hr ? "-.--" : "-.-")}${mods.hr ? "*" : ""}`;
+    }
+    return formatModdedCs(value, mods);
+  }
+
   function formatModdedCs(value, mods) {
     const number = Number(value);
     if (!Number.isFinite(number)) return formatStat(value, "-.-");
@@ -704,6 +721,15 @@
 
   function isCustomPoolMap(map) {
     return Boolean(map?.custom || map?.isCustom || !isOnlineBeatmapId(map?.beatmapId || map?.id));
+  }
+
+  function formatDisplayBpm(source, value, mods) {
+    if (hasDisplayValue(source.moddedBpm)) {
+      const formatted = formatBpmWithMultiplier(source.moddedBpm, 1);
+      if (!formatted || formatted === "---") return formatted;
+      return `${formatted}${mods.dt ? "*" : ""}`;
+    }
+    return formatModdedBpm(value, mods);
   }
 
   function formatModdedBpm(value, mods) {

@@ -250,8 +250,11 @@
       "maxCombo": 1121,
       "ar": 10,
       "cs": 5.2,
-      "bpm": null
-    }
+      "bpm": 144
+    },
+    "moddedAr": 10,
+    "moddedCs": 5.2,
+    "moddedBpm": 144
   },
   {
     "beatmapId": "5712830",
@@ -297,8 +300,11 @@
       "maxCombo": 584,
       "ar": 10,
       "cs": 5.2,
-      "bpm": null
-    }
+      "bpm": 170
+    },
+    "moddedAr": 10,
+    "moddedCs": 5.2,
+    "moddedBpm": 170
   },
   {
     "beatmapId": "2275958",
@@ -344,8 +350,11 @@
       "maxCombo": 964,
       "ar": 10,
       "cs": 5.46,
-      "bpm": null
-    }
+      "bpm": "62-383 (100)"
+    },
+    "moddedAr": 10,
+    "moddedCs": 5.46,
+    "moddedBpm": "62-383 (100)"
   },
   {
     "beatmapId": "4140551",
@@ -391,8 +400,11 @@
       "maxCombo": 1242,
       "ar": 9.8,
       "cs": 3.5,
-      "bpm": null
-    }
+      "bpm": 263
+    },
+    "moddedAr": 9.8,
+    "moddedCs": 3.5,
+    "moddedBpm": 263
   },
   {
     "beatmapId": "2651593",
@@ -438,8 +450,11 @@
       "maxCombo": 1147,
       "ar": 9.33,
       "cs": 4,
-      "bpm": null
-    }
+      "bpm": 210
+    },
+    "moddedAr": 9.33,
+    "moddedCs": 4,
+    "moddedBpm": 210
   },
   {
     "beatmapId": "4052392",
@@ -485,8 +500,11 @@
       "maxCombo": 1163,
       "ar": 9.67,
       "cs": 4,
-      "bpm": null
-    }
+      "bpm": "198-255 (210)"
+    },
+    "moddedAr": 9.67,
+    "moddedCs": 4,
+    "moddedBpm": "198-255 (210)"
   },
   {
     "beatmapId": "beatMARIO - Help me, ERINNNNNN!! ([ Azu- ]) [Tasukete!!].osu",
