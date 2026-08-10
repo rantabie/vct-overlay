@@ -3,7 +3,6 @@
 
   const DATA_URL = "../../data/mappool.cache.json";
   const SOURCE_DATA_URL = "../../data/mappool.json";
-  const REMOTE_DATA_URL = "https://rantabie.github.io/vct-overlay/data/mappool.cache.json";
   const STORAGE_KEY = "vct.mappool.data";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
   const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
@@ -190,7 +189,7 @@
     }
 
     try {
-      const cache = await fetchCacheData();
+      const cache = await fetchJson(DATA_URL);
       const source = await fetchJson(SOURCE_DATA_URL).catch(() => null);
       const json = source ? mergeMappoolSource(cache, source) : cache;
       setDiagnostics({ json: `loaded ${source ? SOURCE_DATA_URL : DATA_URL}` });
@@ -210,25 +209,8 @@
   }
 
   async function enrichPoolData(source) {
-    const cache = await fetchCacheData().catch(() => null);
+    const cache = await fetchJson(DATA_URL).catch(() => null);
     return cache ? mergeMappoolSource(cache, source) : source;
-  }
-
-  async function fetchCacheData() {
-    try {
-      return await fetchJson(DATA_URL);
-    } catch (localError) {
-      if (location.protocol === "http:" || location.protocol === "https:") {
-        try {
-          const current = new URL(DATA_URL, location.href).href;
-          if (current === REMOTE_DATA_URL) throw localError;
-          return await fetchJson(REMOTE_DATA_URL);
-        } catch {
-          throw localError;
-        }
-      }
-      throw localError;
-    }
   }
 
   function mergeMappoolSource(cacheData, sourceData) {
@@ -397,7 +379,8 @@
   function updateDetails(source, live, instant) {
     const mods = inferDisplayMods(source.pick, [...normaliseMods(source.mods), ...normaliseMods(live?.mods)]);
     const matchedPoolMap = Boolean(source && source.pick && source.pick !== "LIVE");
-    const statSource = matchedPoolMap ? source : (live || source);
+    const customPoolMap = matchedPoolMap && isCustomPoolMap(source);
+    const statSource = matchedPoolMap && live && !customPoolMap ? live : (matchedPoolMap ? source : (live || source));
     const lengthSource = statSource.length || "--:--";
     const lengthMs = statSource.lengthMs || parseDurationMs(lengthSource);
     const item = {
@@ -406,7 +389,7 @@
       artist: live?.artist || source.artist || pool.tournament,
       difficulty: live?.difficulty || source.difficulty || inferCatchPool(source.pick),
       mapper: source.mapper || live?.mapper || "Unknown mapper",
-      sr: formatDisplaySr(source, live, matchedPoolMap),
+      sr: formatDisplaySr(source, live, matchedPoolMap, customPoolMap),
       ar: formatModdedAr(statSource.ar, mods),
       cs: formatModdedCs(statSource.cs, mods),
       bpm: formatModdedBpm(statSource.bpm, mods),
@@ -705,12 +688,17 @@
     return `${formatStat(cs, mods.hr ? "-.--" : "-.-")}${mods.hr ? "*" : ""}`;
   }
 
-  function formatDisplaySr(source, live, matchedPoolMap) {
+  function formatDisplaySr(source, live, matchedPoolMap, customPoolMap) {
     if (!matchedPoolMap) return formatStat(live?.sr, "-.--");
 
     const moddedSr = source.moddedSr || source.modded?.sr;
     if (moddedSr) return `${formatStat(moddedSr, "-.--")}*`;
+    if (!customPoolMap && live?.sr) return formatStat(live.sr, "-.--");
     return formatStat(source.sr, "-.--");
+  }
+
+  function isCustomPoolMap(map) {
+    return Boolean(map?.custom || map?.isCustom || !isOnlineBeatmapId(map?.beatmapId || map?.id));
   }
 
   function formatModdedBpm(value, mods) {
