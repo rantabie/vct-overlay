@@ -99,7 +99,8 @@
     socket: staticMode ? "static mode" : "starting",
     players: "-",
     score: "-",
-    map: "-"
+    map: "-",
+    autoPick: "-"
   };
 
   let matchData = structuredClone(fallbackMatch);
@@ -168,6 +169,7 @@
     dom.reloadDataButton.addEventListener("click", async () => {
       localStorage.removeItem(STORAGE_KEY);
       await loadData();
+      resetAutoPickAttempt();
       queueRender(true);
     });
 
@@ -179,6 +181,7 @@
         const json = JSON.parse(await file.text());
         localStorage.setItem(STORAGE_KEY, JSON.stringify(json));
         maps = normaliseMaps(await enrichMappoolData(json));
+        resetAutoPickAttempt();
         queueRender(true);
         setControlStatus(`Loaded ${file.name}. This mappool is saved in this browser until cleared.`);
       } catch (error) {
@@ -824,21 +827,45 @@
   }
 
   function handleAutoPick(activeMap) {
-    if (!interactionState.autoPick || !banPhaseComplete()) return;
+    if (!interactionState.autoPick) {
+      setDiagnostics({ autoPick: "off" });
+      return;
+    }
+    if (!banPhaseComplete()) {
+      setDiagnostics({ autoPick: `waiting for bans ${currentBanCount()}/${getBanLimit() * 2}` });
+      return;
+    }
     const map = findMapByPick(activeMap.pick);
-    if (!map) return;
+    if (!map) {
+      setDiagnostics({ autoPick: `no pool match for ${describeActiveMap(activeMap)}` });
+      return;
+    }
 
     const key = `${map.pick}:${activeMap.id || activeMap.file || activeMap.title}`;
-    if (key === lastAutoPickKey) return;
+    if (interactionState.actions[map.pick]) {
+      setDiagnostics({ autoPick: `${map.pick} already marked` });
+      return;
+    }
+    if (key === lastAutoPickKey) {
+      setDiagnostics({ autoPick: `${map.pick} already attempted` });
+      return;
+    }
     lastAutoPickKey = key;
 
-    if (interactionState.actions[map.pick]) return;
     applyMapAction(map.pick, "pick", interactionState.currentTurn || "left", { silent: true });
+    setDiagnostics({ autoPick: `picked ${map.pick} for ${sideName(interactionState.currentTurn || "left")}` });
+  }
+
+  function resetAutoPickAttempt() {
+    lastAutoPickKey = "";
   }
 
   function banPhaseComplete() {
-    const totalBans = maps.filter((map) => isStatus(withInteraction(map), "ban")).length;
-    return totalBans >= getBanLimit() * 2;
+    return currentBanCount() >= getBanLimit() * 2;
+  }
+
+  function currentBanCount() {
+    return maps.filter((map) => isStatus(withInteraction(map), "ban")).length;
   }
 
   function findMapByPick(pick) {
@@ -1028,7 +1055,7 @@
     const metadata = bm.metadata || {};
     const path = bm.path || {};
     const id = cleanText(bm.id || bm.beatmapId || bm.beatmap_id);
-    const file = cleanText(path.file || "");
+    const file = cleanText(path.file || path.full || bm.file || bm.filename || bm.fileName || "");
     const title = cleanText(metadata.title || bm.title);
     const difficulty = cleanText(metadata.difficulty || metadata.version || bm.difficulty);
     const pick = findPickForLiveMap(id, file, title, difficulty);
@@ -1050,20 +1077,38 @@
   }
 
   function firstBeatmap(data, clients) {
+    const manager = data?.tourney?.manager || {};
+    const clientBeatmaps = clients.flatMap((client) => [
+      client?.menu?.bm,
+      client?.menu?.beatmap,
+      client?.beatmap,
+      client?.gameplay?.beatmap
+    ]);
     const candidates = [
       data?.menu?.bm,
       data?.menu?.beatmap,
       data?.beatmap,
       data?.gameplay?.beatmap,
-      clients[0]?.menu?.bm,
-      clients[0]?.menu?.beatmap,
-      clients[0]?.beatmap,
-      clients[0]?.gameplay?.beatmap
+      manager.bm,
+      manager.beatmap,
+      manager.gameplay?.beatmap,
+      ...clientBeatmaps
     ];
 
     return candidates.find((candidate) => {
       if (!candidate || typeof candidate !== "object") return false;
-      return cleanText(candidate.id || candidate.beatmapId || candidate.beatmap_id || candidate.title || candidate.metadata?.title);
+      return cleanText(
+        candidate.id
+        || candidate.beatmapId
+        || candidate.beatmap_id
+        || candidate.title
+        || candidate.metadata?.title
+        || candidate.path?.file
+        || candidate.path?.full
+        || candidate.file
+        || candidate.filename
+        || candidate.fileName
+      );
     }) || {};
   }
 
@@ -1111,19 +1156,82 @@
   }
 
   function findPickForLiveMap(id, file, title, difficulty) {
-    const needle = [id, file, title, difficulty].map(cleanText).filter(Boolean).join(" ").toLowerCase();
-    if (!needle) return "";
+    const liveValues = liveMapValues(id, file, title, difficulty);
+    if (!liveValues.length) return "";
 
     const map = maps.find((item) => {
-      const aliases = [item.beatmapId, item.pick, item.title, item.difficulty, ...item.aliases]
-        .map(cleanText)
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-      return aliases && (needle.includes(aliases) || aliases.includes(needle) || (id && aliases.includes(id)));
+      const mapValues = poolMapValues(item);
+      return liveValues.some((liveValue) => mapValues.some((mapValue) => mapValuesMatch(liveValue, mapValue)));
     });
 
     return map?.pick || "";
+  }
+
+  function liveMapValues(id, file, title, difficulty) {
+    return normaliseCompareValues([
+      id,
+      file,
+      basename(file),
+      stripOsuExtension(file),
+      title,
+      difficulty,
+      title && difficulty ? `${title} ${difficulty}` : ""
+    ]);
+  }
+
+  function poolMapValues(map) {
+    return normaliseCompareValues([
+      map.beatmapId,
+      basename(map.beatmapId),
+      stripOsuExtension(map.beatmapId),
+      map.title,
+      map.difficulty,
+      map.title && map.difficulty ? `${map.title} ${map.difficulty}` : "",
+      ...map.aliases,
+      ...map.aliases.map(basename),
+      ...map.aliases.map(stripOsuExtension)
+    ]);
+  }
+
+  function normaliseCompareValues(values) {
+    return [...new Set(values
+      .map(compareValue)
+      .filter((value) => value.length >= 3))];
+  }
+
+  function compareValue(value) {
+    return cleanText(value)
+      .replace(/\\/g, "/")
+      .replace(/\.osu$/i, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
+
+  function basename(value) {
+    return cleanText(value).replace(/\\/g, "/").split("/").pop() || "";
+  }
+
+  function stripOsuExtension(value) {
+    return cleanText(value).replace(/\.osu$/i, "");
+  }
+
+  function mapValuesMatch(liveValue, mapValue) {
+    if (!liveValue || !mapValue) return false;
+    if (liveValue === mapValue) return true;
+    if (/^\d+$/.test(liveValue) || /^\d+$/.test(mapValue)) return false;
+    if (liveValue.length < 8 || mapValue.length < 8) return false;
+    return liveValue.includes(mapValue) || mapValue.includes(liveValue);
+  }
+
+  function describeActiveMap(activeMap) {
+    return [
+      activeMap?.pick,
+      activeMap?.id,
+      activeMap?.file,
+      activeMap?.title,
+      activeMap?.difficulty
+    ].map(cleanText).filter(Boolean).join(" | ") || "empty live map";
   }
 
   function extractChat(data) {
@@ -1470,17 +1578,10 @@
   }
 
   function isActiveMap(map, activeMap) {
-    const activeValues = [activeMap.pick, activeMap.id, activeMap.file, activeMap.title, activeMap.difficulty]
-      .map(cleanText)
-      .filter(Boolean);
-
-    if (!activeValues.length) return false;
-
-    const mapValues = [map.pick, map.beatmapId, map.title, map.difficulty, ...map.aliases]
-      .map(cleanText)
-      .filter(Boolean);
-
-    return activeValues.some((active) => mapValues.some((value) => sameValue(active, value)));
+    if (samePick(map.pick, activeMap.pick)) return true;
+    const activeValues = liveMapValues(activeMap.id, activeMap.file, activeMap.title, activeMap.difficulty);
+    const mapValues = poolMapValues(map);
+    return activeValues.some((active) => mapValues.some((value) => mapValuesMatch(active, value)));
   }
 
   function statusFromUrl(pick) {
@@ -1566,7 +1667,8 @@
       `WS: ${socketUrl}`,
       `Players: ${diagnostics.players}`,
       `Score: ${diagnostics.score}`,
-      `Map: ${diagnostics.map}`
+      `Map: ${diagnostics.map}`,
+      `Auto Pick: ${diagnostics.autoPick}`
     ].join("\n");
   }
 
