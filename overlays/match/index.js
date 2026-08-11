@@ -305,9 +305,12 @@
         mapper: cleanText(map.mapper || map.mappers || map.creator || ""),
         sr: numberOrNull(map.sr || map.starRating),
         moddedSr: numberOrNull(map.moddedSr || map.modded?.sr),
+        moddedAr: numberOrNull(map.moddedAr ?? map.modded?.ar),
+        moddedCs: numberOrNull(map.moddedCs ?? map.modded?.cs),
+        moddedBpm: map.moddedBpm ?? map.modded?.bpm ?? null,
         ar: numberOrNull(map.ar ?? map.AR ?? map.approachRate),
         cs: numberOrNull(map.cs ?? map.CS ?? map.circleSize),
-        bpm: numberOrNull(map.bpm),
+        bpm: map.bpm ?? null,
         length: cleanText(map.length || map.drainLength || map.totalLength || ""),
         lengthMs: normaliseDurationMs(map.lengthMs ?? map.drainLengthMs ?? map.durationMs ?? map.drainLengthSeconds ?? map.totalLengthSeconds)
       };
@@ -722,6 +725,11 @@
     const rawAr = poolMap ? poolMap.ar : numberOrNull(stats.AR ?? stats.ar ?? stats.approachRate);
     const rawCs = poolMap ? poolMap.cs : numberOrNull(stats.CS ?? stats.cs ?? stats.circleSize);
     const rawBpm = poolMap ? poolMap.bpm : null;
+    const explicitBpm = poolMap?.moddedBpm;
+    const rawBpmNumber = numberOrNull(rawBpm);
+    const fallbackBpmText = rawBpm != null && rawBpmNumber == null
+      ? cleanText(rawBpm).replace(/\s+\(/g, "(")
+      : "";
     const rawLengthMs = poolMap ? (poolMap.lengthMs || parseDurationMs(poolMap.length)) : null;
     const liveLengthMs = firstDefined(time.full, time.mp3, bm.length);
 
@@ -732,12 +740,13 @@
       difficulty: difficulty || poolMap?.difficulty || "",
       mapper: cleanText(metadata.mapper || metadata.creator || bm.mapper) || poolMap?.mapper || "",
       mods: displayMods,
-      bpmMin: moddedBpm(rawBpm ?? numberOrNull(bpm.min ?? stats.bpmMin ?? stats.minBPM ?? stats.bpmMin), displayMods),
-      bpmMax: moddedBpm(rawBpm ?? numberOrNull(bpm.max ?? stats.bpmMax ?? stats.maxBPM ?? stats.bpmMax), displayMods),
+      bpmText: formatExplicitBpm(explicitBpm, displayMods) || fallbackBpmText,
+      bpmMin: explicitBpm == null ? moddedBpm(rawBpmNumber ?? numberOrNull(bpm.min ?? stats.bpmMin ?? stats.minBPM ?? stats.bpmMin), displayMods) : null,
+      bpmMax: explicitBpm == null ? moddedBpm(rawBpmNumber ?? numberOrNull(bpm.max ?? stats.bpmMax ?? stats.maxBPM ?? stats.bpmMax), displayMods) : null,
       sr: numberOrNull(poolMap?.moddedSr ?? stats.fullSR ?? stats.SR ?? stats.starRating ?? poolMap?.sr),
       srModded: Boolean(poolMap?.moddedSr),
-      ar: rawAr == null ? numberOrNull(stats.memoryAR) : moddedAr(rawAr, displayMods),
-      cs: rawCs == null ? numberOrNull(stats.memoryCS) : moddedCs(rawCs, displayMods),
+      ar: poolMap?.moddedAr ?? (rawAr == null ? numberOrNull(stats.memoryAR) : moddedAr(rawAr, displayMods)),
+      cs: poolMap?.moddedCs ?? (rawCs == null ? numberOrNull(stats.memoryCS) : moddedCs(rawCs, displayMods)),
       od: numberOrNull(stats.memoryOD ?? stats.OD),
       length: formatLength(moddedLength(rawLengthMs || liveLengthMs, displayMods)) || poolMap?.length || ""
     };
@@ -993,6 +1002,8 @@
   }
 
   function formatBpmValue(beatmap) {
+    if (cleanText(beatmap.bpmText)) return beatmap.bpmText;
+
     const min = beatmap.bpmMin;
     const max = beatmap.bpmMax ?? min;
     if (min == null) return "";
@@ -1053,6 +1064,14 @@
   function moddedBpm(value, mods) {
     if (value == null) return null;
     return hasSpeedUp(mods) ? value * 1.5 : value;
+  }
+
+  function formatExplicitBpm(value, mods) {
+    if (value == null || value === "") return "";
+    const number = numberOrNull(value);
+    if (number != null) return `${formatStatNumber(number, number % 1 ? 2 : 0)}${hasSpeedUp(mods) ? "*" : ""}`;
+    const text = cleanText(value).replace(/\s+\(/g, "(");
+    return text ? `${text}${hasSpeedUp(mods) ? "*" : ""}` : "";
   }
 
   function moddedLength(value, mods) {

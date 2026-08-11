@@ -1236,7 +1236,7 @@
         sr: numberOrNull(map.sr || map.starRating),
         moddedSr: numberOrNull(map.moddedSr || map.modded?.sr),
         bpm: cleanText(map.bpm || ""),
-        moddedBpm: numberOrNull(map.moddedBpm || map.modded?.bpm),
+        moddedBpm: map.moddedBpm ?? map.modded?.bpm ?? null,
         length: cleanText(map.length || map.drainLength || map.totalLength || ""),
         lengthSeconds: numberOrNull(map.lengthSeconds || map.drainLengthSeconds || map.totalLengthSeconds),
         moddedLengthSeconds: numberOrNull(map.moddedLengthSeconds || map.modded?.lengthSeconds),
@@ -1432,8 +1432,19 @@
   }
 
   function formatMapBpm(map) {
-    const bpm = map.moddedBpm ?? (isDtPick(map.pick) ? numberOrNull(map.bpm) * 1.5 : numberOrNull(map.bpm));
+    const explicit = formatExplicitBpm(map.moddedBpm, map.pick);
+    if (explicit) return `BPM ${explicit}`;
+
+    const bpm = isDtPick(map.pick) ? numberOrNull(map.bpm) * 1.5 : numberOrNull(map.bpm);
     return bpm ? `BPM ${formatNumber(bpm, bpm % 1 ? 2 : 0)}` : map.bpm ? `BPM ${map.bpm}` : "";
+  }
+
+  function formatExplicitBpm(value, pick) {
+    if (value == null || value === "") return "";
+    const number = numberOrNull(value);
+    if (number != null) return `${formatNumber(number, number % 1 ? 2 : 0)}${isDtPick(pick) ? "*" : ""}`;
+    const text = cleanText(value).replace(/\s+\(/g, "(");
+    return text ? `${text}${isDtPick(pick) ? "*" : ""}` : "";
   }
 
   function formatMapLength(map) {
