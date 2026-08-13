@@ -4,7 +4,16 @@
   const DATA_URL = "../../data/match.json";
   const STORAGE_KEY = "vct.match.data";
   const SCORE_OVERRIDE_KEY = "vct.match.score-override";
+  const MATCH_STATE_KEY = "vct.match-mappool.state";
   const DEFAULT_TOSU_HOST = "127.0.0.1:24050";
+  const STAGES = [
+    { acronym: "RO32", label: "Round of 32" },
+    { acronym: "RO16", label: "Round of 16" },
+    { acronym: "QF", label: "Quarterfinals" },
+    { acronym: "SF", label: "Semifinals" },
+    { acronym: "F", label: "Finals" },
+    { acronym: "GF", label: "Grand Finals" }
+  ];
 
   const fallbackData = {
     stage: "Round of 32",
@@ -34,11 +43,13 @@
   const freshData = params.get("fresh") === "1";
   const staticMode = params.get("static") === "1";
   const forcedWinner = normaliseSide(params.get("winner"));
+  const stageParam = cleanText(params.get("stage") || params.get("round"));
   const tosuHost = params.get("tosu") || (location.port === "24050" ? location.host : DEFAULT_TOSU_HOST);
   const socketUrl = `ws://${tosuHost}/ws`;
   const diagnostics = {
     json: "loading",
     socket: staticMode ? "static mode" : "starting",
+    stage: "-",
     winner: "-"
   };
 
@@ -89,7 +100,7 @@
     });
 
     window.addEventListener("storage", (event) => {
-      if (event.key === SCORE_OVERRIDE_KEY) queueRender();
+      if (event.key === SCORE_OVERRIDE_KEY || event.key === MATCH_STATE_KEY) queueRender();
     });
   }
 
@@ -131,11 +142,25 @@
     const winner = resolvePlayer(side);
 
     dom.winnerName.textContent = winner.name;
-    dom.stageName.textContent = matchData.stage;
+    dom.stageName.textContent = resolveStage();
     dom.scoreLine.textContent = `${score.left} - ${score.right}`;
     fitWinnerName(winner.name);
 
-    setDiagnostics({ winner: `${winner.name} (${side || "unresolved"})` });
+    setDiagnostics({
+      stage: resolveStage(),
+      winner: `${winner.name} (${side || "unresolved"})`
+    });
+  }
+
+  function resolveStage() {
+    if (stageParam) return normaliseStage(stageParam);
+
+    try {
+      const state = JSON.parse(localStorage.getItem(MATCH_STATE_KEY) || "{}");
+      return normaliseStage(state.stageOverride) || matchData.stage;
+    } catch (error) {
+      return matchData.stage;
+    }
   }
 
   function resolveWinnerSide(score = resolveScore()) {
@@ -260,8 +285,26 @@
       `JSON: ${diagnostics.json}`,
       `Tosu: ${diagnostics.socket}`,
       `WS: ${socketUrl}`,
+      `Stage: ${diagnostics.stage}`,
       `Winner: ${diagnostics.winner}`
     ].join("\n");
+  }
+
+  function normaliseStage(value) {
+    const text = cleanText(value);
+    if (!text) return "";
+    return stageInfo(text).label;
+  }
+
+  function stageInfo(value) {
+    const text = cleanText(value).toLowerCase().replace(/[^a-z0-9]+/g, "");
+    const match = STAGES.find((stage) => {
+      const label = stage.label.toLowerCase().replace(/[^a-z0-9]+/g, "");
+      const acronym = stage.acronym.toLowerCase();
+      return text === label || text === acronym;
+    });
+
+    return match || { acronym: cleanText(value).toUpperCase() || "RO32", label: cleanText(value) || fallbackData.stage };
   }
 
   function setControlStatus(message) {
