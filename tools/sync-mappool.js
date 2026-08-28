@@ -23,6 +23,7 @@ async function main() {
   const hasOfficialCredentials = Boolean(clientId && clientSecret);
   const token = hasOfficialCredentials ? await getAccessToken() : "";
   const ids = maps
+    .filter((map) => !map.isCustom && !map.custom)
     .map((map) => clean(map.beatmapId || map.id))
     .filter((id) => id && isOnlineBeatmapId(id));
   const beatmaps = hasOfficialCredentials
@@ -55,10 +56,25 @@ async function main() {
       continue;
     }
 
+    if (map.isCustom || map.custom) {
+      const localMap = buildLocalBeatmapData(map, id);
+      if (localMap) {
+        outputMaps.push(localMap);
+        console.log(`${localMap.pick || id}: ${localMap.artist} - ${localMap.title} [${localMap.difficulty}]`);
+        continue;
+      }
+    }
+
     const beatmap = beatmapsById.get(id);
     if (!beatmap) {
-      failed.push(`${map.pick || id}: beatmap id ${id} was not returned by /beatmaps`);
-      outputMaps.push({ ...map });
+      const localMap = buildLocalBeatmapData(map, id);
+      if (localMap) {
+        outputMaps.push(localMap);
+        console.log(`${localMap.pick || id}: ${localMap.artist} - ${localMap.title} [${localMap.difficulty}]`);
+      } else {
+        failed.push(`${map.pick || id}: beatmap id ${id} was not returned by /beatmaps`);
+        outputMaps.push({ ...map });
+      }
       continue;
     }
 
@@ -277,14 +293,16 @@ function buildBeatmapData(beatmap) {
 }
 
 function buildLocalBeatmapData(sourceMap, id) {
-  const filePath = findLocalOsuFile(id);
+  const fileHint = clean(sourceMap.localFile || sourceMap.localPath || sourceMap.file);
+  const filePath = findLocalOsuFile(fileHint || id);
   if (!filePath) return null;
 
   const parsed = parseOsuFile(filePath);
   if (!parsed) return null;
 
-  return mergeMapData({
-    beatmapId: id,
+  const output = mergeMapData({
+    beatmapId: parsed.beatmapId || id,
+    beatmapSetId: parsed.beatmapSetId,
     artist: parsed.artist,
     artistUnicode: parsed.artistUnicode,
     title: parsed.title,
@@ -301,6 +319,12 @@ function buildLocalBeatmapData(sourceMap, id) {
     totalLength: formatSeconds(parsed.totalLengthSeconds),
     totalLengthSeconds: parsed.totalLengthSeconds
   }, sourceMap);
+
+  delete output.localFile;
+  delete output.localPath;
+  delete output.file;
+
+  return output;
 }
 
 function parseOsuFile(filePath) {
@@ -348,7 +372,7 @@ function parseOsuFile(filePath) {
     }
   }
 
-  const lengthSeconds = lastObjectTime > 0 ? Math.round(lastObjectTime / 1000) : null;
+  const lengthSeconds = lastObjectTime > 0 ? Math.floor(lastObjectTime / 1000) : null;
 
   return {
     artist: clean(metadata.Artist),
@@ -357,6 +381,8 @@ function parseOsuFile(filePath) {
     titleUnicode: clean(metadata.TitleUnicode),
     difficulty: clean(metadata.Version),
     mapper: clean(metadata.Creator),
+    beatmapId: clean(metadata.BeatmapID),
+    beatmapSetId: clean(metadata.BeatmapSetID),
     ar: round(difficulty.ApproachRate, 1),
     cs: round(difficulty.CircleSize, 1),
     od: round(difficulty.OverallDifficulty, 1),
@@ -376,6 +402,7 @@ function findLocalOsuFile(id) {
   if (!baseName || !fs.existsSync(songsPath)) return "";
 
   const stack = [songsPath];
+  const targetBeatmapId = isOnlineBeatmapId(id) ? clean(id) : "";
   while (stack.length) {
     const current = stack.pop();
     let entries = [];
@@ -391,8 +418,27 @@ function findLocalOsuFile(id) {
         stack.push(fullPath);
       } else if (entry.isFile() && entry.name === baseName) {
         return fullPath;
+      } else if (targetBeatmapId && entry.isFile() && entry.name.toLowerCase().endsWith(".osu")) {
+        const beatmapId = readBeatmapId(fullPath);
+        if (beatmapId === targetBeatmapId) return fullPath;
       }
     }
+  }
+
+  return "";
+}
+
+function readBeatmapId(filePath) {
+  try {
+    const lines = fs.readFileSync(filePath, "utf8").split(/\r?\n/);
+    for (const rawLine of lines) {
+      const line = rawLine.trim();
+      if (line === "[Difficulty]" || line === "[Events]" || line === "[TimingPoints]" || line === "[HitObjects]") break;
+      const match = line.match(/^BeatmapID\s*:\s*(.+)$/);
+      if (match) return clean(match[1]);
+    }
+  } catch {
+    return "";
   }
 
   return "";
