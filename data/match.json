@@ -3,6 +3,7 @@
   "schemaVersion": 1,
   "stage": "Finals",
   "bestOf": 13,
+  "bansPerPlayer": 2,
   "players": {
     "left": {
       "name": "Player Left",
