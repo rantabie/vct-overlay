@@ -23,7 +23,7 @@ async function main() {
   const hasOfficialCredentials = Boolean(clientId && clientSecret);
   const token = hasOfficialCredentials ? await getAccessToken() : "";
   const ids = maps
-    .filter((map) => !map.isCustom && !map.custom)
+    .filter((map) => !(isCustomMap(map) && hasLocalFileHint(map)))
     .map((map) => clean(map.beatmapId || map.id))
     .filter((id) => id && isOnlineBeatmapId(id));
   const beatmaps = hasOfficialCredentials
@@ -56,7 +56,7 @@ async function main() {
       continue;
     }
 
-    if (map.isCustom || map.custom) {
+    if (isCustomMap(map) && hasLocalFileHint(map)) {
       const localMap = buildLocalBeatmapData(map, id);
       if (localMap) {
         outputMaps.push(localMap);
@@ -428,6 +428,14 @@ function findLocalOsuFile(id) {
   return "";
 }
 
+function isCustomMap(map) {
+  return Boolean(map.isCustom || map.custom);
+}
+
+function hasLocalFileHint(map) {
+  return Boolean(clean(map.localFile || map.localPath || map.file));
+}
+
 function readBeatmapId(filePath) {
   try {
     const lines = fs.readFileSync(filePath, "utf8").split(/\r?\n/);
@@ -452,6 +460,10 @@ function mergeMapData(apiMap, sourceMap) {
       output[key] = value;
     }
   });
+
+  if (shouldUseSourceValue(sourceMap.length) && !shouldUseSourceValue(sourceMap.drainLength)) {
+    output.drainLength = sourceMap.length;
+  }
 
   return output;
 }
