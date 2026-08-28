@@ -995,7 +995,7 @@
     return [
       ["BPM", formatBpmValue(beatmap)],
       ["SR", formatSrValue(beatmap)],
-      ["OD", formatStatNumber(beatmap.od, 1)],
+      ["AR", formatStatNumber(beatmap.ar, 1)],
       ["LEN", formatDisplayLength(beatmap.length)],
       ["Mapper", beatmap.mapper]
     ].filter(([, value]) => cleanText(value));
