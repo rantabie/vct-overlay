@@ -11,6 +11,32 @@ const MODE = "fruits";
 const API_BASE = "https://osu.ppy.sh/api/v2";
 const PUBLIC_API_BASE = "https://mirror.hinamizawa.ai/v3/osu/beatmaps";
 const USER_AGENT = "vct-overlay-mappool-sync/1.0 (+https://github.com/rantabie/vct-overlay)";
+let rosu = null;
+
+try {
+  rosu = require("rosu-pp-js");
+} catch {
+  rosu = null;
+}
+
+const GENERATED_STAT_KEYS = new Set([
+  "sr",
+  "ar",
+  "cs",
+  "od",
+  "hp",
+  "bpm",
+  "maxCombo"
+]);
+const GENERATED_LOCAL_KEYS = new Set([
+  ...GENERATED_STAT_KEYS,
+  "length",
+  "lengthSeconds",
+  "drainLength",
+  "drainLengthSeconds",
+  "totalLength",
+  "totalLengthSeconds"
+]);
 
 main().catch((error) => {
   console.error(error.message);
@@ -79,7 +105,18 @@ async function main() {
     }
 
     const apiMap = buildBeatmapData(beatmap);
-    const outputMap = mergeMapData(apiMap, map);
+    try {
+      const baseAttributes = hasOfficialCredentials
+        ? await getBeatmapAttributes(token, id, [])
+        : await getPublicBeatmapAttributes(id, []);
+      applyDifficultyAttributes(apiMap, baseAttributes);
+    } catch (error) {
+      failed.push(`${map.pick || id}: base fruits attributes failed: ${error.message}`);
+    }
+
+    const outputMap = mergeMapData(apiMap, map, {
+      ignoreKeys: GENERATED_STAT_KEYS
+    });
     outputMap.pick = map.pick || apiMap.pick || "";
     outputMap.beatmapId = String(beatmap.id);
     const mods = inferMods(outputMap);
@@ -300,6 +337,7 @@ function buildLocalBeatmapData(sourceMap, id) {
   const parsed = parseOsuFile(filePath);
   if (!parsed) return null;
 
+  const stars = getLocalStarRating(filePath, []);
   const output = mergeMapData({
     beatmapId: parsed.beatmapId || id,
     beatmapSetId: parsed.beatmapSetId,
@@ -309,6 +347,7 @@ function buildLocalBeatmapData(sourceMap, id) {
     titleUnicode: parsed.titleUnicode,
     difficulty: parsed.difficulty,
     mapper: parsed.mapper,
+    sr: stars === null ? "" : round(stars, 2),
     ar: parsed.ar,
     cs: parsed.cs,
     od: parsed.od,
@@ -318,7 +357,9 @@ function buildLocalBeatmapData(sourceMap, id) {
     drainLengthSeconds: parsed.drainLengthSeconds,
     totalLength: formatSeconds(parsed.totalLengthSeconds),
     totalLengthSeconds: parsed.totalLengthSeconds
-  }, sourceMap);
+  }, sourceMap, {
+    ignoreKeys: GENERATED_LOCAL_KEYS
+  });
 
   delete output.localFile;
   delete output.localPath;
@@ -452,10 +493,12 @@ function readBeatmapId(filePath) {
   return "";
 }
 
-function mergeMapData(apiMap, sourceMap) {
+function mergeMapData(apiMap, sourceMap, options = {}) {
   const output = { ...apiMap };
+  const ignoreKeys = options.ignoreKeys || new Set();
 
   Object.entries(sourceMap).forEach(([key, value]) => {
+    if (ignoreKeys.has(key)) return;
     if (shouldUseSourceValue(value)) {
       output[key] = value;
     }
@@ -466,6 +509,37 @@ function mergeMapData(apiMap, sourceMap) {
   }
 
   return output;
+}
+
+function getLocalStarRating(filePath, mods) {
+  if (!rosu) return null;
+
+  try {
+    const beatmap = new rosu.Beatmap(fs.readFileSync(filePath));
+    const attributes = new rosu.Difficulty({
+      mode: rosu.GameMode.Catch,
+      mods: mods.join("")
+    }).calculate(beatmap);
+    return numberOrNull(attributes.stars);
+  } catch {
+    return null;
+  }
+}
+
+function applyDifficultyAttributes(outputMap, attributes) {
+  const starRating = numberOrNull(attributes.star_rating ?? attributes.stars);
+  const ar = numberOrNull(attributes.approach_rate ?? attributes.ar);
+  const cs = numberOrNull(attributes.circle_size ?? attributes.cs);
+  const od = numberOrNull(attributes.overall_difficulty ?? attributes.od);
+  const hp = numberOrNull(attributes.drain_rate ?? attributes.hp);
+  const maxCombo = numberOrNull(attributes.max_combo);
+
+  if (starRating !== null) outputMap.sr = round(starRating, 2);
+  if (ar !== null) outputMap.ar = round(ar, 2);
+  if (cs !== null) outputMap.cs = round(cs, 2);
+  if (od !== null) outputMap.od = round(od, 2);
+  if (hp !== null) outputMap.hp = round(hp, 2);
+  if (maxCombo !== null) outputMap.maxCombo = maxCombo;
 }
 
 function shouldUseSourceValue(value) {
