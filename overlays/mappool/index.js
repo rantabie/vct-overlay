@@ -242,9 +242,11 @@
     const merged = { ...cached };
     const cachedId = stringifyId(cached?.beatmapId || cached?.id || "");
     const sourceId = stringifyId(source?.beatmapId || source?.id || "");
+    const hasCachedData = Object.keys(cached || {}).length > 0;
 
     Object.entries(source).forEach(([key, value]) => {
       if (key === "title" && isFallbackMapTitle(value, sourceId) && stringifyId(merged.title)) return;
+      if (hasCachedData && isGeneratedStatKey(key)) return;
       if (shouldUseSourceValue(value)) {
         merged[key] = value;
       }
@@ -261,6 +263,28 @@
     }
 
     return merged;
+  }
+
+  function isGeneratedStatKey(key) {
+    return [
+      "sr",
+      "starRating",
+      "ar",
+      "cs",
+      "od",
+      "hp",
+      "bpm",
+      "length",
+      "lengthSeconds",
+      "lengthMs",
+      "drainLength",
+      "drainLengthSeconds",
+      "drainLengthMs",
+      "totalLength",
+      "totalLengthSeconds",
+      "totalLengthMs",
+      "maxCombo"
+    ].includes(key);
   }
 
   function shouldUseSourceValue(value) {
@@ -735,12 +759,12 @@
   }
 
   function formatDisplaySr(source, liveSr, matchedPoolMap, customPoolMap) {
-    if (!matchedPoolMap) return formatStat(liveSr, "-.--");
+    if (!matchedPoolMap) return formatSrStat(liveSr);
 
     const moddedSr = source.moddedSr || source.modded?.sr;
-    if (moddedSr) return `${formatStat(moddedSr, "-.--")}*`;
-    if (!customPoolMap && liveSr) return formatStat(liveSr, "-.--");
-    return formatStat(source.sr, "-.--");
+    if (moddedSr) return `${formatSrStat(moddedSr)}*`;
+    if (!customPoolMap && liveSr) return formatSrStat(liveSr);
+    return formatSrStat(source.sr);
   }
 
   function isCustomPoolMap(map) {
@@ -775,6 +799,18 @@
     const number = Number(value);
     if (!Number.isFinite(number)) return String(value);
     return number.toFixed(fallback === "-.--" ? 2 : 1);
+  }
+
+  function formatSrStat(value) {
+    if (value === undefined || value === null || value === "") return "-.--";
+    const number = Number(value);
+    if (!Number.isFinite(number)) return String(value);
+    return truncateNumber(number, 2).toFixed(2);
+  }
+
+  function truncateNumber(value, decimals) {
+    const multiplier = 10 ** decimals;
+    return Math.trunc((value + 1e-8) * multiplier) / multiplier;
   }
 
   function hasDisplayValue(value) {

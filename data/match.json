@@ -1,7 +1,7 @@
 {
   "schema": "vct-match-overlay-data",
   "schemaVersion": 1,
-  "stage": "Finals",
+  "stage": "Grand Finals",
   "bestOf": 13,
   "bansPerPlayer": 2,
   "players": {

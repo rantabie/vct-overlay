@@ -115,7 +115,7 @@ async function main() {
     }
 
     const outputMap = mergeMapData(apiMap, map, {
-      ignoreKeys: GENERATED_STAT_KEYS
+      ignoreKeys: isDtPick(map.pick) ? GENERATED_STAT_KEYS : GENERATED_LOCAL_KEYS
     });
     outputMap.pick = map.pick || apiMap.pick || "";
     outputMap.beatmapId = String(beatmap.id);
@@ -129,7 +129,7 @@ async function main() {
         outputMap.modded = {
           ...(outputMap.modded || {}),
           mods,
-          sr: sourceModdedSr ?? (starRating === null ? "" : round(starRating, 2)),
+          sr: sourceModdedSr ?? (starRating === null ? "" : starRating),
           maxCombo: numberOrNull(attributes.max_combo)
         };
         outputMap.moddedSr = outputMap.modded.sr;
@@ -143,7 +143,7 @@ async function main() {
         outputMap.modded = {
           ...(outputMap.modded || {}),
           mods,
-          sr: sourceModdedSr ?? (starRating === null ? "" : round(starRating, 2)),
+          sr: sourceModdedSr ?? (starRating === null ? "" : starRating),
           maxCombo: numberOrNull(attributes.max_combo),
           ar: numberOrNull(attributes.ar),
           cs: numberOrNull(attributes.cs),
@@ -305,7 +305,7 @@ function buildBeatmapData(beatmap) {
     titleUnicode: set.title_unicode || "",
     difficulty: beatmap.version || "",
     mapper: owners.join(", ") || set.creator || "",
-    sr: round(beatmap.difficulty_rating, 2),
+    sr: numberOrNull(beatmap.difficulty_rating) ?? "",
     ar: round(beatmap.ar, 1),
     cs: round(beatmap.cs, 1),
     od: round(beatmap.accuracy, 1),
@@ -347,7 +347,7 @@ function buildLocalBeatmapData(sourceMap, id) {
     titleUnicode: parsed.titleUnicode,
     difficulty: parsed.difficulty,
     mapper: parsed.mapper,
-    sr: stars === null ? "" : round(stars, 2),
+    sr: stars === null ? "" : stars,
     ar: parsed.ar,
     cs: parsed.cs,
     od: parsed.od,
@@ -504,7 +504,12 @@ function mergeMapData(apiMap, sourceMap, options = {}) {
     }
   });
 
-  if (shouldUseSourceValue(sourceMap.length) && !shouldUseSourceValue(sourceMap.drainLength)) {
+  if (
+    !ignoreKeys.has("length")
+    && !ignoreKeys.has("drainLength")
+    && shouldUseSourceValue(sourceMap.length)
+    && !shouldUseSourceValue(sourceMap.drainLength)
+  ) {
     output.drainLength = sourceMap.length;
   }
 
@@ -516,6 +521,7 @@ function getLocalStarRating(filePath, mods) {
 
   try {
     const beatmap = new rosu.Beatmap(fs.readFileSync(filePath));
+    if (beatmap.mode !== rosu.GameMode.Catch) beatmap.convert(rosu.GameMode.Catch);
     const attributes = new rosu.Difficulty({
       mode: rosu.GameMode.Catch,
       mods: mods.join("")
@@ -534,7 +540,7 @@ function applyDifficultyAttributes(outputMap, attributes) {
   const hp = numberOrNull(attributes.drain_rate ?? attributes.hp);
   const maxCombo = numberOrNull(attributes.max_combo);
 
-  if (starRating !== null) outputMap.sr = round(starRating, 2);
+  if (starRating !== null) outputMap.sr = starRating;
   if (ar !== null) outputMap.ar = round(ar, 2);
   if (cs !== null) outputMap.cs = round(cs, 2);
   if (od !== null) outputMap.od = round(od, 2);
@@ -565,6 +571,10 @@ function inferMods(map) {
   if (pick.startsWith("HR")) return ["HR"];
   if (pick.startsWith("DT")) return ["DT"];
   return [];
+}
+
+function isDtPick(pick) {
+  return /^DT\d+$/i.test(clean(pick));
 }
 
 function isOnlineBeatmapId(value) {

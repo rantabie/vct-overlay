@@ -1292,9 +1292,11 @@
     const merged = { ...cached };
     const cachedId = cleanText(cached?.beatmapId || cached?.beatmap_id || cached?.id);
     const sourceId = cleanText(source?.beatmapId || source?.beatmap_id || source?.id);
+    const hasCachedData = Object.keys(cached || {}).length > 0;
 
     Object.entries(source || {}).forEach(([key, value]) => {
       if (key === "title" && isFallbackMapTitle(value, sourceId) && cleanText(merged.title)) return;
+      if (hasCachedData && isGeneratedStatKey(key)) return;
       if (shouldUseSourceValue(value)) {
         merged[key] = value;
       }
@@ -1308,6 +1310,28 @@
 
     if (aliases.length) merged.aliases = [...new Set(aliases)];
     return merged;
+  }
+
+  function isGeneratedStatKey(key) {
+    return [
+      "sr",
+      "starRating",
+      "ar",
+      "cs",
+      "od",
+      "hp",
+      "bpm",
+      "length",
+      "lengthSeconds",
+      "lengthMs",
+      "drainLength",
+      "drainLengthSeconds",
+      "drainLengthMs",
+      "totalLength",
+      "totalLengthSeconds",
+      "totalLengthMs",
+      "maxCombo"
+    ].includes(key);
   }
 
   function shouldUseSourceValue(value) {
@@ -1532,7 +1556,7 @@
     return [
       map.artist,
       map.difficulty ? `[${map.difficulty}]` : "",
-      sr ? `SR ${formatNumber(sr, 2)}${map.moddedSr ? "*" : ""}` : "",
+      sr ? `SR ${formatSrNumber(sr)}${map.moddedSr ? "*" : ""}` : "",
       formatMapBpm(map),
       formatMapLength(map),
       mapper ? `Mapper ${mapper}` : ""
@@ -1718,6 +1742,17 @@
     const number = Number(value);
     if (!Number.isFinite(number)) return "";
     return number.toFixed(decimals).replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
+  }
+
+  function formatSrNumber(value) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return "";
+    return truncateNumber(number, 2).toFixed(2).replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
+  }
+
+  function truncateNumber(value, decimals) {
+    const multiplier = 10 ** decimals;
+    return Math.trunc((value + 1e-8) * multiplier) / multiplier;
   }
 
   function numberOrZero(value) {
