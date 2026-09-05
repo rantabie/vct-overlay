@@ -598,7 +598,7 @@
     interactionState.actions[map.pick] = { type, side, winner: "" };
 
     if (type === "ban") {
-      advanceBanTurn(side);
+      interactionState.currentTurn = side;
     } else {
       interactionState.lastPickSide = side;
       interactionState.currentTurn = side;
@@ -610,7 +610,10 @@
 
     if (!options.silent) {
       const label = type === "ban" ? "banned" : "picked";
-      setControlStatus(`${sideName(side)} ${label} ${map.pick}.`);
+      const nextHint = type === "ban" && !banPhaseComplete()
+        ? " Use the player button to choose the next ban side."
+        : "";
+      setControlStatus(`${sideName(side)} ${label} ${map.pick}.${nextHint}`);
     }
   }
 
@@ -793,11 +796,7 @@
     const action = interactionState.actions[pick];
     if (action?.type === "ban" && action.side === side) return true;
 
-    const used = maps.filter((map) => {
-      if (samePick(map.pick, pick)) return false;
-      const displayMap = withInteraction(map);
-      return isStatus(displayMap, "ban") && displayMap.bannedBy === side;
-    }).length;
+    const used = banCountForSide(side, pick);
 
     if (used < getBanLimit()) return true;
 
@@ -805,25 +804,12 @@
     return false;
   }
 
-  function advanceBanTurn(side) {
-    const totalBans = maps.filter((map) => isStatus(withInteraction(map), "ban")).length;
-    const requiredBans = getBanLimit() * 2;
-    const banLimit = getBanLimit();
-
-    if (banLimit === 1) {
-      interactionState.currentTurn = totalBans >= requiredBans ? side : otherSide(side);
-      return;
-    }
-
-    if (totalBans === 1) {
-      interactionState.currentTurn = otherSide(side);
-    } else if (totalBans === 2) {
-      interactionState.currentTurn = side;
-    } else if (totalBans === 3) {
-      interactionState.currentTurn = otherSide(side);
-    } else {
-      interactionState.currentTurn = otherSide(side);
-    }
+  function banCountForSide(side, exceptPick = "") {
+    return maps.filter((map) => {
+      if (exceptPick && samePick(map.pick, exceptPick)) return false;
+      const displayMap = withInteraction(map);
+      return isStatus(displayMap, "ban") && displayMap.bannedBy === side;
+    }).length;
   }
 
   function handleAutoPick(activeMap) {
